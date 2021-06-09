@@ -38,13 +38,13 @@ const inputReducer = (state: InputState, action: Actions) => {
 export interface IInput {
   id?: string;
   type?: string;
-  placeholder?: string | undefined;
-  errorText?: null | string | undefined;
-  initialValue?: null | string | undefined;
-  initialValid?: null | boolean | undefined;
-  className?: string | undefined;
-  label?: string | null | undefined 
-  style?: React.CSSProperties | undefined;
+  placeholder?: string;
+  errorText?: null | string;
+  initialValue?: null | string;
+  initialValid?: null | boolean;
+  className?: string;
+  label?: string | null;
+  style?: React.CSSProperties;
   element: string;
   validators: Validator[];
   onInput: (...args: unknown[]) => unknown;

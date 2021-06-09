@@ -7,8 +7,8 @@ const VALIDATOR_TYPE_EMAIL = 'EMAIL';
 const VALIDATOR_TYPE_FILE = 'FILE';
 
 export type Validator = {
-  type?: string | number | undefined 
-  val?: string | number | undefined
+  type?: string | number
+  val?: string | number 
   validators?: Validator[] 
 };
 

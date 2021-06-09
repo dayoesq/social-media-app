@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import classes from './Button.scss';
 
 interface IButton {
+  className?: string
   href?: string;
   to?: string;
   children: React.ReactNode;
@@ -33,7 +34,7 @@ const Button: React.FC<IButton> = props => {
       <NavLink
         to={props.to}
         exact={props.exact}
-        className={classes.button}
+        className={props.className}
         style={props.style}
       >
         {props.children}
@@ -42,7 +43,7 @@ const Button: React.FC<IButton> = props => {
   }
   return (
     <button
-      className='Button'
+      className={classes.button}
       type={props.type}
       onClick={props.onClick}
       disabled={props.disabled}
@@ -65,7 +66,8 @@ Button.propTypes = {
   size: PropTypes.string,
   color: PropTypes.string,
   shape: PropTypes.string,
-  rounded: PropTypes.string
+  rounded: PropTypes.string,
+  className: PropTypes.string
 };
 
 export default Button;

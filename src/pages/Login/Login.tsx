@@ -68,7 +68,7 @@ const Login: React.FC = () => {
                                 label="Password"
                                 placeholder="Enter password"
                                 onInput={inputHandler}
-                                errorText="Password must be between and 100"
+                                errorText="Password's length between 6 and 100"
                                 validators={[VALIDATOR_MINLENGTH(6), VALIDATOR_MAXLENGTH(100)]}
                                 className={classes.loginInput}
                             />

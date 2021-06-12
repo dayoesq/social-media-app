@@ -1,0 +1,19 @@
+.btnFat {
+    display: block;
+    text-align: center;
+    width: 8rem;
+    border-radius: 3rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 1.4rem;
+    background-color: #d9ebf7;
+    border: 0.1rem solid #1aa1f5;
+    color: #1aa1f5;
+}
+.btnFat:disabled,
+.btnFat:hover:disabled,
+.btnFat:active:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}

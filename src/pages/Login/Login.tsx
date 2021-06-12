@@ -1,71 +1,88 @@
 import React from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 import SubNav from '../../components/shared/UI/SubNav/SubNav';
-
+import Input from '../../components/shared/form-elements/Input/Input';
 import { useForm } from '../../hooks/form';
-import { useHttpClient } from '../../hooks/http';
-
 import {
-    VALIDATOR_MINLENGTH,
-    VALIDATOR_MAXLENGTH,
     VALIDATOR_EMAIL,
+    VALIDATOR_MAXLENGTH,
+    VALIDATOR_MINLENGTH
 } from '../../utils/validators';
 
-// import Input from '../../components/shared/form-elements/Input/Input';
 import classes from './Login.module.scss';
 
-const Login = () => {
-    const { sendRequest, error } = useHttpClient();
-    const history = useHistory();
-
+const Login: React.FC = () => {
+    const [formState, inputHandler] = useForm<{
+        email: {
+            value: string;
+            isValid: boolean;
+        };
+        password: {
+            value: string;
+            isValid: boolean;
+        };
+    }>(
+        {
+            email: {
+                value: '',
+                isValid: false,
+            },
+            password: {
+                value: '',
+                isValid: false,
+            }
+        },
+        false
+    );
+    console.log(formState);
     const authSubmitHandler = (e: React.FormEvent) => {
         e.preventDefault();
     };
     return (
         <React.Fragment>
-            <div className="Login-Page">
-                <SubNav className="Login-Page-Nav" />
-                <div className="Login">
-                    <div className="Login-Content">
+            <div className={classes.loginPage}>
+                <SubNav className={classes.loginPageNav} />
+                <div className={classes.login}>
+                    <div className={classes.loginContent}>
                         <h2>Log in to Utteran</h2>
                         <form
-                            className="Login-Form"
+                            className={classes.loginForm}
                             onSubmit={authSubmitHandler}
                         >
-                            {error && (
-                                <p style={{ color: 'red', fontSize: '1.3rem' }}>
-                                    {error}
-                                </p>
-                            )}
-                            <div>
-                                <label htmlFor="email">Email</label>
-                                <input
-                                    type="text"
-                                    value=""
-                                    name="email"
-                                    placeholder="Please enter email"
-                                />
-                            </div>
-                            <div>
-                                <label htmlFor="password">Password</label>
-                                <input
-                                    type="password"
-                                    value=""
-                                    name="email"
-                                    placeholder="Please enter email"
-                                />
-                            </div>
-                            <div className="Login-Form-Input-Wrapper">
-                                <button type="submit">Sign in</button>
+                            <Input
+                                element="input"
+                                id="email"
+                                type="email"
+                                label="Email"
+                                placeholder="Enter email"
+                                onInput={inputHandler}
+                                errorText="Please provide a valid email"
+                                validators={[VALIDATOR_EMAIL()]}
+                                className={classes.loginInput}
+                            />
+                            <Input
+                                element="input"
+                                id="password"
+                                type="password"
+                                label="Password"
+                                placeholder="Enter password"
+                                onInput={inputHandler}
+                                errorText="Password must be between and 100"
+                                validators={[VALIDATOR_MINLENGTH(6), VALIDATOR_MAXLENGTH(100)]}
+                                className={classes.loginInput}
+                            />
+                            <div className={classes.loginFormWrapper}>
+                                <button type="submit" disabled={!formState.isValid}>Sign in</button>
                                 <Link to="/forgetPassword">
                                     Forget password?
                                 </Link>
                             </div>
                         </form>
                     </div>
-                    <footer className="Login-Footer">
+                    <footer className={classes.loginFooter}>
                         <p>
-                            New to RelatE?
+                            New to Utteran?
                             <Link to="/register">Sign up now</Link>
                         </p>
                         <p>
@@ -80,3 +97,5 @@ const Login = () => {
 };
 
 export default Login;
+
+

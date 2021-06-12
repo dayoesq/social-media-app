@@ -1,4 +1,4 @@
-@import '../../assets/styles/base';
+@import '../../assets/styles/base.scss';
 
 .landing {
   width: 100%;
@@ -10,7 +10,7 @@
 .left {
   grid-column: 1 / 2;
   grid-row: 1 / 2;
-  background-color: $primary;
+  background-color: #1aa1f5;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,7 +19,7 @@
   display: flex;
   align-items: center;
   margin: 4rem;
-  color: $white;
+  color: #ffffff;
 }
 .leftContent h3 {
   font-size: 2rem;
@@ -45,7 +45,7 @@
   border: 0.1rem solid #ddd;
   border-radius: 0.5rem;
   margin-bottom: 0.8rem;
-  background-color: $white;
+  background-color: #ffffff;
   transition: background-color 0.3s;
 }
 .rightContentForm a {
@@ -56,7 +56,7 @@ a:link,
 a::after,
 a:active {
   text-decoration: none;
-  color: $primary;
+  color: #1aa1f5;
 }
 a:hover {
   color: #1295e6;

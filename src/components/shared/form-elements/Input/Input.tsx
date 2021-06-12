@@ -97,7 +97,7 @@ const Input: React.FC<IInput> = (props) => {
             ''
         );
     return (
-        <div className={`${classes.formControl} ${!inputState.isValid && inputState.isTouched && classes.formControl}--invalid` }  >
+        <div className={`${classes.formControl} ${!inputState.isValid && inputState.isTouched && classes.formControl}` }  >
             <label htmlFor={props.id}>{props.label}</label>
             {element}
             {!inputState.isValid && inputState.isTouched && (

@@ -8,12 +8,42 @@ import {
     faDove
 } from '@fortawesome/free-solid-svg-icons';
 
+import BtnFat from '../../components/shared/form-elements/BtnFat/BtnFat';
 import Button from '../../components/shared/form-elements/Button/Button';
+import Input from '../../components/shared/form-elements/Input/Input';
+import { useForm } from '../../hooks/form';
+import {
+    VALIDATOR_EMAIL,
+    VALIDATOR_MAXLENGTH,
+    VALIDATOR_MINLENGTH
+} from '../../utils/validators';
 
 import classes from './Landing.module.scss';
 import style from './Footer.module.scss';
 
 const Landing: React.FC = () => {
+    const [formState, inputHandler] = useForm<{
+        email: {
+            value: string;
+            isValid: boolean;
+        };
+        password: {
+            value: string;
+            isValid: boolean;
+        };
+    }>(
+        {
+            email: {
+                value: '',
+                isValid: false
+            },
+            password: {
+                value: '',
+                isValid: false
+            }
+        },
+        false
+    );
     const authSubmitHandler = (e: React.FormEvent) => {
         e.preventDefault();
     };
@@ -39,13 +69,32 @@ const Landing: React.FC = () => {
             <div className={classes.right}>
                 <form className={classes.rightContentForm} onSubmit={authSubmitHandler}>
                     <div>
-                        <label htmlFor="email">Email</label>
-                        <input className={classes.landingInput} type="email" name="email" id="email" placeholder="Enter email..." />
+                        <Input
+                        element="input"
+                        id="email"
+                        type="email"
+                        label="Email"
+                        placeholder="Enter email"
+                        onInput={inputHandler}
+                        errorText="Please provide a valid email"
+                        validators={[VALIDATOR_EMAIL()]}
+                        className={classes.landingInput}
+                    />
                     </div>
-                    <div>
-                        <label htmlFor="password">Email</label>
-                        <input className={classes.landingInput} type="password" name="password" id="password" placeholder="Enter password..." />
+                    <div >
+                        <Input
+                        element="input"
+                        id="password"
+                        type="password"
+                        label="Password"
+                        placeholder="Enter password"
+                        onInput={inputHandler}
+                        errorText="Password's length between 6 and 100"
+                        validators={[VALIDATOR_MINLENGTH(6), VALIDATOR_MAXLENGTH(100)]}
+                        className={classes.landingInput}
+                    />
                     </div>
+                    <BtnFat type='submit' disabled={!formState.isValid}>Log in</BtnFat>
                 </form>
                 <div className={classes.middleContent}>
                     <FontAwesomeIcon

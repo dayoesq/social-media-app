@@ -1,0 +1,32 @@
+@import '../../assets/styles/base.scss';
+
+.footer {
+    grid-column: 1 / -1;
+    grid-row: 2 / -1;
+    background-color: #f5f4f4;
+    padding: 1.5rem;
+    border-top: 0.1rem solid #ddd;
+}
+.footerList {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+.footerList a {
+    font-size: 1.6rem;
+    margin: 0 2rem;
+    text-decoration: none;
+    color: #444;
+    font-weight: 300;
+}
+
+/* Break points */
+
+@media only screen and (max-width: 1300px) {
+    .footer ul {
+        flex-wrap: wrap;
+    }
+    .footer li {
+        margin-bottom: 1rem;
+    }
+}

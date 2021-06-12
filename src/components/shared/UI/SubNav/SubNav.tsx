@@ -4,13 +4,9 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDove } from '@fortawesome/free-solid-svg-icons';
 
-type SubNav = {
-    className?: string;
-};
-
-const SubNav: React.FC<SubNav> = (props) => {
+const SubNav: React.FC<{className?: string}> = ({className}) => {
     return (
-        <nav className={props.className}>
+        <nav className={className}>
             <ul>
                 <li>
                     <Link to="/">

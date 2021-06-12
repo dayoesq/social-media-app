@@ -1,6 +1,6 @@
 @import '../../assets/styles/base.scss';
 
-.login {
+.loginPage {
   display: grid;
   width: 100%;
   height: 100vh;
@@ -8,75 +8,75 @@
   grid-template-rows: repeat(2, min-content) 1fr;
   grid-row-gap: 1.5rem;
 }
-.loginNav {
+.loginPageNav {
   grid-column: 1 / -1;
   grid-row: 1 / 2;
-  background-color: #fff;
+  background-color: #ffffff;
   padding: 2.5rem 0;
   box-shadow: 0 0 0.7rem rgba(0, 0, 0, 0.3);
   z-index: 1;
 }
-.loginNav ul {
+.loginPageNav ul {
   width: 100rem;
   margin: auto;
   display: flex;
   align-items: flex-end;
   list-style: none;
 }
-.loginNav ul li {
+.loginPageNav ul li {
   margin: 0 1rem;
   position: relative;
 }
-.loginNav ul li:last-child {
+.loginPageNav ul li:last-child {
   margin-left: auto;
 }
-.loginNav ul li::after {
+.loginPageNav ul li::after {
   content: "";
   width: 100%;
   height: 0.4rem;
-  background-color: var(--Primary);
+  background-color: #1aa1f5;
   position: absolute;
   bottom: -2.5rem;
   left: 0;
   opacity: 0;
   transition: opacity 0.3s;
 }
-.loginNav li:hover::after {
+.loginPageNav li:hover::after {
   opacity: 1;
 }
-.loginNav a {
+.loginPageNav a {
   font-size: 1.6rem;
   text-decoration: none;
   color: #555;
   transition: color 0.3s
 }
-.LoginNav li:hover a {
-  color: $primary;
+.loginPageNav li:hover a {
+  color: #1aa1f5;
 }
-.Login {
+.login {
   grid-column: 2 / 3;
   grid-row: 2 / 3;
-  background-color: #fff;
+  background-color: #ffffff;
   width: 100rem;
   display: grid;
   grid-template-columns: 10rem 8fr;
   grid-template-rows: 2fr 1fr;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
 }
-.Login-Content {
+.loginContent {
   grid-column: 2 / -1;
   grid-row: 1 / 2;
   padding: 5rem 0 1rem 0;
 }
-.Login-Content h2 {
+.loginContent h2 {
   font-size: 2.4rem;
   margin-bottom: 3rem;
 }
-.Login-Form {
+.loginForm {
   display: flex;
   flex-direction: column;
 }
-.Login-Input {
+.loginInput {
   width: 30rem;
   height: 3.5rem;
   margin-bottom: 1rem;
@@ -86,28 +86,28 @@
   font-size: 1.5rem;
   transition: background-color 0.3s;
 }
-.Login-Form input:focus {
+.loginForm input:focus {
   background-color: #d9ebf7;
 }
-.Login-Form-Input-Wrapper {
+.loginFormInputWrapper {
   margin-top: 2rem;
   display: flex;
   align-items: center;
 }
-.Login-Form label {
+.loginForm label {
   font-size: 1.6rem;
   font-weight: 300;
   margin-right: 1rem;
 }
-.Login-Form a {
+.loginForm a {
   text-decoration: none;
   font-size: 1.6rem;
-  color: var(--Primary);
+  color: #1aa1f5;
 }
-.Login-Form-Checkbox {
+.loginFormCheckbox {
   margin-right: 1rem;
 }
-.Login-Footer {
+.loginFooter {
   grid-column: 1 / -1;
   grid-row: 2 / -1;
   background-color: #edf3f7;
@@ -117,13 +117,14 @@
   justify-content: center;
   margin-top: 2rem;
 }
-.Login-Footer p {
+.loginFooter p {
   font-size: 1.6rem;
   font-weight: 300;
   margin: 0.5rem 0;
 }
-.Login-Footer a {
+.loginFooter a {
   text-decoration: none;
-  color: var(--Primary);
+  color: #1aa1f5;
   margin-left: .5rem;
 }
+

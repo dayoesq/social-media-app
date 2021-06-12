@@ -5,11 +5,19 @@ import {
     faSearch,
     faComment,
     faUserFriends,
+    faDove
 } from '@fortawesome/free-solid-svg-icons';
 
+import Button from '../../components/shared/form-elements/Button/Button';
+
 import classes from './Landing.module.scss';
+import style from './Footer.module.scss';
 
 const Landing: React.FC = () => {
+    const authSubmitHandler = (e: React.FormEvent) => {
+        e.preventDefault();
+    };
+
     return (
         <div className={classes.landing}>
             <div className={classes.left}>
@@ -28,8 +36,30 @@ const Landing: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className={classes.footer}>
-                <ul className={classes.footerList}>
+            <div className={classes.right}>
+                <form className={classes.rightContentForm} onSubmit={authSubmitHandler}>
+                    <div>
+                        <label htmlFor="email">Email</label>
+                        <input className={classes.landingInput} type="email" name="email" id="email" placeholder="Enter email..." />
+                    </div>
+                    <div>
+                        <label htmlFor="password">Email</label>
+                        <input className={classes.landingInput} type="password" name="password" id="password" placeholder="Enter password..." />
+                    </div>
+                </form>
+                <div className={classes.middleContent}>
+                    <FontAwesomeIcon
+                        icon={faDove} size="3x"
+                        color="#1aa1f5"
+                        style={{ marginBottom: '2rem' }} />
+                    <h1>Explore what is happening in the world</h1>
+                    <h4>Join Utteran today</h4>
+                    <Button type="button" to="/login">Login</Button>
+                    <Button type="button" to="/register">Register</Button>
+                </div>
+            </div>
+            <div className={style.footer}>
+                <ul className={style.footerList}>
                     <li>
                         <NavLink to="#">About</NavLink>
                     </li>

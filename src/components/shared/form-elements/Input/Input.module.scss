@@ -1,0 +1,40 @@
+.formControl {
+    margin: 1rem 0;
+}
+.formControl {
+    p {
+        font-size: 1.3rem;
+        display: inline-block;
+    }
+}
+.formControl {
+    label,
+    input,
+    textarea {
+        display: block;
+    }
+}
+.formControl {
+  label {
+    margin-bottom: 1rem;
+  }
+}
+.formControl {
+    input:focus,
+    textarea:focus {
+        background-color: #d9ebf7;
+    }
+}
+.formControl--invalid {
+    label,
+    p {
+        color: red;
+    }
+}
+.formControl--invalid {
+    input,
+    textarea {
+        border-color: red;
+        background: #ffd1d1;
+    }
+}

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import SubNav from '../../components/shared/UI/SubNav/SubNav';
 import Input from '../../components/shared/form-elements/Input/Input';
 import { useForm } from '../../hooks/form';
 import {
@@ -35,14 +34,14 @@ const Login: React.FC = () => {
         },
         false
     );
-    console.log(formState);
+
     const authSubmitHandler = (e: React.FormEvent) => {
         e.preventDefault();
     };
+
     return (
         <React.Fragment>
             <div className={classes.loginPage}>
-                <SubNav className={classes.loginPageNav} />
                 <div className={classes.login}>
                     <div className={classes.loginContent}>
                         <h2>Log in to Utteran</h2>

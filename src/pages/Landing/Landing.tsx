@@ -62,7 +62,7 @@ const Landing: React.FC = () => {
                     </div>
                     <div>
                         <FontAwesomeIcon icon={faComment} size="3x" />
-                        <h3>Join the people</h3>
+                        <h3>Join the community</h3>
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@ const Landing: React.FC = () => {
                         className={classes.landingInput}
                     />
                     </div>
-                    <div >
+                    <div>
                         <Input
                         element="input"
                         id="password"
@@ -131,9 +131,7 @@ const Landing: React.FC = () => {
                         <NavLink to="#">Developers</NavLink>
                     </li>
                     <li>
-                        <NavLink to="#">
-                            &copy; 2019 - {new Date().getFullYear()} Utteran
-                        </NavLink>
+                        &copy; 2019 - {new Date().getFullYear()} Utteran
                     </li>
                 </ul>
             </div>

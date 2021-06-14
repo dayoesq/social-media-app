@@ -8,7 +8,7 @@ import classes from './BtnFat.module.scss';
 interface IButton {
   href?: string;
   children: React.ReactNode;
-  exact?: any;
+  exact?: boolean;
   style?: React.CSSProperties;
   to?: any;
   type?: 'button' | 'submit' | 'reset';

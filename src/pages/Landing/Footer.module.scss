@@ -11,6 +11,11 @@
     list-style: none;
     display: flex;
     justify-content: center;
+    li:last-child {
+        font-size: 1.6rem;
+        color: #444;
+        font-weight: 300;
+    }
 }
 .footerList a {
     font-size: 1.6rem;
@@ -18,6 +23,9 @@
     text-decoration: none;
     color: #444;
     font-weight: 300;
+}
+a:hover, a:active {
+    color: #1aa1f5;
 }
 
 /* Break points */

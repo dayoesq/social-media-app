@@ -25,16 +25,13 @@
         background-color: #d9ebf7;
     }
 }
-.formControl-invalid {
-    label,
-    p {
-        color: red;
-    }
+.invalidInput {
+        p {
+            color: red;
+        }
+        input {
+            border-color: red;
+            background: #ffd1d1;
+        }
 }
-.formControl-invalid {
-    input,
-    textarea {
-        border-color: red;
-        background: #ffd1d1;
-    }
-}
+

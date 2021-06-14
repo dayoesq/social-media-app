@@ -1,0 +1,31 @@
+.commentInputBox {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.8rem;
+    position: relative;
+    p {
+        width: 40rem;
+        border: none;
+        outline: none;
+        padding: 0.8rem;
+        border: 0.1rem solid #d9ebf7;
+        font-size: 1.5rem;
+        border-radius: 1.5rem;
+        transition: 1s all;
+    }
+    p[placeholder]:empty:before {
+        content: attr(placeholder);
+        color: #9e9a9a;
+    }
+    p:focus {
+        background-color: #d9ebf7;
+    }
+}
+.smileIcon {
+    position: absolute;
+    right: 2rem;
+    bottom: 1rem;
+}
+

@@ -97,11 +97,11 @@ const Input: React.FC<IInput> = (props) => {
             ''
         );
     return (
-        <div className={`${classes.formControl} ${!inputState.isValid && inputState.isTouched && classes.formControl}` }  >
+        <div className={`${classes.formControl} ${!inputState.isValid && inputState.isTouched && classes.invalidInput}` }>
             <label htmlFor={props.id}>{props.label}</label>
             {element}
             {!inputState.isValid && inputState.isTouched && (
-                <p style={{color: 'red'}}>{props.errorText}</p>
+                <p>{props.errorText}</p>
             )}
         </div>
     );

@@ -1,3 +1,82 @@
+.registerPage {
+    display: grid;
+    width: 100%;
+    height: 100vh;
+    grid-template-columns: minmax(5rem, 1fr) 2fr minmax(5rem, 1fr);
+    grid-template-rows: 1fr repeat(2, min-content) 1fr;
+    grid-row-gap: 1.5rem;
+}
 .register {
-  font-size: 1.6rem;
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    background-color: #fff;
+    width: 100rem;
+    display: grid;
+    grid-template-columns: 10rem 8fr;
+    grid-template-rows: 2fr 1fr;
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+}
+.registerContent {
+    grid-column: 2 / -1;
+    grid-row: 1 / 2;
+    padding: 5rem 0 1rem 0;
+}
+.registerContent h2 {
+    font-size: 2.4rem;
+    margin-bottom: 3rem;
+}
+.registerForm {
+    display: flex;
+    flex-direction: column;
+    label {
+      font-size: 1.6rem;
+      margin-right: 1rem;
+    }
+}
+.registerInput {
+    width: 30rem;
+    height: 3.5rem;
+    margin-bottom: 1rem;
+    border: 0.1rem solid #ddd;
+    border-radius: 0.5rem;
+    padding-left: 1rem;
+    font-size: 1.5rem;
+    transition: background-color 0.3s;
+}
+.registerFormInputWrapper {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+}
+.registerInputWrapper {
+    display: flex;
+    justify-items: center;
+}
+.registerForm a {
+    text-decoration: none;
+    font-size: 1.6rem;
+    color: #1aa1f5;
+}
+.registerFormCheckbox {
+    margin-right: 1rem;
+}
+.registerFooter {
+    grid-column: 1 / -1;
+    grid-row: 2 / -1;
+    background-color: #edf3f7;
+    padding-left: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 2rem;
+}
+.registerFooter p {
+    font-size: 1.6rem;
+    font-weight: 300;
+    margin: 0.5rem 0;
+}
+.registerFooter a {
+    text-decoration: none;
+    color: #1aa1f5;
+    margin-left: 0.5rem;
 }

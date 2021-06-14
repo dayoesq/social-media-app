@@ -1,29 +1,28 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-type SubFooter = {
-    className?: string;
-};
+// import classes from './SubFooter.module.scss';
 
-const SubFooter: React.FC<SubFooter> = (props) => {
+
+const SubFooter: React.FC<{className?: string}> = ({className}) => {
     return (
-        <footer className={props.className}>
+        <footer className={className}>
             <ul>
                 <li>
-                    <Link to="/home">Terms</Link>
+                    <NavLink to="/home">Terms</NavLink>
                 </li>
                 <li>
-                    <Link to="/home">Privacy Policy</Link>
+                    <NavLink to="/home">Privacy Policy</NavLink>
                 </li>
                 <li>
-                    <Link to="/home">Cookies</Link>
+                    <NavLink to="/home">Cookies</NavLink>
                 </li>
                 <li>
-                    <Link to="/home">About</Link>
+                    <NavLink to="/home">About</NavLink>
                 </li>
                 <li>
-                    <Link to="/home">More</Link>
+                    <NavLink to="/home">More</NavLink>
                 </li>
             </ul>
         </footer>

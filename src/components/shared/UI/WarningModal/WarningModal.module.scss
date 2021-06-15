@@ -1,0 +1,29 @@
+.warningModal {
+    position: fixed;
+    top: 35rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(189, 186, 186, 0.892);
+    width: 30rem;
+    padding: 2rem 0 2rem 0;
+    text-align: center;
+    border-radius: 2rem;
+    z-index: 50;
+    p {
+        font-size: 1.6rem;
+        margin: 1.5rem 0 1.5rem 0;
+    }
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+    hr {
+        width: 80%;
+        margin: auto;
+    }
+}
+.buttonWrapper {
+    height: 7rem;
+    width: 100%;
+}
+

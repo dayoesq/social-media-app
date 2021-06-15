@@ -1,0 +1,62 @@
+.commentContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    i {
+        font-size: 1.2rem;
+        margin-left: 1rem;
+        color: #9e9a9a;
+        cursor: pointer;
+        opacity: 0;
+    }
+    .editHeartWrapper {
+        display: flex;
+        span {
+            font-size: 1.2rem;
+            color: #868383;
+        }
+        i {
+            font-size: 1.2rem;
+            margin-top: 0;
+            margin-bottom: 0;
+            cursor: pointer;
+            &:first-of-type {
+                margin-left: 6rem;
+            }
+            &:last-of-type {
+                margin-left: 2rem;
+                margin-right: 2rem;
+            }
+        }
+    }
+}
+.body {
+    font-size: 1.4rem;
+    font-weight: 400;
+    padding: 0.8rem;
+    color: #575555;
+    display: inline-block;
+    margin-right: 0.5rem;
+    background-color: #d9ebf7;
+    border-radius: 1rem;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.comment {
+    width: 100%;
+    margin: 1rem 0 1rem 0;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    &:hover i {
+        opacity: 1;
+    }
+}
+

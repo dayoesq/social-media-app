@@ -1,9 +1,14 @@
 interface IUser {
-  id?: string;
+  _id?: string;
   firstName?: string;
   lastName?: string;
-  image?: string;
+  email?: string;
+  password?: string;
+  avatar?: string;
   isVerified?: boolean;
-  alias?: string; 
+  status?: [string]; // pending, active, banned, suspended
+  registeredAt?: Date;
+  updatedAt?: Date;
+  alias?: string;
+  friends: IUser;
 }
-

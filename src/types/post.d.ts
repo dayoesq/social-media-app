@@ -1,11 +1,15 @@
 interface IPost {
-  id?: string;
-  author?: IUser;
-  postedAt: Date;
-  updatedAt: Date;
-  content?: string;
-  video?: string;
-  image?: string;
-  videoType?: string;
+  _id?: string;
+  postAuthor?: string;
+  postAuthorImage?: string;
+  postedAt?: Date;
+  updatedAt?: Date;
+  postBody?: string;
+  postVideo?: string;
+  postImage?: string;
+  postVideoType?: string;
   postCommentCount?: number;
+  postRepostCount?: number;
+  postLoveCount?: number;
+  postShareCount?: number;
 }

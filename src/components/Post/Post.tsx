@@ -19,7 +19,7 @@ import { AuthContext } from '../../store/context';
 
 import classes from './Post.module.scss'
 
-type UserPost = {
+type PostProps = {
   onModifyPost?: React.MouseEventHandler<SVGSVGElement>;
   onToggleComment?: React.MouseEventHandler<SVGSVGElement>;
   showCommentBox?: boolean
@@ -36,14 +36,14 @@ type UserPost = {
   postShareCount?: number;
 };
 
-const Post: React.FC<UserPost & IPost> = (props) => {
+const Post: React.FC<PostProps & IPost> = (props) => {
   const authCtx = useContext(AuthContext);
   return (
     <div className={classes.post}>
       <Avatar
         big
         alt={authCtx.user?.firstName}
-        src={authCtx.user?.image}
+        src={authCtx.user?.avatar}
         rightBig
         // style={{ flexShrink: '0', marginRight: '1.5rem' }}
       />

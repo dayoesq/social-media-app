@@ -44,7 +44,7 @@ const Login: React.FC = () => {
             <div className={classes.loginPage}>
                 <div className={classes.login}>
                     <div className={classes.loginContent}>
-                        <h2>Log in to Utteran</h2>
+                        <h2>Log in</h2>
                         <form
                             className={classes.loginForm}
                             onSubmit={authSubmitHandler}

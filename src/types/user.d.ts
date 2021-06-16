@@ -10,5 +10,7 @@ interface IUser {
   registeredAt?: Date;
   updatedAt?: Date;
   alias?: string;
+  followingCount?: number;
+  followerCount?: number;
   friends: IUser;
 }

@@ -1,0 +1,48 @@
+.follow {
+    position: fixed;
+    top: 8rem;
+    left: 57%;
+    background-color: #fff;
+    width: 35rem;
+    margin-left: 4rem;
+}
+.followHeading {
+    padding: 1rem;
+    font-size: 1.8rem;
+    border-bottom: 0.1rem solid #eee;
+}
+.followUser {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 0.1rem solid #eee;
+}
+.followUserInfo {
+    h4,
+    p {
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
+    }
+}
+.followLink {
+    margin: 2rem 1rem;
+    a {
+        text-decoration: none;
+        font-size: 1.5rem;
+        color: #1aa1f5;
+    }
+}
+.followFooter {
+    background-color: #f0f8fd;
+    ul {
+        list-style: none;
+        display: flex;
+        padding: 2rem 0;
+    }
+    a {
+        text-decoration: none;
+        font-size: 1.5rem;
+        color: #868383;
+        margin: 0 0.7rem;
+    }
+}

@@ -2,9 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-// import classes from './SubFooter.module.scss';
-
-
 const SubFooter: React.FC<{className?: string}> = ({className}) => {
     return (
         <footer className={className}>
@@ -32,3 +29,5 @@ const SubFooter: React.FC<{className?: string}> = ({className}) => {
 SubFooter.propTypes = {
     className: PropTypes.string,
 };
+
+export default SubFooter;

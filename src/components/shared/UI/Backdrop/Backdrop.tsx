@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import classes from './Backdrop.module.scss';
 
-interface IBackdrop {
+export interface IBackdrop {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
   children?: React.ReactNode;
   show?: boolean;

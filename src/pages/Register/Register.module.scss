@@ -30,8 +30,8 @@
     display: flex;
     flex-direction: column;
     label {
-      font-size: 1.6rem;
-      margin-right: 1rem;
+        font-size: 1.6rem;
+        margin-right: 1rem;
     }
     a {
         text-decoration: none;
@@ -57,12 +57,11 @@
 .registerInputWrapper {
     display: flex;
     justify-items: center;
-        @media only screen and(max-width: 750px) {
-        width: 20rem;
+    @media only screen and(max-width: 800px) {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
+        align-content: center;
     }
 }
 .registerFooter {
@@ -86,5 +85,3 @@
         margin-left: 0.5rem;
     }
 }
-
-

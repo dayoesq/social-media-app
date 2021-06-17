@@ -34,7 +34,7 @@ const Avatar: React.FC<IAvatar> = props => {
 
 Avatar.propTypes = {
     src: PropTypes.string.isRequired,
-    alt: PropTypes.string.isRequired,
+    alt: PropTypes.string,
     small: PropTypes.bool,
     big: PropTypes.bool,
     leftSmall: PropTypes.bool,

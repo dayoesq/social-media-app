@@ -1,90 +1,106 @@
 @import '../../assets/styles/base.scss';
 
 .landing {
-  width: 100%;
-  height: 100vh;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 1fr min-content;
+    width: 100%;
+    height: 100vh;
+}
+.leftRightWrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .left {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-  background-color: #1aa1f5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #1aa1f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media only screen and(max-width: 810px) {
+        display: none;
+    }
 }
 .leftContent div {
-  display: flex;
-  align-items: center;
-  margin: 4rem;
-  color: #ffffff;
+    display: flex;
+    align-items: center;
+    margin: 4rem;
+    color: #ffffff;
 }
 .leftContent h3 {
-  font-size: 2rem;
-  margin-left: 2rem;
+    font-size: 2rem;
+    margin-left: 2rem;
 }
 .right {
-  grid-column: 2 / -1;
-  grid-row: 1 / 2;
-  position: relative;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    @media only screen and(max-width: 1130px) {
+        padding: 0 4rem 0 4rem;
+    }
 }
 .rightContentForm {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 3rem;
-  div {
-    height: 15rem;
-  }
-  label {
-    font-size: 1.5rem;
-  }
-  button {
-    margin-bottom: 3rem;
-  }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    div {
+        height: 15rem;
+    }
+    label {
+        font-size: 1.5rem;
+    }
+    button {
+        margin-bottom: 3rem;
+    }
+    @media only screen and(max-width: 560px) {
+        display: none;
+    }
 }
 .landingInput {
-  width: 20rem;
-  height: 4.5rem;
-  margin-right: 1rem;
-  font-size: 1.6rem;
-  padding: 0 1rem;
-  border: 0.1rem solid #ddd;
-  border-radius: 0.5rem;
-  margin-bottom: 0.8rem;
-  background-color: #ffffff;
-  transition: background-color 0.3s;
+    width: 20rem;
+    height: 4.5rem;
+    margin-right: 1rem;
+    font-size: 1.6rem;
+    padding: 0 1rem;
+    border: 0.1rem solid #ddd;
+    border-radius: 0.5rem;
+    margin-bottom: 0.8rem;
+    background-color: #ffffff;
+    transition: background-color 0.3s;
 }
 .rightContentForm a {
-  font-size: 1.6rem;
-  font-weight: 300;
+    font-size: 1.6rem;
+    font-weight: 300;
 }
 a:link,
 a::after,
 a:active {
-  text-decoration: none;
-  color: #1aa1f5;
+    text-decoration: none;
+    color: #1aa1f5;
 }
 a:hover {
-  color: #1295e6;
+    color: #1295e6;
 }
 .middleContent {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  width: 40%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    @media only screen and(max-width: 560px) {
+        margin-bottom: 2rem;
+    }
 }
 .middleContent h1 {
-  font-size: 2.8rem;
-  margin-bottom: 4rem;
-  line-height: 4rem;
+    font-size: 2.8rem;
+    margin-bottom: 4rem;
+    line-height: 4rem;
 }
 .middleContent h4 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
+    font-size: 2rem;
+    margin-bottom: 2rem;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Avatar from '../Avatar/Avatar';
+import Avatar from '../shared/UI/Avatar/Avatar';
 
 import classes from './Follow.module.scss';
 

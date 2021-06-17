@@ -1,12 +1,10 @@
 import React, { useRef, useEffect, useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faImage,
-    faCamera,
-    faChartBar,
-    faSmile,
-    faTimes
-} from '@fortawesome/free-solid-svg-icons'
+  faImage,
+  faSmile,
+  faTimes
+} from '@fortawesome/free-solid-svg-icons';
 import Avatar from '../Avatar/Avatar';
 import WarningModal from '../WarningModal/WarningModal';
 import { AuthContext } from '../../../../store/context';
@@ -18,7 +16,7 @@ import { isEmpty } from '../../../../utils/helpers';
 
 
 const Status: React.FC = () => {
-  const statusRef = useRef<any>(null);
+  const statusRef = useRef<any | null | string | undefined>('');
   const [statusPost, setStatusPost] = useState('');
   const [showWarningModal, setShowWarningModal] = useState(false);
   const authCtx = useContext(AuthContext);
@@ -69,6 +67,7 @@ const Status: React.FC = () => {
             icon={faTimes}
             size='2x'
             color='#1aa1f5'
+            className={classes.iconTimes}
             onClick={closeWarning}
           />
           <button
@@ -104,20 +103,13 @@ const Status: React.FC = () => {
               icon={faImage}
               size='2x'
               color='#1aa1f5'
-            />
-            <FontAwesomeIcon
-              icon={faCamera}
-              size='2x'
-              color='#1aa1f5'
-            />
-            <FontAwesomeIcon
-              icon={faChartBar}
-              size='2x'
-              color='#1aa1f5'
+              className={classes.icon}
             />
             <FontAwesomeIcon
               icon={faSmile}
+              size='2x'
               color='#1aa1f5'
+              className={classes.icon}
             />
           </div>
         </div>

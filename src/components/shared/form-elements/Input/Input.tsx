@@ -24,19 +24,19 @@ const inputReducer = <F extends InputState<F>>(
     action: Actions
 ) => {
     switch (action.type) {
-        case CHANGE:
-            return {
-                ...state,
-                value: action.val,
-                isValid: validate(action.val, action.validators),
-            };
-        case TOUCH:
-            return {
-                ...state,
-                isTouched: true,
-            };
-        default:
-            return state;
+    case CHANGE:
+        return {
+            ...state,
+            value: action.val,
+            isValid: validate(action.val, action.validators),
+        };
+    case TOUCH:
+        return {
+            ...state,
+            isTouched: true,
+        };
+    default:
+        return state;
     }
 };
 

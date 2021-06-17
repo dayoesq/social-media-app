@@ -1,83 +1,86 @@
 @import '../../assets/styles/base.scss';
 
 .loginPage {
-  width: 100%;
-  height: 100vh;
-  position: relative;
+    width: 100%;
+    height: 100vh;
+    position: relative;
 }
 .login {
-  background-color: #ffffff;
-  width: 50rem;
-  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
-  position: relative;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 1.5rem;
-  overflow: hidden;
+    background-color: #ffffff;
+    width: 50rem;
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 1.5rem;
+    overflow: hidden;
 }
 .loginContent {
-  padding: 5rem 0 2rem 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+    padding: 5rem 0 2rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 .loginContent h2 {
-  font-size: 2.4rem;
-  margin-bottom: 3rem;
-  text-transform: uppercase;
+    font-size: 2.4rem;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
 }
 .loginForm {
-  display: flex;
-  flex-direction: column;
-  label {
-    font-size: 1.5rem;
-    margin-right: 1rem;
-  }
-  a {
-    text-decoration: none;
-    font-size: 1.6rem;
-    color: #1aa1f5;
-  }
-  input:focus {
-    background-color: #d9ebf7;
-  }
+    display: flex;
+    flex-direction: column;
+    label {
+        font-size: 1.5rem;
+        margin-right: 1rem;
+    }
+    a {
+        text-decoration: none;
+        font-size: 1.6rem;
+        color: #1aa1f5;
+    }
+    input:focus {
+        background-color: #d9ebf7;
+    }
 }
 .loginInput {
-  width: 30rem;
-  height: 3.5rem;
-  margin-bottom: 1rem;
-  border: 0.1rem solid #ddd;
-  border-radius: 0.5rem;
-  padding-left: 1rem;
-  font-size: 1.5rem;
-  transition: background-color 0.3s;
+    width: 30rem;
+    height: 3.5rem;
+    margin-bottom: 1rem;
+    border: 0.1rem solid #ddd;
+    border-radius: 0.5rem;
+    padding-left: 1rem;
+    font-size: 1.5rem;
+    transition: background-color 0.3s;
 }
-.loginFormInputWrapper {
-  margin-top: 2rem;
-  display: flex;
-  align-items: center;
+.loginFormWrapper {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    button {
+        margin-right: 1rem;
+    }
 }
 .loginFormCheckbox {
-  margin-right: 1rem;
+    margin-right: 1rem;
 }
 .loginFooter {
-  background-color: #edf3f7;
-  padding-left: 100px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: 2rem;
-  height: 10rem;
+    background-color: #edf3f7;
+    padding-left: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 2rem;
+    height: 10rem;
 }
 .loginFooter p {
-  font-size: 1.6rem;
-  font-weight: 300;
-  margin: 0.5rem 0;
+    font-size: 1.6rem;
+    font-weight: 300;
+    margin: 0.5rem 0;
 }
 .loginFooter a {
-  text-decoration: none;
-  color: #1aa1f5;
-  margin-left: .5rem;
+    text-decoration: none;
+    color: #1aa1f5;
+    margin-left: 0.5rem;
 }

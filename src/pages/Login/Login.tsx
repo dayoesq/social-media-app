@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Button from '../../components/shared/form-elements/Button/Button';
 
 import Input from '../../components/shared/form-elements/Input/Input';
 import { useForm } from '../../hooks/form';
@@ -72,7 +73,14 @@ const Login: React.FC = () => {
                                 className={classes.loginInput}
                             />
                             <div className={classes.loginFormWrapper}>
-                                <button type="submit" disabled={!formState.isValid}>Sign in</button>
+                                <Button
+                                    type="submit"
+                                    disabled={!formState.isValid}
+                                    color='primary'
+                                    pill='smallPill'
+                                    size='small'
+                                >Sign in
+                                </Button>
                                 <Link to="/forgetPassword">
                                     Forget password?
                                 </Link>

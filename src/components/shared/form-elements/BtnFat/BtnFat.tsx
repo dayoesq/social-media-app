@@ -18,49 +18,49 @@ interface IButton {
 
 const BtnFat: React.FC<IButton> = props => {
     if (props.href) {
-      return (
-        <a
-          className={classes.btnFat}
-          href={props.href}
-        >
-          {props.children}
-        </a>
-      );
+        return (
+            <a
+                className={classes.btnFat}
+                href={props.href}
+            >
+                {props.children}
+            </a>
+        );
     }
     if (props.to) {
-      return (
-        <NavLink
-          to={props.to}
-          exact={props.exact}
-          className={classes.btnFat}
-          style={props.style}
-        >
-          {props.children}
-        </NavLink>
-      );
+        return (
+            <NavLink
+                to={props.to}
+                exact={props.exact}
+                className={classes.btnFat}
+                style={props.style}
+            >
+                {props.children}
+            </NavLink>
+        );
     }
-  return (
-    <button
-      className={classes.btnFat}
-      type={props.type}
-      onClick={props.onClick}
-      disabled={props.disabled}
-      style={props.style}
-    >
-      {props.children}
-    </button>
-  );
-}
+    return (
+        <button
+            className={classes.btnFat}
+            type={props.type}
+            onClick={props.onClick}
+            disabled={props.disabled}
+            style={props.style}
+        >
+            {props.children}
+        </button>
+    );
+};
 
 BtnFat.propTypes = {
-  href: PropTypes.string,
-  type: PropTypes.any.isRequired,
-  onClick: PropTypes.func.isRequired,
-  disabled: PropTypes.bool,
-  style: PropTypes.object,
-  children: PropTypes.node.isRequired,
-  to: PropTypes.string,
-  exact: PropTypes.bool
+    href: PropTypes.string,
+    type: PropTypes.any.isRequired,
+    onClick: PropTypes.func.isRequired,
+    disabled: PropTypes.bool,
+    style: PropTypes.object,
+    children: PropTypes.node.isRequired,
+    to: PropTypes.string,
+    exact: PropTypes.bool
 };
 
 export default BtnFat;

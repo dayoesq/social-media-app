@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
 import Follow from '../Follow/Follow';
-import SubFooter from '../SubFooter/SubFooter';
+import SubFooter from '../shared/UI/SubFooter/SubFooter';
 
 import classes from '../Follow/Follow.module.scss';
 

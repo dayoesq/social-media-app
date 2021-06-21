@@ -13,7 +13,7 @@
         border: 0.1rem solid #d9ebf7;
         font-size: 1.5rem;
         border-radius: 1.5rem;
-        transition: 1s all;
+        word-wrap: break-word;
     }
     p[placeholder]:empty:before {
         content: attr(placeholder);
@@ -22,10 +22,9 @@
     p:focus {
         background-color: #d9ebf7;
     }
+    .smileIcon {
+        position: absolute;
+        right: 1.5rem;
+        bottom: 1rem;
+    }
 }
-.smileIcon {
-    position: absolute;
-    right: 2rem;
-    bottom: 1rem;
-}
-

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import classes from './Avatar.module.scss';
 
+
 interface IAvatar {
     className?: string;
     small?: boolean;
@@ -33,7 +34,7 @@ const Avatar: React.FC<IAvatar> = props => {
 };
 
 Avatar.propTypes = {
-    src: PropTypes.string.isRequired,
+    src: PropTypes.string,
     alt: PropTypes.string,
     small: PropTypes.bool,
     big: PropTypes.bool,

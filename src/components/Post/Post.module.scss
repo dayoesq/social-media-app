@@ -9,28 +9,28 @@
     margin: 1rem 0;
     position: relative;
     h4 {
-       font-size: 1.6rem;
-       margin-right: 0.5rem;
+        font-size: 1.6rem;
+        margin-right: 0.5rem;
     }
     span {
-      font-size: 1.6rem;
-      color: rgb(126, 128, 120);
+        font-size: 1.6rem;
+        color: rgb(126, 128, 120);
     }
-    i:first-of-type {
-      font-size: 1.5rem;
-      color: #1aa1f5;
-      margin-right: 0.5rem;
+    .icon {
+        font-size: 1.5rem;
+        color: #1aa1f5;
+        margin-right: 0.5rem;
     }
-    i:last-of-type {
-      font-size: 1.6rem;
-      margin-left: auto;
-      color: #9e9a9a;
-      cursor: pointer;
-      width: 2rem;
-      border-radius: 50%;
-      &:hover {
-        background-color: #ebe1e1;
-      }
+    .iconEllipsis {
+        font-size: 1.6rem;
+        margin-left: auto;
+        color: #9e9a9a;
+        cursor: pointer;
+        width: 2rem;
+        border-radius: 50%;
+        &:hover {
+            background-color: #ebe1e1;
+        }
     }
 }
 .postText {
@@ -43,26 +43,26 @@
     width: 48rem;
     height: 30rem;
     img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 1rem;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 1rem;
     }
     video {
-       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 1rem;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 1rem;
     }
 }
 
 .postIcons {
     margin-top: 1rem;
     cursor: pointer;
-    i {
-      font-size: 1.8rem;
-      color: #868383;
-      margin-right: 6rem;
+    .postIcon {
+        font-size: 1.8rem;
+        color: #868383;
+        margin-right: 6rem;
     }
 }
 .count {
@@ -70,4 +70,3 @@
     color: rgb(126, 128, 120);
     margin-right: 0.1rem;
 }
-

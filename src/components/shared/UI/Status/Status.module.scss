@@ -7,7 +7,7 @@
     transform: translate(-50%, -50%);
     position: fixed;
     border-radius: 1.5rem;
-    z-index: 20;
+    z-index: 60;
     overflow: hidden;
 }
 .statusHeader {
@@ -48,7 +48,6 @@
 .statusIcons {
     display: flex;
     align-items: center;
-    margin-left: 2rem;
     padding: 0 0 1rem 1rem;
     .icon {
         margin-right: 1rem;

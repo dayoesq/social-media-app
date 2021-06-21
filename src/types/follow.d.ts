@@ -3,5 +3,4 @@ interface IFollow {
   followImage?: string;
   followAlias?: string;
   followName?: string;
-  followAlias?: string;
 }

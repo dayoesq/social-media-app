@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useContext, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faHashtag,
     faBell,
@@ -12,32 +12,84 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import Avatar from '../../components/shared/UI/Avatar/Avatar';
 import { AuthContext } from '../../store/context';
-// import Status from '../../components/shared/UI/Status/Status';
-// import Posts from '../../components/Posts/Posts';
-// import Follows from '../../components/Follows/Follows';
-// import SidebarSlider from '../../components/shared/UI/SidebarSlider/SidebarSlider';
-// // import SidebarModal from '../../components/shared/UI/S'
+import Posts from '../../components/Posts/Posts';
+import Follows from '../../components/Follows/Follows';
 import StatusModal from '../../components/shared/UI/StatusModal/StatusModal';
-// // import WarningModal from '../../shared/components/ui-elements/WarningModal';
-// // import WarningBackdrop from '../../shared/components/ui-elements/WarningBackdrop';
+import SliderModal from '../../components/shared/UI/SliderModal/SliderModal';
 
-import sampleImg from '../../assets/images/sample-img.jpg'
+
+import sampleImg from '../../assets/images/sample-img.jpg';
+import img1 from '../../assets/images/Finnsh Cat.jpeg';
+import img2 from '../../assets/images/helsinki-church.jpeg';
+
 
 import classes from './Home.module.scss';
-import Backdrop from '../../components/shared/UI/Backdrop/Backdrop';
+
 
 const Home: React.FC = () => {
     const authCtx = useContext(AuthContext);
     const [showStatus, setShowStatus] = useState<boolean>(false);
+    const [showSlider, setShowSlider] = useState<boolean>(false);
+
+    const posts = [
+        {
+            _id: 'p1',
+            postAuthor: 'Oladayo',
+            postAuthorImage: sampleImg,
+            postedAt: new Date().toLocaleString(),
+            postBody: 'Gone are the days when it took forever to receive letters. It now takes just a few seconds. We have really moved on as a generation. So much development. To all of my friends on utteran, this is to announce my appearance. There is more to come. Stay tuned. Love you all',
+            postImage: img1,
+            postCommentCount: 20,
+            postLoveCount: 4,
+            postShareCount: 500
+
+        },
+        {
+            _id: 'p2',
+            postAuthor: 'Sola',
+            postAuthorImage: sampleImg,
+            postedAt: new Date().toLocaleString(),
+            postBody: 'My very first post on this platform',
+            postImage: img2,
+            postCommentCount: 400,
+            postLoveCount: 300,
+            postShareCount: 500
+
+        },
+    ];
+
+    const follows = [
+        {
+            _id: 'p4',
+            followImage: sampleImg,
+            followAlias: 'solaola',
+            followName: 'Olusola'
+        },
+        {
+            _id: 'p6',
+            followImage: sampleImg,
+            followAlias: 'solaola',
+            followName: 'Olusola'
+        },
+    ];
 
     return (
         <React.Fragment>
-             <StatusModal
-                showStatus={showStatus}
-            />
-            {showStatus && (
-                <Backdrop show={showStatus} onClick={() => setShowStatus(false)}/>
-            )}
+            {
+                showStatus &&
+                <StatusModal showStatus={showStatus}
+                    onClick={() => setShowStatus(false)}
+                    onCloseStatus={() => setShowStatus(false)}
+                />
+            }
+            {
+                showSlider &&
+                <SliderModal showSlider={showSlider}
+                    onClick={() => setShowSlider(false)}
+                    closeSlider={() => setShowSlider(false)}
+                />
+            }
+
             <div className={classes.feedsPage}>
                 <nav className={classes.feedsNav}>
                     <div className={classes.feedsIcons}>
@@ -50,36 +102,25 @@ const Home: React.FC = () => {
                         <FontAwesomeIcon icon={faSearch} size="1x" className={classes.searchIcon} />
                         <input type="text" placeholder="Search" />
                     </div>
-                    <div className={classes.user} onClick={() => alert('Drawer')}>
+                    <div className={classes.user} onClick={() => setShowSlider(true)}>
                         <Avatar small alt="Ola" src={sampleImg} />
                         <NavLink to="/home" className={classes.userLink}>{authCtx.user?.firstName}</NavLink>
-                        <FontAwesomeIcon icon={faChevronDown} size="2x" color="#444" />
+                        <FontAwesomeIcon icon={faChevronDown} size="2x" color="#444" className={classes.chevDown} />
                     </div>
                 </nav>
                 <div className={classes.feedsContent}>
                     <div className={classes.feedsHeader}>
                         <div className={classes.headerTop}>
                             <h4>Home</h4>
-                            <FontAwesomeIcon icon={faStar} />
+                            <FontAwesomeIcon icon={faStar} color="#1aa1f5" size="2x" />
                         </div>
                         <div className={classes.headerPost}>
                             <Avatar small src={sampleImg} />
                             <input type="text" placeholder="What's up?" onClick={() => setShowStatus(true)} />
                         </div>
                     </div>
-                    {/* <Posts
-            posts={posts}
-            className="Posts"
-            comments={comments}
-            commentUsername={user.username}
-            commentUserImage={user.userImage}
-            onKeyPress={sendComment}
-            onShowEmoji={onShowEmoji}
-            showPostHandler={showPostHandler}
-            commentAuthorImage={commentAuthor.image}
-            commentAuthorName={commentAuthor.name}
-          /> */}
-                    {/* <Follows follows={follows} /> */}
+                    <Posts posts={posts} className={classes.posts} />
+                    <Follows follows={follows} />
                 </div>
             </div>
         </React.Fragment>

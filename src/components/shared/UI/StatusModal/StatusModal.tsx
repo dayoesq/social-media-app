@@ -1,16 +1,33 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
-// import Backdrop from '../Backdrop/Backdrop';
+import Status, { StatusProps } from '../Status/Status';
+import Backdrop, { IBackdrop } from '../Backdrop/Backdrop';
 
-import Status from '../Status/Status';
+type StatusModalProps = {
+  showStatus?: boolean;
+  props?: React.PropsWithChildren<StatusModalProps>;
+};
 
-const StatusModal: React.FC<{showStatus: boolean}> = props => {
+
+const StatusOverlay: React.FC<StatusProps> = props => {
+  const statusPortal = document.getElementById('status-portal') as HTMLElement;
+  return ReactDOM.createPortal(<Status {...props} />, statusPortal);
+};
+
+const StatusModal: React.FC<StatusModalProps & IBackdrop & StatusProps> = props => {
   return (
     <React.Fragment>
-      {props.showStatus && <Status {...props}/>}
+      <Backdrop {...props} />
+      <StatusOverlay {...props}/>
     </React.Fragment>
   );
 };
 
+StatusModal.propTypes = {
+  showStatus: PropTypes.bool,
+  props: PropTypes.object
+};
 
 export default StatusModal;

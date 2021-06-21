@@ -17,7 +17,7 @@ import Avatar from '../shared/UI/Avatar/Avatar';
 import Tooltip from '../shared/UI/Tooltip/Tooltip';
 import { AuthContext } from '../../store/context';
 
-import classes from './Post.module.scss'
+import classes from './Post.module.scss';
 
 type PostProps = {
   onModifyPost?: React.MouseEventHandler<SVGSVGElement>;
@@ -25,7 +25,7 @@ type PostProps = {
   showCommentBox?: boolean
   showTooltip?: boolean;
   authorAlias?: string;
-  postedAt?: Date;
+  postedAt?: Date | string;
   postContent?: string;
   postImage?: string;
   postVideo?: string;
@@ -40,19 +40,22 @@ const Post: React.FC<PostProps & IPost> = (props) => {
   const authCtx = useContext(AuthContext);
   return (
     <div className={classes.post}>
-      <Avatar
-        big
-        alt={authCtx.user?.firstName}
-        src={authCtx.user?.avatar}
-        rightBig
-        // style={{ flexShrink: '0', marginRight: '1.5rem' }}
-      />
+      <div>
+        <Avatar
+          big
+          alt={authCtx.user?.firstName}
+          src={authCtx.user?.avatar}
+          rightBig
+        />
+      </div>
+      
       <div>
         <div className={classes.postUserInfo}>
           <h4>{authCtx.user?.firstName}</h4>
           {authCtx.user?.isVerified && (
             <FontAwesomeIcon
               icon={faCheckCircle}
+              className={classes.icon}
             />
           )}
           <span>
@@ -61,6 +64,7 @@ const Post: React.FC<PostProps & IPost> = (props) => {
           <FontAwesomeIcon
             icon={faEllipsisH}
             onClick={props.onModifyPost}
+            className={classes.iconEllipsis}
           />
           {props.showTooltip && (
             <Tooltip
@@ -101,6 +105,7 @@ const Post: React.FC<PostProps & IPost> = (props) => {
               icon={faComment}
               size='2x'
               color='#444'
+              className={classes.postIcon}
             />
           </NavLink>
           <NavLink to='/home'>
@@ -109,6 +114,7 @@ const Post: React.FC<PostProps & IPost> = (props) => {
               icon={faRetweet}
               size='2x'
               color='#444'
+              className={classes.postIcon}
             />
           </NavLink>
           <NavLink to='/home'>
@@ -117,6 +123,7 @@ const Post: React.FC<PostProps & IPost> = (props) => {
               icon={faHeart}
               size='2x'
               color='#444'
+              className={classes.postIcon}
             />
           </NavLink>
           <NavLink to='/home'>
@@ -125,6 +132,7 @@ const Post: React.FC<PostProps & IPost> = (props) => {
               icon={faShareAlt}
               size='2x'
               color='#444'
+              className={classes.postIcon}
             />
           </NavLink>
           <FontAwesomeIcon
@@ -132,6 +140,7 @@ const Post: React.FC<PostProps & IPost> = (props) => {
             size='2x'
             color='#444'
             onClick={props.onToggleComment}
+            className={classes.postIcon}
           />
         </div>
         {props.showCommentBox && (

@@ -14,7 +14,7 @@ import Avatar from '../Avatar/Avatar';
 import { AuthContext } from '../../../../store/context';
 import classes from './SidebarSlider.module.scss';
 
-type SliderProps = {
+export type SliderProps = {
   closeSlider?: React.MouseEventHandler<SVGSVGElement>;
 };
 
@@ -26,6 +26,7 @@ const SidebarSlider: React.FC<SliderProps> = props => {
         <h2>Account info</h2>
         <FontAwesomeIcon
           icon={faTimes}
+          className={classes.iconTimes}
           onClick={props.closeSlider}
         />
       </div>
@@ -53,6 +54,7 @@ const SidebarSlider: React.FC<SliderProps> = props => {
                 icon={faUser}
                 size='1x'
                 color='#9e9a9a'
+                className={classes.icon}
               />
               Profile
             </NavLink>
@@ -63,6 +65,7 @@ const SidebarSlider: React.FC<SliderProps> = props => {
                 icon={faListAlt}
                 size='1x'
                 color='#9e9a9a'
+                className={classes.icon}
               />
               Lists
             </NavLink>
@@ -73,6 +76,7 @@ const SidebarSlider: React.FC<SliderProps> = props => {
                 icon={faBookmark}
                 size='1x'
                 color='#9e9a9a'
+                className={classes.icon}
               />
               Bookmarks
             </NavLink>
@@ -83,6 +87,7 @@ const SidebarSlider: React.FC<SliderProps> = props => {
                 icon={faChartLine}
                 size='1x'
                 color='#9e9a9a'
+                className={classes.icon}
               />
               Analytics
             </NavLink>

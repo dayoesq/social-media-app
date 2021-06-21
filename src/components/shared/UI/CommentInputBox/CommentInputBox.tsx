@@ -5,7 +5,7 @@ import { faSmile } from '@fortawesome/free-solid-svg-icons';
 
 import Avatar from '../Avatar/Avatar';
 
-import classes from './CommentInputBox.scss';
+import classes from './CommentInputBox.module.scss';
 
 interface ICommentInput {
   commentAuthorName?: string;

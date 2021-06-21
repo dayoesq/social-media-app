@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faImage,
@@ -6,19 +7,23 @@ import {
   faTimes
 } from '@fortawesome/free-solid-svg-icons';
 import Avatar from '../Avatar/Avatar';
-import WarningModal from '../WarningModal/WarningModal';
+// import WarningModal from '../WarningModal/WarningModal';
 import { AuthContext } from '../../../../store/context';
 
 import sampleUser from '../../../../assets/images/sample-img.jpg';
 
 import classes from './Status.module.scss';
 import { isEmpty } from '../../../../utils/helpers';
+// import Backdrop from '../Backdrop/Backdrop';
 
+export type StatusProps = {
+  onCloseStatus?: React.MouseEventHandler<SVGSVGElement>;
+};
 
-const Status: React.FC = () => {
-  const statusRef = useRef<any | null | string | undefined>('');
+const Status: React.FC<StatusProps> = props => {
+  const statusRef = useRef<any | null | string | undefined>(undefined);
   const [statusPost, setStatusPost] = useState('');
-  const [showWarningModal, setShowWarningModal] = useState(false);
+  // const [showWarningModal, setShowWarningModal] = useState(false);
   const authCtx = useContext(AuthContext);
 
   const postStatusHandler = () => {
@@ -31,21 +36,25 @@ const Status: React.FC = () => {
     setStatusPost(statusRef.current.textContent);
   };
 
-  const cancelWarningHandler = () => {
-    setShowWarningModal(false);
-  };
+  // const cancelWarningHandler = () => {
+  //   setShowWarningModal(false);
+  // };
 
-  const discardHandler = () => {
-    setShowWarningModal(false);
-  };
+  // const discardHandler = () => {
+  //   setShowWarningModal(false);
+  // };
 
-  const closeWarning = () => {
-    if (isEmpty(statusRef.current.textContent)) {
-      setShowWarningModal(false);
-    } else {
-      setShowWarningModal(true);
-    }
-  };
+  // const closeWarning = () => {
+  //   if (isEmpty(statusRef.current.textContent)) {
+  //     setShowWarningModal(false);
+  //   } else {
+  //     setShowWarningModal(true);
+  //   }
+  // };
+// 
+//   const checkText = () => {
+// 
+//   }
 
   useEffect(() => {
     statusRef.current.focus();
@@ -53,14 +62,12 @@ const Status: React.FC = () => {
 
   return (
     <React.Fragment>
-      {showWarningModal && (
-        <WarningModal
-          onCancel={cancelWarningHandler}
-          onDiscard={discardHandler}
-          warningText='Once deleted, the post is gone!'
-          warningHeading='Discard Post?'
-        />
-      )}
+       {/* <WarningModal
+                showWarningModal={showWarningModal}
+            />
+            {showWarningModal && (
+                <Backdrop show={showWarningModal} onClick={cancelWarningHandler}/>
+            )} */}
       <div className={classes.status}>
         <div className={classes.statusHeader}>
           <FontAwesomeIcon
@@ -68,7 +75,7 @@ const Status: React.FC = () => {
             size='2x'
             color='#1aa1f5'
             className={classes.iconTimes}
-            onClick={closeWarning}
+            onClick={props.onCloseStatus}
           />
           <button
             type='submit'
@@ -76,7 +83,7 @@ const Status: React.FC = () => {
               postStatusHandler();
               setPostHandler();
             }}
-            disabled={isEmpty(statusRef.current.textContent)}
+            // disabled={statusRef.current.textContent }
           >
             Post
           </button>
@@ -117,6 +124,10 @@ const Status: React.FC = () => {
     </React.Fragment>
   );
 };
+
+Status.propTypes = {
+  onCloseStatus: PropTypes.func
+}
 
 
 export default Status;

@@ -6,7 +6,7 @@
     height: 100vh;
     background-color: #ffffff;
     padding: 2.5rem;
-    z-index: 15;
+    z-index: 40;
     box-sizing: border-box;
     box-shadow: -0.1rem 0 0.5rem rgba(0, 0, 0, 0.3);
     transition: right 0.5s cubic-bezier(1, 0, 0, 1);
@@ -23,7 +23,7 @@
     h2 {
         font-size: 2rem;
     }
-    i {
+    .iconTimes {
         font-size: 2.5rem;
         margin-left: auto;
         color: #1aa1f5;
@@ -83,7 +83,7 @@
         font-size: 1.6rem;
         color: #868383;
     }
-    i {
+    .icon {
         margin-right: 1rem;
     }
 }

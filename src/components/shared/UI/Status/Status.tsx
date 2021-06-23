@@ -7,67 +7,49 @@ import {
   faTimes
 } from '@fortawesome/free-solid-svg-icons';
 import Avatar from '../Avatar/Avatar';
-// import WarningModal from '../WarningModal/WarningModal';
 import { AuthContext } from '../../../../store/context';
 
 import sampleUser from '../../../../assets/images/sample-img.jpg';
 
 import classes from './Status.module.scss';
-import { isEmpty } from '../../../../utils/helpers';
-// import Backdrop from '../Backdrop/Backdrop';
+// import { isEmpty } from '../../../../utils/helpers';
+import Button from '../../form-elements/Button/Button';
+import WarningModal from '../WarningModal/WarningModal';
 
 export type StatusProps = {
   onCloseStatus?: React.MouseEventHandler<SVGSVGElement>;
 };
 
 const Status: React.FC<StatusProps> = props => {
-  const statusRef = useRef<any | null | string | undefined>(undefined);
-  const [statusPost, setStatusPost] = useState('');
-  // const [showWarningModal, setShowWarningModal] = useState(false);
+  const statusRef = useRef<any | null | string | undefined>('');
+  // const [statusPost, setStatusPost] = useState('');
+  const [showWarningModal, setShowWarningModal] = useState(false);
   const authCtx = useContext(AuthContext);
 
-  const postStatusHandler = () => {
-    if (isEmpty(statusRef.current.textContent)) return;
-      alert(statusRef.current.textContent);
-  };
-
-  const setPostHandler = () => {
-    if (isEmpty(statusRef.current.textContent)) return;
-    setStatusPost(statusRef.current.textContent);
-  };
-
-  // const cancelWarningHandler = () => {
-  //   setShowWarningModal(false);
-  // };
-
-  // const discardHandler = () => {
-  //   setShowWarningModal(false);
-  // };
-
-  // const closeWarning = () => {
-  //   if (isEmpty(statusRef.current.textContent)) {
-  //     setShowWarningModal(false);
-  //   } else {
-  //     setShowWarningModal(true);
-  //   }
-  // };
-// 
-//   const checkText = () => {
-// 
-//   }
+  const closeWarning = () => {
+    if (statusRef.current.textContent.length === 0) {
+      setShowWarningModal(false);
+    } else {
+      return;
+    }
+  };  
 
   useEffect(() => {
     statusRef.current.focus();
-  });
+  }, []);
 
   return (
     <React.Fragment>
-       {/* <WarningModal
-                showWarningModal={showWarningModal}
-            />
-            {showWarningModal && (
-                <Backdrop show={showWarningModal} onClick={cancelWarningHandler}/>
-            )} */}
+      {
+        showWarningModal &&
+        <WarningModal showWarning={showWarningModal}
+          warningHeading='Discard Post?'
+          warningText='Do you really want to discard this post?'
+          onDiscard={() => setShowWarningModal(false)}
+          onCancel={closeWarning}
+          onClick={closeWarning}
+        />
+      }
       <div className={classes.status}>
         <div className={classes.statusHeader}>
           <FontAwesomeIcon
@@ -77,16 +59,14 @@ const Status: React.FC<StatusProps> = props => {
             className={classes.iconTimes}
             onClick={props.onCloseStatus}
           />
-          <button
-            type='submit'
-            onClick={() => {
-              postStatusHandler();
-              setPostHandler();
-            }}
-            // disabled={statusRef.current.textContent }
+          <Button
+            type='button'
+            primary
+            small
+            pillSmall
           >
             Post
-          </button>
+          </Button>
         </div>
         <div className={classes.statusBody}>
           <Avatar
@@ -94,6 +74,7 @@ const Status: React.FC<StatusProps> = props => {
             rightSmall
             alt='User'
             src={sampleUser} />
+          <label htmlFor='statusPost'></label>
           <p
             contentEditable={true}
             placeholder={`What's up ${authCtx.user?.firstName}?`}
@@ -101,7 +82,7 @@ const Status: React.FC<StatusProps> = props => {
             ref={statusRef}
             suppressContentEditableWarning={true}
           >
-            {statusPost}
+            {/* {statusPost} */}
           </p>
         </div>
         <div className={classes.footer}>
@@ -127,7 +108,7 @@ const Status: React.FC<StatusProps> = props => {
 
 Status.propTypes = {
   onCloseStatus: PropTypes.func
-}
+};
 
 
 export default Status;

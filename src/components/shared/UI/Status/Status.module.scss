@@ -7,7 +7,7 @@
     transform: translate(-50%, -50%);
     position: fixed;
     border-radius: 1.5rem;
-    z-index: 60;
+    z-index: 40;
     overflow: hidden;
 }
 .statusHeader {
@@ -37,10 +37,10 @@
         background-color: #ffffff;
         border-color: #1aa1f5;
     }
-}
-.statusInput[placeholder]:empty:before {
-    content: attr(placeholder);
-    color: #9e9a9a;
+    &[placeholder]:empty:before {
+        content: attr(placeholder);
+        color: #9e9a9a;
+    }
 }
 .statusFooter {
     padding: 0 2rem 2rem 8rem;

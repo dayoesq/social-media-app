@@ -104,8 +104,24 @@ const Landing: React.FC = () => {
                             style={{ marginBottom: '2rem' }} />
                         <h1>Explore what is happening in the world</h1>
                         <h4>Join Utteran today</h4>
-                        <Button type="button" to="/login">Login</Button>
-                        <Button type="button" to="/register">Register</Button>
+                        <Button
+                            type="button"
+                            to="/login"
+                            long
+                            pillLong
+                            primaryInverse
+                        >
+                            Login
+                        </Button>
+                        <Button
+                            type="button"
+                            to="/register"
+                            pillLong
+                            long
+                            primary
+                        >
+                            Register
+                        </Button>
                     </div>
                 </div>
             </div>

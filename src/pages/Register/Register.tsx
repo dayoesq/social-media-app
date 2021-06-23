@@ -10,6 +10,7 @@ import {
 import Input from '../../components/shared/form-elements/Input/Input';
 
 import classes from './Register.module.scss';
+import Button from '../../components/shared/form-elements/Button/Button';
 
 const Register: React.FC = () => {
     const [formState, inputHandler] = useForm<{
@@ -125,13 +126,16 @@ const Register: React.FC = () => {
                                 />
                             </div>
                             <div className={classes.registerFormInputWrapper}>
-                                <button
+                                <Button
                                     type='submit'
                                     disabled={!formState.isValid}
                                     style={{ marginRight: '1rem' }}
+                                    primary
+                                    small
+                                    pillSmall
                                 >
                                     Submit
-                                </button>
+                                </Button>
                             </div>
                         </form>
                     </div>

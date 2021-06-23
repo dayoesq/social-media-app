@@ -76,9 +76,10 @@ const Login: React.FC = () => {
                                 <Button
                                     type="submit"
                                     disabled={!formState.isValid}
-                                    color='primary'
-                                    pill='smallPill'
-                                    size='small'
+                                    primary
+                                    small
+                                    pillSmall
+                                    // size='small'
                                 >Sign in
                                 </Button>
                                 <Link to="/forgetPassword">

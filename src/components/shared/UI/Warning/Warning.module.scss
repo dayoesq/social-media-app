@@ -8,7 +8,7 @@
     padding: 2rem 0 2rem 0;
     text-align: center;
     border-radius: 2rem;
-    z-index: 50;
+    z-index: 150;
     p {
         font-size: 1.6rem;
         margin: 1.5rem 0 1.5rem 0;
@@ -23,6 +23,16 @@
     }
 }
 .buttonWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 7rem;
     width: 100%;
+    button:first-child {
+        margin-right: auto;
+        margin-left: 1rem;
+    }
+    button:last-child {
+        margin-right: 1rem;
+    }
 }

@@ -14,13 +14,13 @@
         font-size: 1.5rem;
         border-radius: 1.5rem;
         word-wrap: break-word;
-    }
-    p[placeholder]:empty:before {
-        content: attr(placeholder);
-        color: #9e9a9a;
-    }
-    p:focus {
-        background-color: #d9ebf7;
+        &[placeholder]:empty:before {
+            content: attr(placeholder);
+            color: #9e9a9a;
+        }
+        &:focus {
+            background-color: #d9ebf7;
+        }
     }
     .smileIcon {
         position: absolute;

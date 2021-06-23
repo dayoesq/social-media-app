@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Avatar from '../shared/UI/Avatar/Avatar';
 
 import classes from './Follow.module.scss';
+import Button from '../shared/form-elements/Button/Button';
 
 type FollowProps =  {
   src?: string;
@@ -18,13 +19,16 @@ const Follow: React.FC<FollowProps & IFollow> = props => {
         <h4>{props.followName}</h4>
         <p>{`@${props.followAlias}`}</p>
       </div>
-      <button
+      <Button
         type='submit'
+        primaryInverse
+        small
+        pillSmall
         style={{ marginLeft: 'auto' }}
         onClick={props.onClick}
       >
         Follow
-      </button>
+      </Button>
     </div>
   );
 };

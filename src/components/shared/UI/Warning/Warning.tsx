@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import classes from './Warning.module.scss';
+import Button from '../../form-elements/Button/Button';
 
-interface IWarning {
+export interface IWarning {
     warningHeading?: string
     warningText?: string
     onDiscard?: React.MouseEventHandler<HTMLButtonElement>
@@ -12,17 +13,29 @@ interface IWarning {
 
 const Warning: React.FC<IWarning> = props => {
   return (
-    <div className={classes.warningModal}>
+    <div className={classes.warning}>
       <h1>{props.warningHeading}</h1>
       <hr />
       <p>{props.warningText}</p>
       <div className={classes.buttonWrapper}>
-        <button type='button' onClick={props.onDiscard}>
+        <Button
+          type='button'
+          onClick={props.onDiscard}
+          default
+          small
+          pillSmall
+        >
           Discard
-        </button>
-        <button type='button' onClick={props.onCancel}>
+        </Button>
+        <Button
+          type='button'
+          onClick={props.onCancel}
+          primary
+          small
+          pillSmall
+        >
           Cancel
-        </button>
+        </Button>
       </div>
     </div>
   );

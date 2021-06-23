@@ -79,8 +79,7 @@ const Login: React.FC = () => {
                                     primary
                                     small
                                     pillSmall
-                                    // size='small'
-                                >Sign in
+                                >Log in
                                 </Button>
                                 <Link to="/forgetPassword">
                                     Forget password?

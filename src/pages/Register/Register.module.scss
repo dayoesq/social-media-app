@@ -38,6 +38,9 @@
         font-size: 1.6rem;
         color: #1aa1f5;
     }
+    button {
+        margin: 0 1rem 0 1rem;
+    }
 }
 .registerInput {
     width: 30rem;
@@ -48,11 +51,6 @@
     padding-left: 1rem;
     font-size: 1.5rem;
     transition: background-color 0.3s;
-}
-.registerFormInputWrapper {
-    margin-top: 2rem;
-    display: flex;
-    align-items: center;
 }
 .registerInputWrapper {
     display: flex;
@@ -78,6 +76,10 @@
         font-size: 1.6rem;
         font-weight: 300;
         margin: 0.5rem 0;
+        &:last-child {
+            font-size: 1.2rem;
+            padding: 0 2rem 0 2rem;
+        }
     }
     a {
         text-decoration: none;

@@ -1,11 +1,7 @@
 import React, { useRef, useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faImage,
-  faSmile,
-  faTimes
-} from '@fortawesome/free-solid-svg-icons';
+import { faImage, faSmile, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Avatar from '../Avatar/Avatar';
 import { AuthContext } from '../../../../store/context';
 
@@ -17,7 +13,7 @@ import Button from '../../form-elements/Button/Button';
 import WarningModal from '../WarningModal/WarningModal';
 
 export type StatusProps = {
-  onCloseStatus?: React.MouseEventHandler<SVGSVGElement>;
+  onCloseStatus?: React.MouseEventHandler<SVGSVGElement>
 };
 
 const Status: React.FC<StatusProps> = props => {
@@ -32,7 +28,7 @@ const Status: React.FC<StatusProps> = props => {
     } else {
       return;
     }
-  };  
+  };
 
   useEffect(() => {
     statusRef.current.focus();
@@ -40,16 +36,16 @@ const Status: React.FC<StatusProps> = props => {
 
   return (
     <React.Fragment>
-      {
-        showWarningModal &&
-        <WarningModal showWarning={showWarningModal}
+      {showWarningModal && (
+        <WarningModal
+          showWarning={showWarningModal}
           warningHeading='Discard Post?'
           warningText='Do you really want to discard this post?'
           onDiscard={() => setShowWarningModal(false)}
           onCancel={closeWarning}
           onClick={closeWarning}
         />
-      }
+      )}
       <div className={classes.status}>
         <div className={classes.statusHeader}>
           <FontAwesomeIcon
@@ -59,21 +55,12 @@ const Status: React.FC<StatusProps> = props => {
             className={classes.iconTimes}
             onClick={props.onCloseStatus}
           />
-          <Button
-            type='button'
-            primary
-            small
-            pillSmall
-          >
+          <Button type='button' primary small pillSmall>
             Post
           </Button>
         </div>
         <div className={classes.statusBody}>
-          <Avatar
-            small
-            rightSmall
-            alt='User'
-            src={sampleUser} />
+          <Avatar small rightSmall alt='User' src={sampleUser} />
           <label htmlFor='statusPost'></label>
           <p
             contentEditable={true}
@@ -109,6 +96,5 @@ const Status: React.FC<StatusProps> = props => {
 Status.propTypes = {
   onCloseStatus: PropTypes.func
 };
-
 
 export default Status;

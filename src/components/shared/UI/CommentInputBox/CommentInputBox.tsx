@@ -21,7 +21,7 @@ const CommentInputBox: React.FC<ICommentInput> = props => {
 
   const sendCommentHandler = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      if (commentRef.current.textContent === '' || null) return;
+      if (commentRef.current.textContent.trim().length === 0 || null) return;
       setComment(commentRef.current.textContent);
       alert(commentRef.current.textContent);
       // Should I make ajax call here?

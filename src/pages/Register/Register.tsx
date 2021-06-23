@@ -61,7 +61,7 @@ const Register: React.FC = () => {
             <div className={classes.registerPage}>
                 <div className={classes.register}>
                     <div className={classes.registerContent}>
-                        <h2>Register</h2>
+                        <h2>Sign up</h2>
                         <form
                             className={classes.registerForm}
                             onSubmit={registerHandler}
@@ -125,18 +125,15 @@ const Register: React.FC = () => {
                                     className={classes.registerInput}
                                 />
                             </div>
-                            <div className={classes.registerFormInputWrapper}>
-                                <Button
-                                    type='submit'
-                                    disabled={!formState.isValid}
-                                    style={{ marginRight: '1rem' }}
-                                    primary
-                                    small
-                                    pillSmall
-                                >
-                                    Submit
-                                </Button>
-                            </div>
+                            <Button
+                                type='submit'
+                                disabled={!formState.isValid}
+                                primary
+                                long
+                                pillLong
+                            >
+                                Sign up
+                            </Button>
                         </form>
                     </div>
                     <footer className={classes.registerFooter}>
@@ -144,6 +141,7 @@ const Register: React.FC = () => {
                             Already registered?
                             <NavLink to='/login'>Log in</NavLink>
                         </p>
+                        <p>By clicking the "Sign up" button, you are creating an account, and agree to Utteran's <NavLink to='#'>Terms of Service</NavLink> and <NavLink to='#'>Privacy Policy</NavLink></p>
                     </footer>
                 </div>
             </div>

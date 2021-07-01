@@ -1,10 +1,10 @@
-export const isEmpty = (data: any) => {
-  if (typeof data === 'string' || typeof data === 'object') {
-    if (data) {
-      if (data.trim().length === 0) {
-        return false;
-      }
+export const isEmpty = (data: string) => {
+  if (typeof data === 'string') {
+    if (data.trim().length === 0) {
+      return true;
+    } else {
+      return false;
     }
   }
-  return true;
+  throw new Error('Expected parameter type must be a string');
 };

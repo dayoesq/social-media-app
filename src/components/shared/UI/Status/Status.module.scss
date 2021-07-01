@@ -33,14 +33,17 @@
     font-size: 1.6rem;
     max-height: 40rem;
     overflow: auto;
+    resize: none;
+    outline: none;
+    height: 2rem;
     &:focus {
         background-color: #ffffff;
         border-color: #1aa1f5;
     }
-    &[placeholder]:empty:before {
-        content: attr(placeholder);
-        color: #9e9a9a;
-    }
+    // &[placeholder]:empty:before {
+    //     content: attr(placeholder);
+    //     color: #9e9a9a;
+    // }
 }
 .statusFooter {
     padding: 0 2rem 2rem 8rem;

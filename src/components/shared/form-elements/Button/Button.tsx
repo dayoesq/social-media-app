@@ -13,7 +13,7 @@ interface IButton {
     style?: React.CSSProperties;
     disabled?: boolean;
     type?: 'button' | 'submit' | 'reset';
-    onClick?: React.MouseEventHandler<HTMLButtonElement>; 
+    onClick?: React.MouseEventHandler<HTMLButtonElement> | any; 
     primaryInverse?: boolean;
     small?: boolean;
     big?: boolean;

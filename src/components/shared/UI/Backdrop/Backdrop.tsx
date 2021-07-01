@@ -5,19 +5,19 @@ import PropTypes from 'prop-types';
 import classes from './Backdrop.module.scss';
 
 export interface IBackdrop {
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  onCancelBackdrop?: React.MouseEventHandler<HTMLDivElement>;
   style?: React.CSSProperties;
 }
 
-const Backdrop: React.FC<IBackdrop> = ({ onClick, style }) => {
-  const content = <div className={classes.backdrop} onClick={onClick} style={style}></div>;
+const Backdrop: React.FC<IBackdrop> = ({ onCancelBackdrop, style }) => {
+  const content = <div className={classes.backdrop} onClick={onCancelBackdrop} style={style}></div>;
   const backdropPortal = document.getElementById('backdrop-portal') as HTMLElement
   if (content) return ReactDOM.createPortal(content, backdropPortal);
   return null;
 };
 
 Backdrop.propTypes = {
-  onClick: PropTypes.func,
+  onCancelBackdrop: PropTypes.func,
   style: PropTypes.object
 };
 

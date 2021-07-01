@@ -25,6 +25,7 @@ const CommentInputBox: React.FC<ICommentInput> = props => {
       setComment(commentRef.current.textContent);
       alert(commentRef.current.textContent);
       // Should I make ajax call here?
+      
     }
   };
 

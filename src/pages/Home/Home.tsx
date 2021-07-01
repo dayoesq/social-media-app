@@ -16,6 +16,7 @@ import Posts from '../../components/Posts/Posts';
 import Follows from '../../components/Follows/Follows';
 import StatusModal from '../../components/shared/UI/StatusModal/StatusModal';
 import SliderModal from '../../components/shared/UI/SliderModal/SliderModal';
+import WarningModal from '../../components/shared/UI/WarningModal/WarningModal';
 
 
 import sampleImg from '../../assets/images/sample-img.jpg';
@@ -24,12 +25,15 @@ import img2 from '../../assets/images/helsinki-church.jpeg';
 
 
 import classes from './Home.module.scss';
+import { isEmpty } from '../../utils/helpers';
 
 
 const Home: React.FC = () => {
     const authCtx = useContext(AuthContext);
     const [showStatus, setShowStatus] = useState<boolean>(false);
     const [showSlider, setShowSlider] = useState<boolean>(false);
+    const [status, setStatus] = useState<string>('');
+    const [showWarningModal, setShowWarningModal] = useState<boolean>(false);
 
     const posts = [
         {
@@ -73,23 +77,59 @@ const Home: React.FC = () => {
         },
     ];
 
+    const submitPostHandler = () => {
+        setShowStatus(false);
+        console.log(status);
+    };
+
+    const cancelModalHandler = () => {
+        if (isEmpty(status)) {
+            setShowStatus(false);
+        } else {
+            setShowWarningModal(true);
+        }
+    };
+
+    const removeWarningModalHandler = () => {
+        setStatus('');
+        setShowWarningModal(false);
+        setShowStatus(false);
+    };
+
     return (
         <React.Fragment>
             {
                 showStatus &&
                 <StatusModal showStatus={showStatus}
-                    onClick={() => setShowStatus(false)}
-                    onCloseStatus={() => setShowStatus(false)}
+                    onCancelBackdrop={cancelModalHandler}
+                    onCloseStatus={cancelModalHandler}
+                    onChangePost={e => setStatus(e.target.value)}
+                    onSubmitPost={submitPostHandler}
+                    value={status}
+                    disabled={!status}
                 />
             }
             {
                 showSlider &&
                 <SliderModal showSlider={showSlider}
-                    onClick={() => setShowSlider(false)}
+                    onCancelBackdrop={() => setShowSlider(false)}
                     closeSlider={() => setShowSlider(false)}
                 />
             }
 
+            {
+                showWarningModal && (
+                    <WarningModal
+                        showWarning={showWarningModal}
+                        warningHeading='Discard Post?'
+                        warningText='Do you really want to discard this post?'
+                        onDiscard={removeWarningModalHandler}
+                        onCancel={() => setShowWarningModal(false)}
+                        onClick={() => setShowWarningModal(false)}
+                    />
+                )}
+
+        
             <div className={classes.feedsPage}>
                 <nav className={classes.feedsNav}>
                     <div className={classes.feedsIcons}>
@@ -103,7 +143,7 @@ const Home: React.FC = () => {
                         <input type="text" placeholder="Search" />
                     </div>
                     <div className={classes.user} onClick={() => setShowSlider(true)}>
-                        <Avatar small alt="Ola" src={sampleImg} />
+                        <Avatar small alt={authCtx.user?.firstName} src={sampleImg} />
                         <NavLink to="/home" className={classes.userLink}>{authCtx.user?.firstName}</NavLink>
                         <FontAwesomeIcon icon={faChevronDown} size="2x" color="#444" className={classes.chevDown} />
                     </div>

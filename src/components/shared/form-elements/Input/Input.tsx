@@ -44,14 +44,14 @@ export interface IInput {
     id?: string;
     type?: string;
     placeholder?: string;
-    errorText?: null | string;
-    initialValue?: null | string;
-    initialValid?: null | boolean;
+    errorText?: string;
+    initialValue?: string;
+    initialValid?: boolean;
     className?: string;
-    label?: string | null;
+    label?: string;
     style?: React.CSSProperties;
-    element: string;
-    validators: Validator[];
+    element?: string;
+    validators?: Validator[];
     onInput: (id: string, value: string, isValid: boolean) => void;
     inputId?: string;
 }
@@ -59,14 +59,14 @@ export interface IInput {
 const Input: React.FC<IInput> = (props) => {
     const [inputState, dispatch] = useReducer<Reducer<any, any>>(inputReducer, {
         value: props.initialValue || '',
-        isValid: props.initialValid || false,
+        isValid: props.initialValid || false
     });
 
     const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch({
             type: CHANGE,
             val: e.target.value,
-            validators: props.validators,
+            validators: props.validators
         });
     };
 
@@ -78,7 +78,13 @@ const Input: React.FC<IInput> = (props) => {
     const { value, isValid } = inputState;
 
     useEffect(() => {
-        onInput(id, value, isValid);
+        let isMounted = true;
+        if (isMounted) {
+            onInput(id, value, isValid);
+        }
+        return () => {
+            isMounted = false;
+        };
     }, [id, value, isValid, onInput]);
 
     const element =

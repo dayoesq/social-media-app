@@ -54,11 +54,11 @@ const BtnFat: React.FC<IButton> = props => {
 
 BtnFat.propTypes = {
     href: PropTypes.string,
-    type: PropTypes.any.isRequired,
-    onClick: PropTypes.func.isRequired,
+    type: PropTypes.any,
+    onClick: PropTypes.func,
     disabled: PropTypes.bool,
     style: PropTypes.object,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     to: PropTypes.string,
     exact: PropTypes.bool
 };

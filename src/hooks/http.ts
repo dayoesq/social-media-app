@@ -66,7 +66,11 @@ export const useHttpClient = (): HttpRequest => {
     };
 
     useEffect(() => {
-        clearError();
+        let isMounted = true;
+        if (isMounted) clearError();
+        return () => {
+            isMounted = false;
+        }
     }, [error]);
 
     useEffect(() => {

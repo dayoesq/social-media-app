@@ -17,6 +17,7 @@ export type StatusProps = {
   onChangePost?: React.ChangeEventHandler<HTMLTextAreaElement>;
   value?: string | number | readonly string[] | undefined;
   disabled?: boolean;
+  rows?: number;
 };
 
 const Status: React.FC<StatusProps> = props => {
@@ -52,6 +53,7 @@ const Status: React.FC<StatusProps> = props => {
             placeholder={`What's on your mind ${authCtx.user?.firstName}?`}
             value={props.value}
             onChange={props.onChangePost}
+            rows={props.rows}
           />
         </div>
         <div className={classes.footer}>
@@ -81,7 +83,8 @@ Status.propTypes = {
   status: PropTypes.string,
   onChangePost: PropTypes.func,
   value: PropTypes.string,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  rows: PropTypes.number
 };
 
 export default Status;

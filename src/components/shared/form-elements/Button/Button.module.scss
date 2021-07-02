@@ -45,6 +45,15 @@
     border: 0.1rem solid #959b9f;
     color: #ffffff;
 }
+.danger {
+    background-color: #f07c96;
+    border: 0.1rem solid #f07c96;
+    color: #ffffff;
+    &:hover {
+        color: #ffffff;
+        background-color: #e86f89;
+    }
+}
 
 .small {
     width: 8rem;

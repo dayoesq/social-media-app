@@ -1,0 +1,113 @@
+import { isEmpty } from '../utils/helpers';
+
+type HomeState = {
+  showStatus: boolean;
+  showSlider: boolean;
+  status: string;
+  showWarningModal: boolean;
+  rows: number;
+  minRows: number;
+  maxRows: number;
+};
+
+type HomeActions =
+  | {
+    type: 'CHANGE_POST_STATUS'
+    value: string
+    rows: number
+    scrollHeight: number
+    scrollTop: number
+  }
+  | { type: 'TOGGLE_SHOW_SLIDER' }
+  | { type: 'SHOW_SLIDER' }
+  | { type: 'SHOW_STATUS_MODAL' }
+  | { type: 'DISCARD_STATUS_MODAL' }
+  | { type: 'SHOW_HIDE_WARNING_MODAL' }
+  | { type: 'SUBMIT_POST' }
+  | { type: 'CANCEL_WARNING_MODAL' };
+
+const homeReducer = (state: HomeState, action: HomeActions) => {
+  switch (action.type) {
+    case 'CHANGE_POST_STATUS':
+      const textareaLineHeight = 24;
+      const { minRows, maxRows } = state;
+      const previousRows = action.rows;
+      action.rows = minRows;
+
+      const currentRows = ~~(action.scrollHeight / textareaLineHeight);
+
+      if (currentRows === previousRows) {
+        action.rows = currentRows;
+      }
+
+      if (currentRows >= maxRows) {
+        action.rows = maxRows;
+        action.scrollTop = action.scrollHeight;
+      }
+      return {
+        ...state,
+        status: action.value,
+        rows: currentRows < maxRows ? currentRows : maxRows
+      };
+    case 'SUBMIT_POST':
+      console.log(state.status);
+      return {
+        ...state,
+        showStatus: false,
+        status: ''
+      };
+    case 'TOGGLE_SHOW_SLIDER':
+      return {
+        ...state,
+        showSlider: !state.showSlider
+      };
+    case 'SHOW_SLIDER':
+      return {
+        ...state,
+        showSlider: true
+      };
+    case 'SHOW_STATUS_MODAL':
+      return {
+        ...state,
+        showStatus: true
+      };
+    case 'DISCARD_STATUS_MODAL':
+      if (state.showWarningModal) {
+        return {
+          ...state,
+          status: '',
+          showStatus: false,
+          showWarningModal: false
+        };
+      } else {
+        return {
+          ...state,
+          status: '',
+          showStatus: false
+        };
+      }
+    case 'SHOW_HIDE_WARNING_MODAL':
+      if (isEmpty(state.status)) {
+        return {
+          ...state,
+          showStatus: false,
+          showWarningModal: false
+        };
+      } else {
+        return {
+          ...state,
+          showStatus: true,
+          showWarningModal: true
+        };
+      }
+    case 'CANCEL_WARNING_MODAL':
+      return {
+        ...state,
+        showWarningModal: false
+      };
+    default:
+      return state
+  }
+};
+
+export default homeReducer;

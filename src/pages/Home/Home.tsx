@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useReducer } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -17,6 +17,7 @@ import Follows from '../../components/Follows/Follows';
 import StatusModal from '../../components/shared/UI/StatusModal/StatusModal';
 import SliderModal from '../../components/shared/UI/SliderModal/SliderModal';
 import WarningModal from '../../components/shared/UI/WarningModal/WarningModal';
+import homeReducer from '../../reducers/homeReducer';
 
 
 import sampleImg from '../../assets/images/sample-img.jpg';
@@ -25,16 +26,22 @@ import img2 from '../../assets/images/helsinki-church.jpeg';
 
 
 import classes from './Home.module.scss';
-import { isEmpty } from '../../utils/helpers';
 
 
 const Home: React.FC = () => {
     const authCtx = useContext(AuthContext);
-    const [showStatus, setShowStatus] = useState<boolean>(false);
-    const [showSlider, setShowSlider] = useState<boolean>(false);
-    const [status, setStatus] = useState<string>('');
-    const [showWarningModal, setShowWarningModal] = useState<boolean>(false);
+    const [state, dispatch] = useReducer(homeReducer, {
+        showStatus: false,
+        showSlider: false,
+        status: '',
+        showWarningModal: false,
+        rows: 5,
+        minRows: 5,
+        maxRows: 10
+    });
+   
 
+    // Dummy data
     const posts = [
         {
             _id: 'p1',
@@ -50,6 +57,18 @@ const Home: React.FC = () => {
         },
         {
             _id: 'p2',
+            postAuthor: 'Sola',
+            postAuthorImage: sampleImg,
+            postedAt: new Date().toLocaleString(),
+            postBody: 'My very first post on this platform',
+            postImage: img2,
+            postCommentCount: 400,
+            postLoveCount: 300,
+            postShareCount: 500
+
+        },
+        {
+            _id: 'p3',
             postAuthor: 'Sola',
             postAuthorImage: sampleImg,
             postedAt: new Date().toLocaleString(),
@@ -77,55 +96,75 @@ const Home: React.FC = () => {
         },
     ];
 
-    const submitPostHandler = () => {
-        setShowStatus(false);
-        console.log(status);
+    const changePostHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        dispatch({
+            type: 'CHANGE_POST_STATUS',
+            value: e.target.value,
+            scrollHeight: e.target.scrollHeight,
+            scrollTop: e.target.scrollTop,
+            rows: e.target.rows
+        });
+    };
+    
+    const showStatusHandler = () => {
+        dispatch({ type: 'SHOW_STATUS_MODAL'});
     };
 
-    const cancelModalHandler = () => {
-        if (isEmpty(status)) {
-            setShowStatus(false);
-        } else {
-            setShowWarningModal(true);
-        }
+    const submitPostHandler = () => {
+        dispatch({ type: 'SUBMIT_POST' });
+    };
+
+    const cancelStatusModalHandler = () => {
+        dispatch({ type: 'SHOW_HIDE_WARNING_MODAL' });
     };
 
     const removeWarningModalHandler = () => {
-        setStatus('');
-        setShowWarningModal(false);
-        setShowStatus(false);
+        dispatch({ type: 'DISCARD_STATUS_MODAL' });
+    };
+
+    const cancelWarningModalHandler = () => {
+        dispatch({ type: 'CANCEL_WARNING_MODAL' });
+    };
+
+    const showHideSliderHandler = () => {
+        dispatch({ type: 'TOGGLE_SHOW_SLIDER' });
+    };
+
+    const showSlideHandler = () => {
+        dispatch({ type: 'TOGGLE_SHOW_SLIDER' });
     };
 
     return (
         <React.Fragment>
             {
-                showStatus &&
-                <StatusModal showStatus={showStatus}
-                    onCancelBackdrop={cancelModalHandler}
-                    onCloseStatus={cancelModalHandler}
-                    onChangePost={e => setStatus(e.target.value)}
+                state.showStatus &&
+                <StatusModal showStatus={state.showStatus}
+                    onCancelBackdrop={cancelStatusModalHandler}
+                    onCloseStatus={cancelStatusModalHandler}
+                    onChangePost={changePostHandler}
                     onSubmitPost={submitPostHandler}
-                    value={status}
-                    disabled={!status}
+                    value={state.status}
+                    disabled={!state.status}
+                    rows={state.rows}
                 />
             }
             {
-                showSlider &&
-                <SliderModal showSlider={showSlider}
-                    onCancelBackdrop={() => setShowSlider(false)}
-                    closeSlider={() => setShowSlider(false)}
+                state.showSlider &&
+                <SliderModal showSlider={state.showSlider}
+                    onCancelBackdrop={showHideSliderHandler}
+                    closeSlider={showHideSliderHandler}
                 />
             }
 
             {
-                showWarningModal && (
+                state.showWarningModal && (
                     <WarningModal
-                        showWarning={showWarningModal}
+                        showWarning={state.showWarningModal}
                         warningHeading='Discard Post?'
                         warningText='Do you really want to discard this post?'
                         onDiscard={removeWarningModalHandler}
-                        onCancel={() => setShowWarningModal(false)}
-                        onClick={() => setShowWarningModal(false)}
+                        onCancel={cancelWarningModalHandler}
+                        onClick={cancelWarningModalHandler}
                     />
                 )}
 
@@ -142,7 +181,7 @@ const Home: React.FC = () => {
                         <FontAwesomeIcon icon={faSearch} size="1x" className={classes.searchIcon} />
                         <input type="text" placeholder="Search" />
                     </div>
-                    <div className={classes.user} onClick={() => setShowSlider(true)}>
+                    <div className={classes.user} onClick={showSlideHandler}>
                         <Avatar small alt={authCtx.user?.firstName} src={sampleImg} />
                         <NavLink to="/home" className={classes.userLink}>{authCtx.user?.firstName}</NavLink>
                         <FontAwesomeIcon icon={faChevronDown} size="2x" color="#444" className={classes.chevDown} />
@@ -156,7 +195,7 @@ const Home: React.FC = () => {
                         </div>
                         <div className={classes.headerPost}>
                             <Avatar small src={sampleImg} />
-                            <input type="text" placeholder="What's up?" onClick={() => setShowStatus(true)} />
+                            <input type="text" placeholder="What's up?" onClick={showStatusHandler} />
                         </div>
                     </div>
                     <Posts posts={posts} className={classes.posts} />
@@ -168,3 +207,4 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+

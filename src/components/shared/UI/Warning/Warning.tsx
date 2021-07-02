@@ -21,7 +21,7 @@ const Warning: React.FC<IWarning> = props => {
         <Button
           type='button'
           onClick={props.onDiscard}
-          default
+          danger
           small
           pillSmall
         >

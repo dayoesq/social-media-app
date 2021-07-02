@@ -22,6 +22,7 @@ interface IButton {
     primary?: boolean;
     secondary?: boolean;
     default?: boolean;
+    danger?: boolean;
     pillSmall?: boolean;
     pillBig?: boolean;
     pillLong?: boolean;
@@ -34,7 +35,7 @@ const Button: React.FC<IButton> = props => {
                 className={`${classes.button} ${props.primary && classes.primary} 
                 ${props.secondary && classes.secondary} ${props.default && classes.default} ${props.primaryInverse && classes.primaryInverse}
                 ${props.small && classes.small} ${props.pillSmall && classes.pillSmall}
-                ${props.long && classes.long} ${props.pillLong && classes.pillLong}`}
+                ${props.long && classes.long} ${props.pillLong && classes.pillLong} ${props.danger && classes.danger}`}
                 to={props.to}
                 exact={props.exact}
                 style={props.style}
@@ -48,7 +49,7 @@ const Button: React.FC<IButton> = props => {
             className={`${classes.button} ${props.primary && classes.primary} 
             ${props.secondary && classes.secondary} ${props.default && classes.default} ${props.primaryInverse && classes.primaryInverse}
             ${props.small && classes.small} ${props.pillSmall && classes.pillSmall}
-            ${props.long && classes.long} ${props.pillLong && classes.pillLong}`}
+            ${props.long && classes.long} ${props.pillLong && classes.pillLong} ${props.danger && classes.danger}`}
             type={props.type}
             onClick={props.onClick}
             disabled={props.disabled}
@@ -71,6 +72,7 @@ Button.propTypes = {
     className: PropTypes.string,
     primary: PropTypes.bool,
     default: PropTypes.bool,
+    danger: PropTypes.bool,
     primaryInverse: PropTypes.bool,
     small: PropTypes.bool,
     big: PropTypes.bool,

@@ -2,27 +2,24 @@ import React, { createContext } from 'react';
 import PropTypes from 'prop-types';
 
 type UserContext = {
-  id?: string | null;
+  id?: string;
   isLoggedIn?: boolean;
-  token?: string | boolean | null;
+  token?: string | boolean;
   user?: IUser | null;
-  post?:  IPost | null
 };
 
 const authValue: UserContext = {
-  id: null,
+  id: '',
   isLoggedIn: false,
-  token: '' || null,
-  user: null,
-  post: null
+  token: '',
+  user: null
 };
 
 export const AuthContext = createContext<UserContext>({
-  id: null,
+  id: '',
   isLoggedIn: false,
-  token: null,
-  user: null,
-  post: null
+  token: '',
+  user: null
 });
 
 const AuthContextProvider: React.FC = ({ children }) => {

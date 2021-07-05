@@ -5,6 +5,9 @@
     background-color: #fff;
     width: 35rem;
     margin-left: 4rem;
+    @media only screen and(max-width: 1083px) {
+        display: none;
+    }
 }
 .followHeading {
     padding: 1rem;

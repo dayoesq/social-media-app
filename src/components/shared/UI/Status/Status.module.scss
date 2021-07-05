@@ -9,6 +9,9 @@
     border-radius: 1.5rem;
     z-index: 40;
     overflow: hidden;
+    @media only screen and(max-width: 715px) {
+        width: 50rem;
+    }
 }
 .statusHeader {
     padding: 1.5rem 2.5rem;

@@ -1,3 +1,13 @@
+import {
+  CANCEL_WARNING_MODAL,
+  CHANGE_POST_STATUS,
+  DISCARD_STATUS_MODAL,
+  SHOW_HIDE_WARNING_MODAL,
+  SHOW_SLIDER,
+  SHOW_STATUS_MODAL,
+  SUBMIT_POST,
+  TOGGLE_SHOW_SLIDER
+} from '../utils/constants';
 import { isEmpty } from '../utils/helpers';
 
 type HomeState = {
@@ -28,7 +38,7 @@ type HomeActions =
 
 const homeReducer = (state: HomeState, action: HomeActions) => {
   switch (action.type) {
-    case 'CHANGE_POST_STATUS':
+    case CHANGE_POST_STATUS:
       const textareaLineHeight = 24;
       const { minRows, maxRows } = state;
       const previousRows = action.rows;
@@ -49,29 +59,29 @@ const homeReducer = (state: HomeState, action: HomeActions) => {
         status: action.value,
         rows: currentRows < maxRows ? currentRows : maxRows
       };
-    case 'SUBMIT_POST':
+    case SUBMIT_POST:
       console.log(state.status);
       return {
         ...state,
         showStatus: false,
         status: ''
       };
-    case 'TOGGLE_SHOW_SLIDER':
+    case TOGGLE_SHOW_SLIDER:
       return {
         ...state,
         showSlider: !state.showSlider
       };
-    case 'SHOW_SLIDER':
+    case SHOW_SLIDER:
       return {
         ...state,
         showSlider: true
       };
-    case 'SHOW_STATUS_MODAL':
+    case SHOW_STATUS_MODAL:
       return {
         ...state,
         showStatus: true
       };
-    case 'DISCARD_STATUS_MODAL':
+    case DISCARD_STATUS_MODAL:
       if (state.showWarningModal) {
         return {
           ...state,
@@ -86,7 +96,7 @@ const homeReducer = (state: HomeState, action: HomeActions) => {
           showStatus: false
         };
       }
-    case 'SHOW_HIDE_WARNING_MODAL':
+    case SHOW_HIDE_WARNING_MODAL:
       if (isEmpty(state.status)) {
         return {
           ...state,
@@ -100,7 +110,7 @@ const homeReducer = (state: HomeState, action: HomeActions) => {
           showWarningModal: true
         };
       }
-    case 'CANCEL_WARNING_MODAL':
+    case CANCEL_WARNING_MODAL:
       return {
         ...state,
         showWarningModal: false

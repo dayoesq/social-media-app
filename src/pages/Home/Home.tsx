@@ -18,12 +18,19 @@ import StatusModal from '../../components/shared/UI/StatusModal/StatusModal';
 import SliderModal from '../../components/shared/UI/SliderModal/SliderModal';
 import WarningModal from '../../components/shared/UI/WarningModal/WarningModal';
 import homeReducer from '../../reducers/homeReducer';
-
+import {
+    CANCEL_WARNING_MODAL,
+    CHANGE_POST_STATUS,
+    DISCARD_STATUS_MODAL,
+    SHOW_HIDE_WARNING_MODAL,
+    SHOW_STATUS_MODAL,
+    SUBMIT_POST,
+    TOGGLE_SHOW_SLIDER
+} from '../../utils/constants';
 
 import sampleImg from '../../assets/images/sample-img.jpg';
 import img1 from '../../assets/images/Finnsh Cat.jpeg';
 import img2 from '../../assets/images/helsinki-church.jpeg';
-
 
 import classes from './Home.module.scss';
 
@@ -98,7 +105,7 @@ const Home: React.FC = () => {
 
     const changePostHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         dispatch({
-            type: 'CHANGE_POST_STATUS',
+            type: CHANGE_POST_STATUS,
             value: e.target.value,
             scrollHeight: e.target.scrollHeight,
             scrollTop: e.target.scrollTop,
@@ -107,31 +114,31 @@ const Home: React.FC = () => {
     };
     
     const showStatusHandler = () => {
-        dispatch({ type: 'SHOW_STATUS_MODAL'});
+        dispatch({ type: SHOW_STATUS_MODAL});
     };
 
     const submitPostHandler = () => {
-        dispatch({ type: 'SUBMIT_POST' });
+        dispatch({ type: SUBMIT_POST });
     };
 
     const cancelStatusModalHandler = () => {
-        dispatch({ type: 'SHOW_HIDE_WARNING_MODAL' });
+        dispatch({ type: SHOW_HIDE_WARNING_MODAL });
     };
 
     const removeWarningModalHandler = () => {
-        dispatch({ type: 'DISCARD_STATUS_MODAL' });
+        dispatch({ type: DISCARD_STATUS_MODAL });
     };
 
     const cancelWarningModalHandler = () => {
-        dispatch({ type: 'CANCEL_WARNING_MODAL' });
+        dispatch({ type: CANCEL_WARNING_MODAL });
     };
 
     const showHideSliderHandler = () => {
-        dispatch({ type: 'TOGGLE_SHOW_SLIDER' });
+        dispatch({ type: TOGGLE_SHOW_SLIDER });
     };
 
     const showSlideHandler = () => {
-        dispatch({ type: 'TOGGLE_SHOW_SLIDER' });
+        dispatch({ type: TOGGLE_SHOW_SLIDER });
     };
 
     return (

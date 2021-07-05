@@ -39,6 +39,9 @@
         &:focus {
             background-color: #ffffff;
         }
+        @media only screen and(max-width: 1083px) {
+            display: none;
+        }
     }
 }
 .searchIcon {
@@ -47,6 +50,9 @@
     left: 1.5rem;
     color: #9e9a9a;
     cursor: pointer;
+    @media only screen and(max-width: 1083px) {
+        display: none;
+    }
 }
 .user {
     margin-left: 3rem;

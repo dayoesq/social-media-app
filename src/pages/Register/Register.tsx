@@ -9,9 +9,9 @@ import {
     VALIDATOR_PASSWORD_CONFIRM
 } from '../../utils/validators';
 import Input from '../../components/shared/form-elements/Input/Input';
+import Button from '../../components/shared/form-elements/Button/Button';
 
 import classes from './Register.module.scss';
-import Button from '../../components/shared/form-elements/Button/Button';
 
 const Register: React.FC = () => {
     const [formState, inputHandler] = useForm<{
@@ -106,7 +106,7 @@ const Register: React.FC = () => {
                                     className={classes.registerInput}
                                 />
                             </div>
-                            <div style={{ paddingRight: '1rem' }}>
+                            <div style={{paddingRight: '1rem'}}>
                                 <Input
                                     element='input'
                                     id='email'
@@ -117,7 +117,7 @@ const Register: React.FC = () => {
                                     errorText='Please provide a valid email'
                                     validators={[VALIDATOR_EMAIL()]}
                                     className={classes.registerInput}
-                                    style={{ width: '100%' }}
+                                    style={{ width: '100%'}}
                                 />
                             </div>
                             <div className={classes.registerInputWrapper}>
@@ -136,7 +136,7 @@ const Register: React.FC = () => {
                                     className={classes.registerInput}
                                     style={{ marginRight: '1rem' }}
                                 />
-    
+
                                 <Input
                                     element='input'
                                     id='passwordConfirm'

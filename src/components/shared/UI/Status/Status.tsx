@@ -21,11 +21,11 @@ export type StatusProps = {
 };
 
 const Status: React.FC<StatusProps> = props => {
-  const statusRef = useRef<any>('');
+  const statusRef = useRef<HTMLTextAreaElement>(null);
   const authCtx = useContext(AuthContext);
 
   useEffect(() => {
-    statusRef.current.focus();
+    statusRef.current?.focus();
   }, []);
 
   return (

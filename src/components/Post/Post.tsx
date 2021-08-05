@@ -18,6 +18,7 @@ import Tooltip from '../shared/UI/Tooltip/Tooltip';
 import { AuthContext } from '../../store/context';
 
 import classes from './Post.module.scss';
+import { getDateTime } from '../../utils/helpers';
 
 type PostProps = {
   onModifyPost?: React.MouseEventHandler<SVGSVGElement>;
@@ -25,7 +26,7 @@ type PostProps = {
   showCommentBox?: boolean
   showTooltip?: boolean;
   authorAlias?: string;
-  postedAt?: Date | string;
+  postedAt?: Date | string | number;
   postContent?: string;
   postImage?: string;
   postVideo?: string;
@@ -59,7 +60,7 @@ const Post: React.FC<PostProps & IPost> = (props) => {
             />
           )}
           <span>
-            {`@${props.authorAlias}`} . {props.postedAt}
+            {`@${props.authorAlias}`} . {getDateTime(props.postedAt ? props.postedAt : new Date())}
           </span>
           <FontAwesomeIcon
             icon={faEllipsisH}

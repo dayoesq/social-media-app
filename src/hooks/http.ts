@@ -1,15 +1,20 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 
+type Body = {
+    [key: string]: string
+}
+
+
 type HttpRequest = {
     isLoading: boolean;
     error: string[] | null;
     clearError: () => void;
-    sendRequest: (
-        url: string,
+    sendRequest:<Type> (
+        url: RequestInfo,
         method?: string,
         body?: string,
-        headers?: Record<string, unknown>
-    ) => Promise<unknown>;
+        headers?: Body
+    ) => Promise<Type>;
 };
 
 export const useHttpClient = (): HttpRequest => {
@@ -62,7 +67,7 @@ export const useHttpClient = (): HttpRequest => {
     const clearError = () => {
         setTimeout(() => {
             setError(null);
-        }, 5000);
+        }, 6000);
     };
 
     useEffect(() => {

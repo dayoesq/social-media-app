@@ -10,9 +10,14 @@ import Landing from './pages/Landing/Landing';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import VerifyAccount from './pages/VerifyAccount/VerifyAccount';
+// import { AuthContext } from './store/context';
 
 
 const App: React.FC = () => {
+    // const authCtx = useContext(AuthContext);
+    // let routes;
+    // if(authCtx.)
     return (
         <div>
             <Router>
@@ -28,6 +33,9 @@ const App: React.FC = () => {
                     </Route>
                     <Route path="/register" exact>
                         <Register />
+                    </Route>
+                    <Route path="/verify-account" exact>
+                        <VerifyAccount />
                     </Route>
                     <Redirect to="/" />
                 </Switch>

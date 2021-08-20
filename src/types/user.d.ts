@@ -6,7 +6,8 @@ interface IUser {
   password?: string;
   avatar?: string;
   isVerified?: boolean;
-  status?: [string]; // pending, active, banned, suspended
+  friends: string[];
+  status?: string[]; 
   registeredAt?: Date;
   updatedAt?: Date;
   alias?: string;

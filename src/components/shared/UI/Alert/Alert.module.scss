@@ -1,0 +1,11 @@
+.alert {
+  display: inline-block;
+  padding: 1rem;
+  color: #fff;
+}
+.alert.danger {
+  background-color: red;
+}
+.alert.success {
+  background-color: green;
+}

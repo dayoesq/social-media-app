@@ -1,5 +1,5 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import { NavLink, useHistory } from 'react-router-dom';
 
 import { useForm } from '../../hooks/form';
 import {
@@ -10,10 +10,16 @@ import {
 } from '../../utils/validators';
 import Input from '../../components/shared/form-elements/Input/Input';
 import Button from '../../components/shared/form-elements/Button/Button';
+import { useHttpClient } from '../../hooks/http';
 
 import classes from './Register.module.scss';
+import Alert from '../../components/shared/UI/Alert/Alert';
 
 const Register: React.FC = () => {
+    const [alert, setAlert] = useState<boolean>(false);
+    const { error, sendRequest } = useHttpClient();
+
+    const history = useHistory();
     const [formState, inputHandler] = useForm<{
         firstName: {
             value: string;
@@ -63,6 +69,25 @@ const Register: React.FC = () => {
 
     const registerHandler = async (e: React.FormEvent) => {
         e.preventDefault();
+        const res = await sendRequest<ResponseDataUser>(
+            `${process.env.REACT_APP_BACK_URL}/users/signup`,
+            'POST',
+            JSON.stringify({
+                firstName: formState.inputs?.firstName.value,
+                lastName: formState.inputs?.lastName.value,
+                email: formState.inputs?.email.value,
+                password: formState.inputs?.password.value,
+                passwordConfirm: formState.inputs?.passwordConfirm.value
+            }),
+            { 'Content-Type': 'application/json' }
+        );
+        if (res.status === 'success') {
+            setAlert(true);
+            setTimeout(() => {
+                history.replace('/verify-token');
+            }, 4000);
+        }
+        
     };
 
     return (
@@ -71,6 +96,8 @@ const Register: React.FC = () => {
                 <div className={classes.register}>
                     <div className={classes.registerContent}>
                         <h2>Sign up</h2>
+                        {alert && <Alert success>Registeration successfull</Alert>}
+                        {error && error.length > 0 && <Alert danger>{error}</Alert>}
                         <form
                             className={classes.registerForm}
                             onSubmit={registerHandler}

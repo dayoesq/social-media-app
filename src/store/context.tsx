@@ -2,19 +2,16 @@ import React, { createContext } from 'react';
 import PropTypes from 'prop-types';
 
 type UserContext = {
-  isLoggedIn?: boolean;
   token?: string | boolean;
   user?: IUser | null;
 };
 
 const authValue: UserContext = {
-  isLoggedIn: false,
   token: '',
   user: null
 };
 
 export const AuthContext = createContext<UserContext>({
-  isLoggedIn: false,
   token: '',
   user: null
 });

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import Button from '../../components/shared/form-elements/Button/Button';
 
 import Input from '../../components/shared/form-elements/Input/Input';
@@ -9,10 +9,20 @@ import {
     VALIDATOR_MAXLENGTH,
     VALIDATOR_MINLENGTH
 } from '../../utils/validators';
+import { useHttpClient } from '../../hooks/http';
+// import { useAuth } from '../../hooks/auth';
 
 import classes from './Login.module.scss';
+import Alert from '../../components/shared/UI/Alert/Alert';
+import { AuthContext } from '../../store/context';
 
 const Login: React.FC = () => {
+    const [alert, setAlert] = useState<boolean>(false);
+    const { error, isLoading, sendRequest } = useHttpClient();
+    // const { token, login, user } = useAuth();
+    // const history = useHistory();
+    const authCtx = useContext(AuthContext);
+
     const [formState, inputHandler] = useForm<{
         email: {
             value: string;
@@ -36,8 +46,19 @@ const Login: React.FC = () => {
         false
     );
 
-    const authSubmitHandler = (e: React.FormEvent) => {
+    const authSubmitHandler = async (e: React.FormEvent) => {
         e.preventDefault();
+        const res = await sendRequest<ResponseContext>(
+            `${process.env.REACT_APP_BACK_URL}/users/login`,
+            'POST',
+            JSON.stringify({
+                email: formState.inputs?.email.value,
+                password: formState.inputs?.password.value
+            }),
+            { 'Content-Type': 'application/json' }
+        )
+        setAlert(true);
+        authCtx.login(res.data.token, res.data.user);
     };
 
     return (
@@ -46,6 +67,8 @@ const Login: React.FC = () => {
                 <div className={classes.login}>
                     <div className={classes.loginContent}>
                         <h2>Log in</h2>
+                        {alert && <Alert success>Login successfull</Alert>}
+                        {error && error.length > 0 && <Alert danger>{error}</Alert>}
                         <form
                             className={classes.loginForm}
                             onSubmit={authSubmitHandler}
@@ -79,7 +102,7 @@ const Login: React.FC = () => {
                                     primary
                                     small
                                     pillSmall
-                                >Log in
+                                >{!isLoading ? 'Log in' : 'Loging in...'}
                                 </Button>
                                 <Link to="/forgetPassword">
                                     Forget password?
@@ -94,7 +117,7 @@ const Login: React.FC = () => {
                         </p>
                         <p>
                             Already using Utteran?
-                            <Link to="/activate">Activate your account</Link>
+                            <Link to="/activate">Verify your account</Link>
                         </p>
                     </footer>
                 </div>

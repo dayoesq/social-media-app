@@ -12,7 +12,7 @@ type HttpRequest = {
     sendRequest:<Type> (
         url: RequestInfo,
         method?: string,
-        body?: string,
+        body?: string | null,
         headers?: Body
     ) => Promise<Type>;
 };

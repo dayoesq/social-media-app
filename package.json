@@ -30,10 +30,17 @@
         "eject": "react-scripts eject"
     },
     "eslintConfig": {
-        "extends": ["react-app", "react-app/jest"]
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
     },
     "browserslist": {
-        "production": [">0.2%", "not dead", "not op_mini all"],
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
         "development": [
             "last 1 chrome version",
             "last 1 firefox version",
@@ -43,8 +50,8 @@
     "devDependencies": {
         "@types/node-sass": "^4.11.1",
         "@types/react-router-dom": "^5.1.7",
-        "@typescript-eslint/eslint-plugin": "^4.27.0",
-        "@typescript-eslint/parser": "^4.27.0",
+        "@typescript-eslint/eslint-plugin": "^4.29.2",
+        "@typescript-eslint/parser": "^4.29.2",
         "eslint": "^7.28.0",
         "eslint-plugin-react": "^7.24.0",
         "node-sass": "^6.0.0",

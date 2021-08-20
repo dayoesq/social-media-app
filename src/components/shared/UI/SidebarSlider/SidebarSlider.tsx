@@ -11,15 +11,30 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import Avatar from '../Avatar/Avatar';
+import { useHttpClient } from '../../../../hooks/http';
 import { AuthContext } from '../../../../store/context';
 import classes from './SidebarSlider.module.scss';
+import Button from '../../form-elements/Button/Button';
 
 export type SliderProps = {
   closeSlider?: React.MouseEventHandler<SVGSVGElement>;
 };
 
+type Logout = {
+  status: string;
+};
+
 const SidebarSlider: React.FC<SliderProps> = props => {
+  const { sendRequest } = useHttpClient();
   const authCtx = useContext(AuthContext);
+  const logoutHandler = async () => {
+    await sendRequest<Logout>(`${process.env.REACT_APP_BACK_URL}/users/logout`,
+      'GET',
+      null,
+      { Authorization: `Bearer ${authCtx.token}` }
+    );
+    authCtx.logout();
+  }
   return (
     <div className={classes.sidebarSlider}>
       <div className={classes.header}>
@@ -103,7 +118,15 @@ const SidebarSlider: React.FC<SliderProps> = props => {
             <NavLink to='#'>Help Center</NavLink>
           </li>
           <li>
-            <NavLink to='#'>Log Out</NavLink>
+            <Button
+              type='button'
+              primary
+              small
+              pillSmall
+              onClick={logoutHandler}
+            >
+              Log Out
+            </Button>
           </li>
         </ul>
       </div>

@@ -1,11 +1,14 @@
 .alert {
-  display: inline-block;
   padding: 1rem;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
+  border-radius: .4rem;
+  width: 100%;
+  margin: 1rem;
+  text-align: center;
 }
 .alert.danger {
-  background-color: red;
+  background-color: #f23952;
 }
 .alert.success {
   background-color: green;

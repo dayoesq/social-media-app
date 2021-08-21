@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Button from '../../components/shared/form-elements/Button/Button';
 
 import Input from '../../components/shared/form-elements/Input/Input';
@@ -10,8 +10,6 @@ import {
     VALIDATOR_MINLENGTH
 } from '../../utils/validators';
 import { useHttpClient } from '../../hooks/http';
-// import { useAuth } from '../../hooks/auth';
-
 import classes from './Login.module.scss';
 import Alert from '../../components/shared/UI/Alert/Alert';
 import { AuthContext } from '../../store/context';
@@ -19,8 +17,6 @@ import { AuthContext } from '../../store/context';
 const Login: React.FC = () => {
     const [alert, setAlert] = useState<boolean>(false);
     const { error, isLoading, sendRequest } = useHttpClient();
-    // const { token, login, user } = useAuth();
-    // const history = useHistory();
     const authCtx = useContext(AuthContext);
 
     const [formState, inputHandler] = useForm<{
@@ -48,17 +44,23 @@ const Login: React.FC = () => {
 
     const authSubmitHandler = async (e: React.FormEvent) => {
         e.preventDefault();
-        const res = await sendRequest<ResponseContext>(
-            `${process.env.REACT_APP_BACK_URL}/users/login`,
-            'POST',
-            JSON.stringify({
-                email: formState.inputs?.email.value,
-                password: formState.inputs?.password.value
-            }),
-            { 'Content-Type': 'application/json' }
-        )
-        setAlert(true);
-        authCtx.login(res.data.token, res.data.user);
+        try {
+            const res = await sendRequest<ResponseContext>(
+                `${process.env.REACT_APP_BACK_URL}/users/login`,
+                'POST',
+                JSON.stringify({
+                    email: formState.inputs?.email.value,
+                    password: formState.inputs?.password.value
+                }),
+                { 'Content-Type': 'application/json' }
+            );
+            if (res.status === 'success') {
+                setAlert(true);
+                authCtx.login(res.data.token, res.data.user);
+            }
+
+        } catch (err) { }
+        
     };
 
     return (
@@ -66,9 +68,9 @@ const Login: React.FC = () => {
             <div className={classes.loginPage}>
                 <div className={classes.login}>
                     <div className={classes.loginContent}>
-                        <h2>Log in</h2>
                         {alert && <Alert success>Login successfull</Alert>}
                         {error && error.length > 0 && <Alert danger>{error}</Alert>}
+                        <h2>Log in</h2>
                         <form
                             className={classes.loginForm}
                             onSubmit={authSubmitHandler}

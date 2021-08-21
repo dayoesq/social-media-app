@@ -69,24 +69,26 @@ const Register: React.FC = () => {
 
     const registerHandler = async (e: React.FormEvent) => {
         e.preventDefault();
-        const res = await sendRequest<ResponseDataUser>(
-            `${process.env.REACT_APP_BACK_URL}/users/signup`,
-            'POST',
-            JSON.stringify({
-                firstName: formState.inputs?.firstName.value,
-                lastName: formState.inputs?.lastName.value,
-                email: formState.inputs?.email.value,
-                password: formState.inputs?.password.value,
-                passwordConfirm: formState.inputs?.passwordConfirm.value
-            }),
-            { 'Content-Type': 'application/json' }
-        );
-        if (res.status === 'success') {
-            setAlert(true);
-            setTimeout(() => {
-                history.replace('/verify-token');
-            }, 4000);
-        }
+        try {
+            const res = await sendRequest<ResponseDataUser>(
+                `${process.env.REACT_APP_BACK_URL}/users/signup`,
+                'POST',
+                JSON.stringify({
+                    firstName: formState.inputs?.firstName.value,
+                    lastName: formState.inputs?.lastName.value,
+                    email: formState.inputs?.email.value,
+                    password: formState.inputs?.password.value,
+                    passwordConfirm: formState.inputs?.passwordConfirm.value
+                }),
+                { 'Content-Type': 'application/json' }
+            );
+            if (res.status === 'success') {
+                setAlert(true);
+                setTimeout(() => {
+                    history.replace('/verify-account');
+                }, 4000);
+            }
+        } catch (err) { }
         
     };
 
@@ -95,9 +97,9 @@ const Register: React.FC = () => {
             <div className={classes.registerPage}>
                 <div className={classes.register}>
                     <div className={classes.registerContent}>
-                        <h2>Sign up</h2>
                         {alert && <Alert success>Registeration successfull</Alert>}
                         {error && error.length > 0 && <Alert danger>{error}</Alert>}
+                        <h2>Sign up</h2>
                         <form
                             className={classes.registerForm}
                             onSubmit={registerHandler}

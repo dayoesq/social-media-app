@@ -1,3 +1,6 @@
+// import React from 'react';
+// import Alert from '../components/shared/UI/Alert/Alert';
+
 export const isEmpty = (data: string) => {
   if (typeof data === 'string') {
     if (data.trim().length === 0) {
@@ -20,3 +23,13 @@ export const getDateTime = (date: Date | string | number, options: string = 'en-
   });
   return formattedDate;
 };
+
+// export const displayErrorAlert = (error?: string, message?: string, status = 'success') => {
+//   if (error && error.length > 0) {
+//     status = 'danger'
+//     return (
+//       <Alert >{ message } < /Alert>
+//     );
+//   }
+// }
+

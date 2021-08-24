@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useState, useEffect, useCallback } from 'react';
+import { UserContext } from '../store/context';
 
 let logoutTimer: NodeJS.Timeout;
-export const useAuth = () => {
+export const useAuth = (): UserContext => {
   const [token, setToken] = useState<string>('');
   const [user, setUser] = useState<IUser>();
   const [tokenExpirationDate, setTokenExpirationDate] = useState<Date | null>();
@@ -11,8 +13,8 @@ export const useAuth = () => {
       setUser(user);
       setToken(token);
       const tokenExpirationDate =
-        expirationDate || new Date(new Date().getTime() + 86400000)
-      setTokenExpirationDate(tokenExpirationDate)
+        expirationDate || new Date(new Date().getTime() + 86400000);
+      setTokenExpirationDate(tokenExpirationDate);
       sessionStorage.setItem(
         'user',
         JSON.stringify({
@@ -35,7 +37,7 @@ export const useAuth = () => {
   useEffect(() => {
     if (token && tokenExpirationDate) {
       const remainingTime =
-        tokenExpirationDate.getTime() - new Date().getTime()
+        tokenExpirationDate.getTime() - new Date().getTime();
 
       logoutTimer = setTimeout(logout, remainingTime);
     } else {
@@ -44,7 +46,7 @@ export const useAuth = () => {
   }, [token, logout, tokenExpirationDate]);
 
   useEffect(() => {
-    const storedData = JSON.parse(sessionStorage.getItem('user')!)
+    const storedData = JSON.parse(sessionStorage.getItem('user')!);
     if (
       storedData &&
       storedData.token &&

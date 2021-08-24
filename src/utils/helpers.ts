@@ -1,7 +1,7 @@
 // import React from 'react';
 // import Alert from '../components/shared/UI/Alert/Alert';
 
-export const isEmpty = (data: string) => {
+export const isEmpty = (data: string): boolean => {
   if (typeof data === 'string') {
     if (data.trim().length === 0) {
       return true;
@@ -13,7 +13,7 @@ export const isEmpty = (data: string) => {
 };
 
 
-export const getDateTime = (date: Date | string | number, options: string = 'en-FI') => {
+export const getDateTime = (date: Date | string | number, options = 'en-FI'): string => {
   const formattedDate = new Date(date ? date : new Date()).toLocaleTimeString(options, {
     day: 'numeric',
     month: 'short',
@@ -24,12 +24,14 @@ export const getDateTime = (date: Date | string | number, options: string = 'en-
   return formattedDate;
 };
 
-// export const displayErrorAlert = (error?: string, message?: string, status = 'success') => {
-//   if (error && error.length > 0) {
-//     status = 'danger'
-//     return (
-//       <Alert >{ message } < /Alert>
-//     );
-//   }
-// }
+export const getAlias = (props: IPost): string | undefined => {
+  let postAuthorAlias;
+  if (props.postAuthor?.fullName?.includes(' ')) {
+    const alias = props.postAuthor.fullName.split(' ')[1].toLocaleLowerCase();
+    postAuthorAlias = alias;
+  } else {
+    postAuthorAlias = props.postAuthor?.firstName;
+  }
+  return postAuthorAlias;
+};
 

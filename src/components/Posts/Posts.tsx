@@ -11,7 +11,7 @@ type PostProps = {
 };
 
 const Posts: React.FC<PostProps> = props => {
-    const [show, setShow] = useState<number | null | undefined>(-1)
+  const [show, setShow] = useState<number | null | undefined>(-1);
   const [showTooltip, setShowTooltip] = useState<number | null | undefined>(
     -1
   );
@@ -30,9 +30,12 @@ const Posts: React.FC<PostProps> = props => {
         {props.posts.map((post, index) => (
           <Post
             key={post._id}
-            postImage={post.postImage}
+            postImage={`${post.postImage}`}
             postContent={post.postBody}
             postedAt={post.postedAt}
+
+            postAuthor={post.postAuthor}
+
             postCommentCount={post.postCommentCount}
             postRepostCount={post.postRepostCount}
             postLoveCount={post.postLoveCount}
@@ -51,7 +54,7 @@ const Posts: React.FC<PostProps> = props => {
 
   }
   return null;  
-}
+};
 
 Posts.propTypes = {
   posts: PropTypes.array,

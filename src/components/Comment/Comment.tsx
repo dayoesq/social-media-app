@@ -82,7 +82,9 @@ Comment.propTypes = {
   commentAuthorImage: PropTypes.string,
   onClick: PropTypes.func,
   onToggleComment: PropTypes.func,
-  onIncreaseLike: PropTypes.func
+  onIncreaseLike: PropTypes.func,
+  show: PropTypes.bool,
+  showTooltip: PropTypes.bool
 };
 
 export default Comment;

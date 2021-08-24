@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Avatar from '../shared/UI/Avatar/Avatar';
+import Button from '../shared/form-elements/Button/Button';
 
 import classes from './Follow.module.scss';
-import Button from '../shared/form-elements/Button/Button';
 
 type FollowProps =  {
   src?: string;

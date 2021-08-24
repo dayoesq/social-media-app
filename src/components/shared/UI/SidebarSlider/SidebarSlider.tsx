@@ -7,7 +7,7 @@ import {
   faListAlt,
   faBookmark,
   faChartLine,
-  faTimes
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 
 import Avatar from '../Avatar/Avatar';
@@ -17,24 +17,23 @@ import classes from './SidebarSlider.module.scss';
 import Button from '../../form-elements/Button/Button';
 
 export type SliderProps = {
-  closeSlider?: React.MouseEventHandler<SVGSVGElement>;
+    closeSlider?: React.MouseEventHandler<SVGSVGElement>;
 };
 
-type Logout = {
-  status: string;
-};
-
-const SidebarSlider: React.FC<SliderProps> = props => {
+const SidebarSlider: React.FC<SliderProps> = (props) => {
   const { sendRequest } = useHttpClient();
   const authCtx = useContext(AuthContext);
   const logoutHandler = async () => {
-    await sendRequest<Logout>(`${process.env.REACT_APP_BACK_URL}/users/logout`,
-      'GET',
-      null,
-      { Authorization: `Bearer ${authCtx.token}` }
-    );
-    authCtx.logout();
-  }
+    try {
+      await sendRequest<Logout>(
+        `${process.env.REACT_APP_BACK_URL}/users/logout`,
+        'GET',
+        null,
+        { Authorization: `Bearer ${authCtx.token}` }
+      );
+      authCtx.logout();
+    } catch (err) { }
+  };
   return (
     <div className={classes.sidebarSlider}>
       <div className={classes.header}>
@@ -46,20 +45,27 @@ const SidebarSlider: React.FC<SliderProps> = props => {
         />
       </div>
       <div className={classes.user}>
-        <Avatar small src={authCtx.user?.avatar} />
+        <Avatar
+          small
+          src={`${process.env.REACT_APP_BACK_ASSETS}/${authCtx.user?.avatar}`}
+        />
         <span>+</span>
       </div>
       <div className={classes.userInfo}>
         <h4>{authCtx.user?.firstName}</h4>
-        <p>{`@${authCtx.user?.alias}`}</p>
+        <p>{`@${authCtx.user?.lastName?.toLocaleLowerCase()}`}</p>
       </div>
       <div className={classes.following}>
-        <p>
-          <span>{authCtx.user?.followingCount}</span> Following
-        </p>
-        <p>
-          <span>{authCtx.user?.followerCount}</span> Followers
-        </p>
+        {authCtx.user?.followerCount && (
+          <p>
+            <span>{authCtx.user?.followingCount}</span> Following
+          </p>
+        )}
+        {authCtx.user?.followerCount && (
+          <p>
+            <span>{authCtx.user?.followerCount}</span> Followers
+          </p>
+        )}
       </div>
       <div className={classes.list_1}>
         <ul>
@@ -67,44 +73,44 @@ const SidebarSlider: React.FC<SliderProps> = props => {
             <NavLink to={`/users/profile/${authCtx.user?._id}`}>
               <FontAwesomeIcon
                 icon={faUser}
-                size='1x'
-                color='#9e9a9a'
+                size="1x"
+                color="#9e9a9a"
                 className={classes.icon}
               />
-              Profile
+                Profile
             </NavLink>
           </li>
           <li>
-            <NavLink to='#'>
+            <NavLink to="#">
               <FontAwesomeIcon
                 icon={faListAlt}
-                size='1x'
-                color='#9e9a9a'
+                size="1x"
+                color="#9e9a9a"
                 className={classes.icon}
               />
-              Lists
+                Lists
             </NavLink>
           </li>
           <li>
-            <NavLink to='#'>
+            <NavLink to="#">
               <FontAwesomeIcon
                 icon={faBookmark}
-                size='1x'
-                color='#9e9a9a'
+                size="1x"
+                color="#9e9a9a"
                 className={classes.icon}
               />
-              Bookmarks
+                Bookmarks
             </NavLink>
           </li>
           <li>
-            <NavLink to='#'>
+            <NavLink to="#">
               <FontAwesomeIcon
                 icon={faChartLine}
-                size='1x'
-                color='#9e9a9a'
+                size="1x"
+                color="#9e9a9a"
                 className={classes.icon}
               />
-              Analytics
+                Analytics
             </NavLink>
           </li>
         </ul>
@@ -112,20 +118,20 @@ const SidebarSlider: React.FC<SliderProps> = props => {
       <div className={classes.list_2}>
         <ul>
           <li>
-            <NavLink to='#'>Settings and Privacy</NavLink>
+            <NavLink to="#">Settings and Privacy</NavLink>
           </li>
           <li>
-            <NavLink to='#'>Help Center</NavLink>
+            <NavLink to="#">Help Center</NavLink>
           </li>
           <li>
             <Button
-              type='button'
+              type="button"
               primary
               small
               pillSmall
               onClick={logoutHandler}
             >
-              Log Out
+                            Log Out
             </Button>
           </li>
         </ul>
@@ -135,7 +141,7 @@ const SidebarSlider: React.FC<SliderProps> = props => {
 };
 
 SidebarSlider.propTypes = {
-  closeSlider: PropTypes.func
+  closeSlider: PropTypes.func,
 };
 
 export default SidebarSlider;

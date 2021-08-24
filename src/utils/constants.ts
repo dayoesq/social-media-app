@@ -13,3 +13,10 @@ export const DISCARD_STATUS_MODAL = 'DISCARD_STATUS_MODAL';
 export const SHOW_HIDE_WARNING_MODAL = 'SHOW_HIDE_WARNING_MODAL';
 export const SUBMIT_POST = 'SUBMIT_POST';
 export const CANCEL_WARNING_MODAL = 'CANCEL_WARNING_MODAL';
+
+// Error constants
+export const USER_DOES_NOT_EXIST = 'User no longer exits';
+export const LOG_IN_OR_SIGN_UP = 'Log in or sign up';
+export const USER_NOT_FOUND = 'User not found';
+export const LOG_USER_OUT = 'Log user out!!!';
+

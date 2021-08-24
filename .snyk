@@ -1,0 +1,21 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.22.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-BROWSERSLIST-1090194:
+    - react-scripts > react-dev-utils > browserslist:
+        reason: 'No solution available '
+        expires: '2021-09-23T13:10:57.737Z'
+  SNYK-JS-CSSWHAT-1298035:
+    - react-scripts > @svgr/webpack > @svgr/plugin-svgo > svgo > css-select > css-what:
+        reason: 'No solution available '
+        expires: '2021-09-23T13:10:57.737Z'
+  SNYK-JS-GLOBPARENT-1016905:
+    - react-scripts > webpack > watchpack > watchpack-chokidar2 > chokidar > glob-parent:
+        reason: No solution  available
+        expires: '2021-09-23T13:10:57.737Z'
+  SNYK-JS-LODASHTEMPLATE-1088054:
+    - react-scripts > workbox-webpack-plugin > workbox-build > lodash.template:
+        reason: No solution  available
+        expires: '2021-09-23T13:10:57.738Z'
+patch: {}

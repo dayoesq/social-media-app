@@ -6,6 +6,10 @@ type ResponseDataPost = {
   data: IPost;
   status: string;
 }
+type ResponseDataPosts = {
+  data: IPost[];
+  status: string;
+}
 type ResponseContext = {
   status?: string;
   data: {
@@ -13,3 +17,7 @@ type ResponseContext = {
     token: string;
   }
 };
+type Logout = {
+  status: string
+};
+

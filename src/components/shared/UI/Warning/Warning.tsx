@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import classes from './Warning.module.scss';
 import Button from '../../form-elements/Button/Button';
+
+import classes from './Warning.module.scss';
 
 export interface IWarning {
     warningHeading?: string
@@ -42,10 +43,10 @@ const Warning: React.FC<IWarning> = props => {
 };
 
 Warning.propTypes = {
-    warningHeading: PropTypes.string,
-    warningText: PropTypes.string,
-    onDiscard: PropTypes.func,
-    onCancel: PropTypes.func
-}
+  warningHeading: PropTypes.string,
+  warningText: PropTypes.string,
+  onDiscard: PropTypes.func,
+  onCancel: PropTypes.func
+};
 
 export default Warning;

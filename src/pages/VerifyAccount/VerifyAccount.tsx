@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
-import Button from '../../components/shared/form-elements/Button/Button'
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import Button from '../../components/shared/form-elements/Button/Button';
 
-import Input from '../../components/shared/form-elements/Input/Input'
-import { useForm } from '../../hooks/form'
+import Input from '../../components/shared/form-elements/Input/Input';
+import { useForm } from '../../hooks/form';
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_REQUIRE
-} from '../../utils/validators'
+} from '../../utils/validators';
 import { useHttpClient } from '../../hooks/http';
 
-import classes from './VerifyAccount.module.scss'
-import Alert from '../../components/shared/UI/Alert/Alert'
+import classes from './VerifyAccount.module.scss';
+import Alert from '../../components/shared/UI/Alert/Alert';
 
 const VerifyAccount: React.FC = () => {
   const [alert, setAlert] = useState<boolean>(false);
@@ -58,7 +58,7 @@ const VerifyAccount: React.FC = () => {
         setAlert(true);
         setTimeout(() => {
           history.replace('/login');
-        }, 4000);
+        }, 1000);
       }
 
     } catch (err) { }

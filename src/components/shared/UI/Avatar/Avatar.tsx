@@ -18,31 +18,31 @@ interface IAvatar {
 }
 
 const Avatar: React.FC<IAvatar> = props => {
-    return (
-        <div
-            className={`${classes.image} ${props.small && classes.small} 
+  return (
+    <div
+      className={`${classes.image} ${props.small && classes.small} 
             ${props.big && classes.big} 
             ${props.leftSmall && classes.leftSmall} 
             ${props.leftBig && classes.leftBig}
             ${props.rightSmall && classes.rightSmall}
             ${props.rightBig && classes.rightBig}`}
-            style={props.style}
-        >
-            <img src={props.src} alt={props.alt} />
-        </div>
-    );
+      style={props.style}
+    >
+      <img src={props.src} alt={props.alt} />
+    </div>
+  );
 };
 
 Avatar.propTypes = {
-    src: PropTypes.string,
-    alt: PropTypes.string,
-    small: PropTypes.bool,
-    big: PropTypes.bool,
-    leftSmall: PropTypes.bool,
-    leftBig: PropTypes.bool,
-    rightSmall: PropTypes.bool,
-    rightBig: PropTypes.bool,
-    style: PropTypes.object
+  src: PropTypes.string,
+  alt: PropTypes.string,
+  small: PropTypes.bool,
+  big: PropTypes.bool,
+  leftSmall: PropTypes.bool,
+  leftBig: PropTypes.bool,
+  rightSmall: PropTypes.bool,
+  rightBig: PropTypes.bool,
+  style: PropTypes.object
 };
 
 export default Avatar;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useReducer, useEffect, Reducer } from 'react';
 import PropTypes from 'prop-types';
 
@@ -20,24 +21,24 @@ type Actions =
     | { type: 'TOUCH' };
 
 const inputReducer = <F extends InputState<F>>(
-    state: InputState<F>,
-    action: Actions
+  state: InputState<F>,
+  action: Actions
 ) => {
-    switch (action.type) {
-    case CHANGE:
-        return {
-            ...state,
-            value: action.val,
-            isValid: validate(action.val, action.validators),
-        };
-    case TOUCH:
-        return {
-            ...state,
-            isTouched: true,
-        };
-    default:
-        return state;
-    }
+  switch (action.type) {
+  case CHANGE:
+    return {
+      ...state,
+      value: action.val,
+      isValid: validate(action.val, action.validators),
+    };
+  case TOUCH:
+    return {
+      ...state,
+      isTouched: true,
+    };
+  default:
+    return state;
+  }
 };
 
 export interface IInput {
@@ -57,75 +58,75 @@ export interface IInput {
 }
 
 const Input: React.FC<IInput> = (props) => {
-    const [inputState, dispatch] = useReducer<Reducer<any, any>>(inputReducer, {
-        value: props.initialValue || '',
-        isValid: props.initialValid || false
+  const [inputState, dispatch] = useReducer<Reducer<any, any>>(inputReducer, {
+    value: props.initialValue || '',
+    isValid: props.initialValid || false
+  });
+
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({
+      type: CHANGE,
+      val: e.target.value,
+      validators: props.validators
     });
+  };
 
-    const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch({
-            type: CHANGE,
-            val: e.target.value,
-            validators: props.validators
-        });
+  const touchHandler = () => {
+    dispatch({ type: TOUCH });
+  };
+
+  const { id = '', onInput } = props;
+  const { value, isValid } = inputState;
+
+  useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      onInput(id, value, isValid);
+    }
+    return () => {
+      isMounted = false;
     };
+  }, [id, value, isValid, onInput]);
 
-    const touchHandler = () => {
-        dispatch({ type: TOUCH });
-    };
-
-    const { id = '', onInput } = props;
-    const { value, isValid } = inputState;
-
-    useEffect(() => {
-        let isMounted = true;
-        if (isMounted) {
-            onInput(id, value, isValid);
-        }
-        return () => {
-            isMounted = false;
-        };
-    }, [id, value, isValid, onInput]);
-
-    const element =
+  const element =
         props.element === 'input' ? (
-            <input
-                id={props.id}
-                type={props.type}
-                placeholder={props.placeholder}
-                onChange={changeHandler}
-                onBlur={touchHandler}
-                value={inputState.value}
-                className={props.className}
-                style={props.style}
-            />
+          <input
+            id={props.id}
+            type={props.type}
+            placeholder={props.placeholder}
+            onChange={changeHandler}
+            onBlur={touchHandler}
+            value={inputState.value}
+            className={props.className}
+            style={props.style}
+          />
         ) : (
-            ''
+          ''
         );
-    return (
-        <div className={`${classes.formControl} ${!inputState.isValid && inputState.isTouched && classes.invalidInput}` }>
-            <label htmlFor={props.id}>{props.label}</label>
-            {element}
-            {!inputState.isValid && inputState.isTouched && (
-                <p>{props.errorText}</p>
-            )}
-        </div>
-    );
+  return (
+    <div className={`${classes.formControl} ${!inputState.isValid && inputState.isTouched && classes.invalidInput}` }>
+      <label htmlFor={props.id}>{props.label}</label>
+      {element}
+      {!inputState.isValid && inputState.isTouched && (
+        <p>{props.errorText}</p>
+      )}
+    </div>
+  );
 };
 
 Input.propTypes = {
-    id: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    placeholder: PropTypes.string,
-    errorText: PropTypes.string,
-    initialValue: PropTypes.string,
-    initialValid: PropTypes.bool,
-    className: PropTypes.string,
-    label: PropTypes.string.isRequired,
-    style: PropTypes.object,
-    element: PropTypes.string.isRequired,
-    validators: PropTypes.array.isRequired,
-    onInput: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  errorText: PropTypes.string,
+  initialValue: PropTypes.string,
+  initialValid: PropTypes.bool,
+  className: PropTypes.string,
+  label: PropTypes.string.isRequired,
+  style: PropTypes.object,
+  element: PropTypes.string.isRequired,
+  validators: PropTypes.array.isRequired,
+  onInput: PropTypes.func.isRequired,
 };
 
 export default Input;

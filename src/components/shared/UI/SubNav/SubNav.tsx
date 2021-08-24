@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDove } from '@fortawesome/free-solid-svg-icons';
 
-const SubNav: React.FC<{className?: string}> = ({className}) => {
+const SubNav: React.FC<{ className?: string }> = ({ className }) => {
     return (
         <nav className={className}>
             <ul>

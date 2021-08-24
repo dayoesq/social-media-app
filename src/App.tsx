@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Redirect,
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
 } from 'react-router-dom';
 
 import Landing from './pages/Landing/Landing';
@@ -13,54 +13,79 @@ import Register from './pages/Register/Register';
 import VerifyAccount from './pages/VerifyAccount/VerifyAccount';
 import { useAuth } from './hooks/auth';
 import { AuthContext } from './store/context';
-
+import { useHttpClient } from './hooks/http';
 
 const App: React.FC = () => {
-    const { login, logout, token, user } = useAuth();
-    let routes;
-    if (token) {
-        routes = (
-            <Switch>
-                <Route path="/home" exact>
-                    <Home />
-                </Route>
-                <Redirect to="/home" />
-            </Switch>
+  const authCtx = useContext(AuthContext);
+  const { sendRequest } = useHttpClient();
+  useEffect(() => {
+    let isMounted = true;
+    const logout = async () => {
+      try {
+        const res = await sendRequest<Logout>(
+          `${process.env.REACT_APP_BACK_URL}/users/logout`,
+          'GET',
+          null,
+          { Authorization: `Bearer ${authCtx.token}` }
         );
-    } else {
-        routes = (
-            <Switch>
-                <Route path="/" exact>
-                    <Landing />
-                </Route>
-                {/* <Route path="/home" exact>
-                    <Home />
-                </Route> */}
-                <Route path="/login" exact>
-                    <Login />
-                </Route>
-                <Route path="/register" exact>
-                    <Register />
-                </Route>
-                <Route path="/verify-account" exact>
-                    <VerifyAccount />
-                </Route>
-                <Redirect to="/" />
-            </Switch>
-        );
+        console.log(res.status);
+      } catch (err) { }
+    };
+    if (isMounted) {
+      window.addEventListener('beforeunload', e => {
+        e.preventDefault();
+        console.log(e);
+        logout();
+        authCtx.logout();
+      });
     }
-    return (
-        <AuthContext.Provider value={{
-            login,
-            logout,
-            token,
-            user
-        }}>
-            <Router>
-                {routes}
-            </Router>
-        </AuthContext.Provider>
+    return () => {
+      isMounted = false;
+    };
+  }, [sendRequest, authCtx]);
+
+  const { login, logout, token, user } = useAuth();
+  let routes;
+  if (token) {
+    routes = (
+      <Switch>
+        <Route path='/home' exact>
+          <Home />
+        </Route>
+        <Redirect to='/home' />
+      </Switch>
     );
+  } else {
+    routes = (
+      <Switch>
+        <Route path='/' exact>
+          <Landing />
+        </Route>
+        <Route path='/login' exact>
+          <Login />
+        </Route>
+        <Route path='/register' exact>
+          <Register />
+        </Route>
+        <Route path='/verify-account' exact>
+          <VerifyAccount />
+        </Route>
+        <Redirect to='/' />
+      </Switch>
+    );
+  }
+  return (
+    <AuthContext.Provider
+      value={{
+        login,
+        logout,
+        token,
+        user
+      }}
+    >
+      <Router>{routes}</Router>
+    </AuthContext.Provider>
+  );
 };
 
 export default App;

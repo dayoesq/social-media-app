@@ -11,7 +11,7 @@ export interface IBackdrop {
 
 const Backdrop: React.FC<IBackdrop> = ({ onCancelBackdrop, style }) => {
   const content = <div className={classes.backdrop} onClick={onCancelBackdrop} style={style}></div>;
-  const backdropPortal = document.getElementById('backdrop-portal') as HTMLElement
+  const backdropPortal = document.getElementById('backdrop-portal') as HTMLElement;
   if (content) return ReactDOM.createPortal(content, backdropPortal);
   return null;
 };

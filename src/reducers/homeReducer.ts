@@ -36,87 +36,88 @@ type HomeActions =
   | { type: 'SUBMIT_POST' }
   | { type: 'CANCEL_WARNING_MODAL' };
 
-const homeReducer = (state: HomeState, action: HomeActions) => {
+const homeReducer = (state: HomeState, action: HomeActions): HomeState => {
   switch (action.type) {
-    case CHANGE_POST_STATUS:
-      const textareaLineHeight = 24;
-      const { minRows, maxRows } = state;
-      const previousRows = action.rows;
-      action.rows = minRows;
+  case CHANGE_POST_STATUS: {
+    const textareaLineHeight = 24;
+    const { minRows, maxRows } = state;
+    const previousRows = action.rows;
+    action.rows = minRows;
 
-      const currentRows = ~~(action.scrollHeight / textareaLineHeight);
+    const currentRows = ~~(action.scrollHeight / textareaLineHeight);
 
-      if (currentRows === previousRows) {
-        action.rows = currentRows;
-      }
+    if (currentRows === previousRows) {
+      action.rows = currentRows;
+    }
 
-      if (currentRows >= maxRows) {
-        action.rows = maxRows;
-        action.scrollTop = action.scrollHeight;
-      }
+    if (currentRows >= maxRows) {
+      action.rows = maxRows;
+      action.scrollTop = action.scrollHeight;
+    }
+    return {
+      ...state,
+      status: action.value,
+      rows: currentRows < maxRows ? currentRows : maxRows
+    };
+  }
+  case SUBMIT_POST:
+    console.log(state.status);
+    return {
+      ...state,
+      showStatus: false,
+      status: ''
+    };
+  case TOGGLE_SHOW_SLIDER:
+    return {
+      ...state,
+      showSlider: !state.showSlider
+    };
+  case SHOW_SLIDER:
+    return {
+      ...state,
+      showSlider: true
+    };
+  case SHOW_STATUS_MODAL:
+    return {
+      ...state,
+      showStatus: true
+    };
+  case DISCARD_STATUS_MODAL:
+    if (state.showWarningModal) {
       return {
         ...state,
-        status: action.value,
-        rows: currentRows < maxRows ? currentRows : maxRows
+        status: '',
+        showStatus: false,
+        showWarningModal: false
       };
-    case SUBMIT_POST:
-      console.log(state.status);
+    } else {
+      return {
+        ...state,
+        status: '',
+        showStatus: false
+      };
+    }
+  case SHOW_HIDE_WARNING_MODAL:
+    if (isEmpty(state.status)) {
       return {
         ...state,
         showStatus: false,
-        status: ''
-      };
-    case TOGGLE_SHOW_SLIDER:
-      return {
-        ...state,
-        showSlider: !state.showSlider
-      };
-    case SHOW_SLIDER:
-      return {
-        ...state,
-        showSlider: true
-      };
-    case SHOW_STATUS_MODAL:
-      return {
-        ...state,
-        showStatus: true
-      };
-    case DISCARD_STATUS_MODAL:
-      if (state.showWarningModal) {
-        return {
-          ...state,
-          status: '',
-          showStatus: false,
-          showWarningModal: false
-        };
-      } else {
-        return {
-          ...state,
-          status: '',
-          showStatus: false
-        };
-      }
-    case SHOW_HIDE_WARNING_MODAL:
-      if (isEmpty(state.status)) {
-        return {
-          ...state,
-          showStatus: false,
-          showWarningModal: false
-        };
-      } else {
-        return {
-          ...state,
-          showStatus: true,
-          showWarningModal: true
-        };
-      }
-    case CANCEL_WARNING_MODAL:
-      return {
-        ...state,
         showWarningModal: false
       };
-    default:
-      return state
+    } else {
+      return {
+        ...state,
+        showStatus: true,
+        showWarningModal: true
+      };
+    }
+  case CANCEL_WARNING_MODAL:
+    return {
+      ...state,
+      showWarningModal: false
+    };
+  default:
+    return state;
   }
 };
 

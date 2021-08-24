@@ -7,6 +7,7 @@ type AlertProps = {
   children: React.ReactNode;
   danger?: boolean;
   success?: boolean;
+  style?: React.CSSProperties;
 };
 
 const Alert: React.FC<AlertProps> = props => {
@@ -14,8 +15,11 @@ const Alert: React.FC<AlertProps> = props => {
     <div className={
       `${classes.alert} 
       ${props.danger && classes.danger} 
-      ${props.success && classes.success}`}>
+      ${props.success && classes.success}`}
+    style={props.style}
+    >
       {props.children}
+      
     </div>
   );
 };
@@ -23,7 +27,8 @@ const Alert: React.FC<AlertProps> = props => {
 Alert.propTypes = {
   children: PropTypes.node,
   danger: PropTypes.bool,
-  success: PropTypes.bool
+  success: PropTypes.bool,
+  style: PropTypes.object
 };
 
 export default Alert;

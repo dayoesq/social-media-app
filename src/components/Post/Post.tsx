@@ -18,14 +18,14 @@ import Tooltip from '../shared/UI/Tooltip/Tooltip';
 import { AuthContext } from '../../store/context';
 
 import classes from './Post.module.scss';
-import { getDateTime } from '../../utils/helpers';
+import { getAlias, getDateTime } from '../../utils/helpers';
 
 type PostProps = {
   onModifyPost?: React.MouseEventHandler<SVGSVGElement>;
   onToggleComment?: React.MouseEventHandler<SVGSVGElement>;
   showCommentBox?: boolean
   showTooltip?: boolean;
-  authorAlias?: string;
+  postAuthor?: IUser | null;
   postedAt?: Date | string | number;
   postContent?: string;
   postImage?: string;
@@ -37,7 +37,7 @@ type PostProps = {
   postShareCount?: number;
 };
 
-const Post: React.FC<PostProps & IPost> = (props) => {
+const Post: React.FC<PostProps & IPost> = props => {
   const authCtx = useContext(AuthContext);
   return (
     <div className={classes.post}>
@@ -45,7 +45,7 @@ const Post: React.FC<PostProps & IPost> = (props) => {
         <Avatar
           big
           alt={authCtx.user?.firstName}
-          src={authCtx.user?.avatar}
+          src={`${process.env.REACT_APP_BACK_ASSETS}/${authCtx.user?.avatar}`}
           rightBig
         />
       </div>
@@ -53,14 +53,14 @@ const Post: React.FC<PostProps & IPost> = (props) => {
       <div>
         <div className={classes.postUserInfo}>
           <h4>{authCtx.user?.firstName}</h4>
-          {authCtx.user?.isVerified && (
+          {props.postAuthor?.status === 'verified' && (
             <FontAwesomeIcon
               icon={faCheckCircle}
               className={classes.icon}
             />
           )}
           <span>
-            {`@${props.authorAlias}`} . {getDateTime(props.postedAt ? props.postedAt : new Date())}
+            {`@${getAlias(props)}`} . {getDateTime(props.postedAt ? props.postedAt : new Date())}
           </span>
           <FontAwesomeIcon
             icon={faEllipsisH}
@@ -82,7 +82,7 @@ const Post: React.FC<PostProps & IPost> = (props) => {
         {props.postImage && (
           <NavLink to='/home'>
             <div className={classes.postImg}>
-              <img src={props.postImage} alt='Post' />
+              <img src={`${process.env.REACT_APP_BACK_ASSETS}/${props.postImage}`} alt='Post' />
             </div>
           </NavLink>
         )}
@@ -156,7 +156,6 @@ const Post: React.FC<PostProps & IPost> = (props) => {
 Post.propTypes = {
   showTooltip: PropTypes.bool,
   showCommentBox: PropTypes.bool,
-  authorAlias: PropTypes.string,
   postedAt: PropTypes.any,
   postContent: PropTypes.string,
   postImage: PropTypes.string,
@@ -167,7 +166,8 @@ Post.propTypes = {
   onModifyPost: PropTypes.func,
   postVideo: PropTypes.string,
   postVideoType: PropTypes.string,
-  onToggleComment: PropTypes.func
+  onToggleComment: PropTypes.func,
+  postAuthor: PropTypes.any
 };
 
 export default Post;

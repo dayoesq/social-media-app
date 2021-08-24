@@ -7,7 +7,7 @@ import classes from './WarningBackdrop.module.scss';
 export interface IWarningBackdrop {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
   style?: React.CSSProperties;
-};
+}
 
 const WarningBackdrop: React.FC<IWarningBackdrop> = ({ onClick, style }) => {
   const content = (
@@ -15,8 +15,8 @@ const WarningBackdrop: React.FC<IWarningBackdrop> = ({ onClick, style }) => {
   );
   const backdropPortal = document.getElementById(
     'warning-backdrop-portal'
-  ) as HTMLElement
-  if (content) return ReactDOM.createPortal(content, backdropPortal)
+  ) as HTMLElement;
+  if (content) return ReactDOM.createPortal(content, backdropPortal);
   return null;
 };
 

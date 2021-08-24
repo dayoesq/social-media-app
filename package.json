@@ -50,8 +50,8 @@
     "devDependencies": {
         "@types/node-sass": "^4.11.1",
         "@types/react-router-dom": "^5.1.7",
-        "@typescript-eslint/eslint-plugin": "^4.29.2",
-        "@typescript-eslint/parser": "^4.29.2",
+        "@typescript-eslint/eslint-plugin": "^4.29.3",
+        "@typescript-eslint/parser": "^4.29.3",
         "eslint": "^7.28.0",
         "eslint-plugin-react": "^7.24.0",
         "node-sass": "^6.0.0",

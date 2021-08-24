@@ -14,23 +14,23 @@ interface ITooltip {
 }
 
 const Tooltip: React.FC<ITooltip> = props => {
-    return (
-        <div className={classes.tooltip} style={props.style}>
-            <div onClick={props.onDelete}>
-                <FontAwesomeIcon icon={faTrashAlt} size='1x' color='#9e9a9a' />
-                <p>Delete {props.text}</p>
-            </div>
-            <div onClick={props.onHide}>
-                <FontAwesomeIcon icon={faSave} size='1x' color='#9e9a9a' />
-                <p>Hide {props.text}</p>
-            </div>
-            <div onClick={props.onEdit}>
-                <FontAwesomeIcon icon={faEdit} size='1x' color='#9e9a9a' />
-                <p>Edit {props.text}</p>
-            </div>
-        </div>
-    )
-}
+  return (
+    <div className={classes.tooltip} style={props.style}>
+      <div onClick={props.onDelete}>
+        <FontAwesomeIcon icon={faTrashAlt} size='1x' color='#9e9a9a' />
+        <p>Delete {props.text}</p>
+      </div>
+      <div onClick={props.onHide}>
+        <FontAwesomeIcon icon={faSave} size='1x' color='#9e9a9a' />
+        <p>Hide {props.text}</p>
+      </div>
+      <div onClick={props.onEdit}>
+        <FontAwesomeIcon icon={faEdit} size='1x' color='#9e9a9a' />
+        <p>Edit {props.text}</p>
+      </div>
+    </div>
+  );
+};
 
 Tooltip.propTypes = {
   onDelete: PropTypes.func,

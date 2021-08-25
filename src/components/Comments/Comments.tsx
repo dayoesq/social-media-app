@@ -5,6 +5,7 @@ import Comment from '../Comment/Comment';
 
 import classes from './Comments.module.scss';
 
+
 type CommentsProps = {
   comments?: IComment[];
 };

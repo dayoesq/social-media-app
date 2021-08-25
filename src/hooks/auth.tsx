@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useState, useEffect, useCallback } from 'react';
 import { UserContext } from '../store/context';
 

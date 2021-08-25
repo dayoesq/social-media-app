@@ -13,7 +13,7 @@ import {
 import Avatar from '../../components/shared/UI/Avatar/Avatar';
 import { AuthContext } from '../../store/context';
 import Posts from '../../components/Posts/Posts';
-import Follows from '../../components/Follows/Follows';
+import Friends from '../../components/Friends/Friends';
 import StatusModal from '../../components/shared/UI/StatusModal/StatusModal';
 import SliderModal from '../../components/shared/UI/SliderModal/SliderModal';
 import WarningModal from '../../components/shared/UI/WarningModal/WarningModal';
@@ -30,11 +30,11 @@ import {
 import { useHttpClient } from '../../hooks/http';
 import Spinner from '../../components/shared/UI/Spinner/Spinner';
 
-import sampleImg from '../../assets/images/sample-img.jpg';
 import classes from './Home.module.scss';
 
 const Home: React.FC = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
+  const [friends, setFriends] = useState<IUser[]>([]);
   const authCtx = useContext(AuthContext);
   const { isLoading, sendRequest } = useHttpClient();
   const [state, dispatch] = useReducer(homeReducer, {
@@ -63,22 +63,23 @@ const Home: React.FC = () => {
       isMounted = false;
     };
   }, [sendRequest, authCtx.token]);
-
-  // Dummy data 
-  const follows = [
-    {
-      _id: 'p4',
-      followImage: sampleImg,
-      followAlias: 'solaola',
-      followName: 'Olusola',
-    },
-    {
-      _id: 'p6',
-      followImage: sampleImg,
-      followAlias: 'solaola',
-      followName: 'Olusola',
-    },
-  ];
+  
+  useEffect(() => {
+    let isMounted = true;
+    const fetchFriendsHandler = async () => {
+      try {
+        const res = await sendRequest<ResponseDataUsers>(`${process.env.REACT_APP_BACK_URL}/users/friends`,
+          'GET',
+          null,
+          { Authorization: `Bearer ${authCtx.token}` });
+        setFriends(res.data);
+      } catch (err) { }
+    };
+    if (isMounted) fetchFriendsHandler();
+    return () => {
+      isMounted = false;
+    };
+  }, [sendRequest, authCtx.token]);
 
   const changePostHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     dispatch({
@@ -229,7 +230,7 @@ const Home: React.FC = () => {
             </div>
           </div>
           <Posts posts={posts} className={classes.posts} />
-          <Follows follows={follows} />
+          <Friends friends={friends} />
         </div>
       </div>
     </React.Fragment>

@@ -1,4 +1,4 @@
-.follow {
+.friend {
     position: fixed;
     top: 8rem;
     left: 57%;
@@ -9,25 +9,26 @@
         display: none;
     }
 }
-.followHeading {
+.friendHeading {
     padding: 1rem;
     font-size: 1.8rem;
     border-bottom: 0.1rem solid #eee;
+    text-transform: capitalize;
 }
-.followUser {
+.friendUser {
     display: flex;
     align-items: center;
     padding: 1.5rem;
     border-bottom: 0.1rem solid #eee;
 }
-.followUserInfo {
+.friendUserInfo {
     h4,
     p {
         font-size: 1.6rem;
         margin-bottom: 0.5rem;
     }
 }
-.followLink {
+.friendLink {
     margin: 2rem 1rem;
     a {
         text-decoration: none;
@@ -35,7 +36,7 @@
         color: #1aa1f5;
     }
 }
-.followFooter {
+.friendFooter {
     background-color: #f0f8fd;
     ul {
         list-style: none;

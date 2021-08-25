@@ -1,9 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSmile } from '@fortawesome/free-solid-svg-icons';
 
 import Avatar from '../Avatar/Avatar';
+import AuthContext from '../../../../store/context';
 
 import classes from './CommentInputBox.module.scss';
 
@@ -16,6 +17,7 @@ interface ICommentInput {
 }
 
 const CommentInputBox: React.FC<ICommentInput> = props => {
+  const authCtx = useContext(AuthContext);
   const [comment, setComment] = useState<string | undefined | null>(null);
   const commentRef = useRef<any>(null);
 
@@ -38,8 +40,8 @@ const CommentInputBox: React.FC<ICommentInput> = props => {
       <Avatar
         small
         rightBig
-        alt={props.commentAuthorName}
-        src={props.commentAuthorImage}
+        alt={authCtx.user?.firstName}
+        src={`${process.env.REACT_APP_BACK_ASSETS}/${authCtx.user?.avatar}`}
       />
       <label htmlFor='commentbox'></label>
       <p
@@ -64,8 +66,6 @@ const CommentInputBox: React.FC<ICommentInput> = props => {
 };
 
 CommentInputBox.propTypes = {
-  commentAuthorImage: PropTypes.string,
-  commentAuthorName: PropTypes.string,
   onShowEmoji: PropTypes.func,
   className: PropTypes.string,
   style: PropTypes.object

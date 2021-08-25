@@ -10,6 +10,10 @@ type ResponseDataPosts = {
   data: IPost[];
   status: string;
 }
+type ResponseDataUsers = {
+  data: IUser[];
+  status: string;
+}
 type ResponseContext = {
   status?: string;
   data: {

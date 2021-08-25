@@ -4,20 +4,21 @@ import PropTypes from 'prop-types';
 import Avatar from '../shared/UI/Avatar/Avatar';
 import Button from '../shared/form-elements/Button/Button';
 
-import classes from './Follow.module.scss';
+import classes from './Friend.module.scss';
 
-type FollowProps =  {
+type FriendProps =  {
   src?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  alias?: string;
 }
 
-const Follow: React.FC<FollowProps & IFollow> = props => {
+const Friend: React.FC<FriendProps & IUser> = props => {
   return (
-    <div className={classes.followUser}>
+    <div className={classes.friendUser}>
       <Avatar big src={props.src} rightBig />
-      <div className={classes.followUserInfo}>
-        <h4>{props.followName}</h4>
-        <p>{`@${props.followAlias}`}</p>
+      <div className={classes.friendUserInfo}>
+        <h4>{props.firstName}</h4>
+        <p>{`@${props.alias}`}</p>
       </div>
       <Button
         type='submit'
@@ -33,12 +34,13 @@ const Follow: React.FC<FollowProps & IFollow> = props => {
   );
 };
 
-Follow.propTypes = {
+Friend.propTypes = {
+  alias: PropTypes.string,
   src: PropTypes.string,
-  followName: PropTypes.string,
-  followAlias: PropTypes.string,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
   onClick: PropTypes.func
 };
 
 
-export default Follow;
+export default Friend;

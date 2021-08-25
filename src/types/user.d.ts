@@ -6,7 +6,7 @@ interface IUser {
   email?: string;
   password?: string;
   avatar?: string;
-  friends: ObjectId[];
+  friends?: ObjectId[];
   status?: string; 
   registeredAt?: Date;
   updatedAt?: Date;

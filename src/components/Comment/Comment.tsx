@@ -9,7 +9,6 @@ import Tooltip from '../shared/UI/Tooltip/Tooltip';
 
 import classes from './Comment.module.scss';
 
-
 interface IComment {
   show?: boolean;
   commentAuthorName?: string;
@@ -31,7 +30,7 @@ const Comment: React.FC<IComment> = props => {
               alt={props.commentAuthorName}
               rightSmall
               small
-              src={props.commentAuthorImage}
+              src={`${process.env.REACT_APP_BACK_ASSETS}/${props.commentAuthorImage}`}
             />
             <div className={classes.body}>
               <p>{props.commentBody}</p>

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useReducer, useEffect, Reducer } from 'react';
 import PropTypes from 'prop-types';
 

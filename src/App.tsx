@@ -13,34 +13,8 @@ import Register from './pages/Register/Register';
 import VerifyAccount from './pages/VerifyAccount/VerifyAccount';
 import { useAuth } from './hooks/auth';
 import { AuthContext } from './store/context';
-// import { useHttpClient } from './hooks/http';
 
 const App: React.FC = () => {
-  // const authCtx = useContext(AuthContext);
-  // const { sendRequest } = useHttpClient();
-  // useEffect(() => {
-  //   let isMounted = true;
-  //   const logout = async () => {
-  //     try {
-  //       const res = await sendRequest<Logout>(
-  //         `${process.env.REACT_APP_BACK_URL}/users/logout`,
-  //         'GET',
-  //         null,
-  //         { Authorization: `Bearer ${authCtx.token}` }
-  //       );
-  //       console.log(res.status);
-  //     } catch (err) { }
-  //   };
-  //   if (isMounted) {
-  //     window.addEventListener('beforeunload', e => {
-  //       // Do something
-  //     });
-  //   }
-  //   return () => {
-  //     isMounted = false;
-  //   };
-  // }, [sendRequest, authCtx]);
-
   const { login, logout, token, user } = useAuth();
   let routes;
   if (token) {

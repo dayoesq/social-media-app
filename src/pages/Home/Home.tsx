@@ -9,6 +9,7 @@ import {
   faSearch,
   faChevronDown,
   faStar,
+  faSpinner
 } from '@fortawesome/free-solid-svg-icons';
 import Avatar from '../../components/shared/UI/Avatar/Avatar';
 import { AuthContext } from '../../store/context';
@@ -28,7 +29,7 @@ import {
   TOGGLE_SHOW_SLIDER
 } from '../../utils/constants';
 import { useHttpClient } from '../../hooks/http';
-import Spinner from '../../components/shared/UI/Spinner/Spinner';
+// import Spinner from '../../components/shared/UI/Spinner/Spinner';
 
 import classes from './Home.module.scss';
 
@@ -49,16 +50,17 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     let isMounted = true;
-    const fetchPostHandler = async () => {
-      try {
-        const res = await sendRequest<ResponseDataPosts>(`${process.env.REACT_APP_BACK_URL}/posts`,
-          'GET',
-          null,
-          { Authorization: `Bearer ${authCtx.token}` });
-        setPosts(res.data);
-      } catch (err) { }
-    };
-    if (isMounted) fetchPostHandler();
+    if (isMounted) {
+      (async () => {
+        try {
+          const res = await sendRequest<ResponseDataPosts>(`${process.env.REACT_APP_BACK_URL}/posts`,
+            'GET',
+            null,
+            { Authorization: `Bearer ${authCtx.token}` });
+          setPosts(res.data);
+        } catch (err) { }
+      })();
+    }
     return () => {
       isMounted = false;
     };
@@ -66,16 +68,17 @@ const Home: React.FC = () => {
   
   useEffect(() => {
     let isMounted = true;
-    const fetchFriendsHandler = async () => {
-      try {
-        const res = await sendRequest<ResponseDataUsers>(`${process.env.REACT_APP_BACK_URL}/users/friends`,
-          'GET',
-          null,
-          { Authorization: `Bearer ${authCtx.token}` });
-        setFriends(res.data);
-      } catch (err) { }
-    };
-    if (isMounted) fetchFriendsHandler();
+    if (isMounted) {
+      (async () => {
+        try {
+          const res = await sendRequest<ResponseDataUsers>(`${process.env.REACT_APP_BACK_URL}/users/friends`,
+            'GET',
+            null,
+            { Authorization: `Bearer ${authCtx.token}` });
+          setFriends(res.data);
+        } catch (err) { }
+      })();
+    }
     return () => {
       isMounted = false;
     };
@@ -209,11 +212,19 @@ const Home: React.FC = () => {
             />
           </div>
         </nav>
-        {isLoading && <Spinner />}
+        
         <div className={classes.feedsContent}>
+          {/* {isLoading && <p>Loading...</p>} */}
           <div className={classes.feedsHeader}>
             <div className={classes.headerTop}>
               <h4>Home</h4>
+              {isLoading && (
+                <FontAwesomeIcon
+                  icon={faSpinner}
+                  color="#1aa1f5"
+                  size="2x"
+                />
+              )}
               <FontAwesomeIcon
                 icon={faStar}
                 color="#1aa1f5"
@@ -229,8 +240,12 @@ const Home: React.FC = () => {
               />
             </div>
           </div>
-          <Posts posts={posts} className={classes.posts} />
-          <Friends friends={friends} />
+          {!isLoading && (
+            <React.Fragment>
+              <Posts posts={posts} className={classes.posts} />
+              <Friends friends={friends} />
+            </React.Fragment>
+          )}
         </div>
       </div>
     </React.Fragment>

@@ -27,7 +27,7 @@ type PostProps = {
   showTooltip?: boolean;
   postAuthor?: IUser | null;
   postedAt?: Date | string | number;
-  postContent?: string;
+  postBody?: string;
   postImage?: string;
   postVideo?: string;
   postVideoType?: string;
@@ -78,7 +78,7 @@ const Post: React.FC<PostProps & IPost> = props => {
             />
           )}
         </div>
-        <p className={classes.postText}>{props.postContent}</p>
+        <p className={classes.postText}>{props.postBody}</p>
         {props.postImage && (
           <NavLink to='/home'>
             <div className={classes.postImg}>
@@ -157,7 +157,7 @@ Post.propTypes = {
   showTooltip: PropTypes.bool,
   showCommentBox: PropTypes.bool,
   postedAt: PropTypes.any,
-  postContent: PropTypes.string,
+  postBody: PropTypes.string,
   postImage: PropTypes.string,
   postCommentCount: PropTypes.number,
   postRepostCount: PropTypes.number,

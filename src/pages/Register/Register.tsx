@@ -118,8 +118,7 @@ const Register: React.FC = () => {
                     VALIDATOR_MINLENGTH(2),
                     VALIDATOR_MAXLENGTH(20)
                   ]}
-                  className={classes.registerInput}
-                  style={{ marginRight: '1rem' }}
+                  className={`${classes.registerInput} ${classes.mMedium}`}
                 />
                 <Input
                   element='input'
@@ -146,8 +145,7 @@ const Register: React.FC = () => {
                   onInput={inputHandler}
                   errorText='Please provide a valid email'
                   validators={[VALIDATOR_EMAIL()]}
-                  className={classes.registerInput}
-                  style={{ width: '100%' }}
+                  className={classes.registerInputEmail}
                 />
               </div>
               <div className={classes.registerInputWrapper}>
@@ -163,8 +161,7 @@ const Register: React.FC = () => {
                     VALIDATOR_MINLENGTH(6),
                     VALIDATOR_MAXLENGTH(100)
                   ]}
-                  className={classes.registerInput}
-                  style={{ marginRight: '1rem' }}
+                  className={`${classes.registerInput} ${classes.mMedium}`}
                 />
 
                 <Input
@@ -189,6 +186,7 @@ const Register: React.FC = () => {
                 primary
                 long
                 pillLong
+                className={classes.pillButton}
               >
                 Sign up
               </Button>

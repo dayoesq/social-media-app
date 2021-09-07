@@ -5,6 +5,9 @@
     p {
         font-size: 1.3rem;
         display: inline-block;
+        @media only screen and (max-width: 800px) {
+            font-size: 1rem;
+        }
     }
 }
 .formControl {
@@ -15,9 +18,9 @@
     }
 }
 .formControl {
-  label {
-    margin-bottom: 1rem;
-  }
+    label {
+        margin-bottom: 1rem;
+    }
 }
 .formControl {
     input:focus,
@@ -26,12 +29,11 @@
     }
 }
 .invalidInput {
-        p {
-            color: red;
-        }
-        input {
-            border-color: red;
-            background: #ffd1d1;
-        }
+    p {
+        color: red;
+    }
+    input {
+        border-color: red;
+        background: #ffd1d1;
+    }
 }
-

@@ -9,7 +9,7 @@ import Button from '../../form-elements/Button/Button';
 
 import classes from './Status.module.scss';
 // import ImageUpload from '../../form-elements/ImageUpload/ImageUpload';
-// import { useForm } from '../../../../hooks/form';
+import { useForm } from '../../../../hooks/form';
 
 export type StatusProps = {
   onCloseStatus?: React.MouseEventHandler<SVGSVGElement>;
@@ -42,16 +42,16 @@ const Status: React.FC<StatusProps> = props => {
   //   false
   // );
 
-  //   const submitPostHandler = (e: React.FormEvent) => {
-  //     e.preventDefault();
-  //     const postDetails = {
-  //       postBody: formState.inputs?.postBody.value,
-  //       postImage: formState.inputs?.postImage.value,
-  //       postImages: formState.inputs?.postImages.value
-  //     };
-  //     props?.onSubmitPost(postDetails);
-  // 
+  // const submitPostHandler = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   const postDetails = {
+  //     postBody: formState.inputs?.postBody.value,
+  //     postImage: formState.inputs?.postImage.value,
+  //     postImages: formState.inputs?.postImages.value
   //   };
+  //   props?.onSubmitPost(postDetails);
+  // 
+  // };
 
   useEffect(() => {
     statusRef.current?.focus();
@@ -97,7 +97,7 @@ const Status: React.FC<StatusProps> = props => {
             rows={props.rows}
           />
         </div>
-        <div className={classes.footer}>
+        <div className={classes.statusFooter}>
           <div className={classes.statusIcons}>
             {/* <ImageUpload id="image" onInput={inputHandler} errorText="Please provide a valid image"/> */}
             <FontAwesomeIcon

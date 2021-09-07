@@ -5,7 +5,6 @@ import {
   SHOW_HIDE_WARNING_MODAL,
   SHOW_SLIDER,
   SHOW_STATUS_MODAL,
-  SUBMIT_POST,
   TOGGLE_SHOW_SLIDER
 } from '../utils/constants';
 import { isEmpty } from '../utils/helpers';
@@ -33,7 +32,6 @@ type HomeActions =
   | { type: 'SHOW_STATUS_MODAL' }
   | { type: 'DISCARD_STATUS_MODAL' }
   | { type: 'SHOW_HIDE_WARNING_MODAL' }
-  | { type: 'SUBMIT_POST' }
   | { type: 'CANCEL_WARNING_MODAL' };
 
 const homeReducer = (state: HomeState, action: HomeActions): HomeState => {
@@ -60,13 +58,6 @@ const homeReducer = (state: HomeState, action: HomeActions): HomeState => {
       rows: currentRows < maxRows ? currentRows : maxRows
     };
   }
-  case SUBMIT_POST:
-    console.log(state.status);
-    return {
-      ...state,
-      showStatus: false,
-      status: ''
-    };
   case TOGGLE_SHOW_SLIDER:
     return {
       ...state,

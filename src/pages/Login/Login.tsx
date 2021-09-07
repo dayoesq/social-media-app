@@ -36,13 +36,13 @@ const Login: React.FC = () => {
         },
         password: {
           value: '',
-          isValid: false,
+          isValid: false
         }
       },
       false
     );
 
-  const authSubmitHandler = async (e: React.FormEvent) => {
+  const authLoginHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const res = await sendRequest<ResponseContext>(
@@ -58,9 +58,7 @@ const Login: React.FC = () => {
         setAlert(true);
         authCtx.login(res.data.token, res.data.user);
       }
-
-    } catch (err) { }
-        
+    } catch (err) {}
   };
 
   return (
@@ -69,11 +67,13 @@ const Login: React.FC = () => {
         <div className={classes.login}>
           <div className={classes.loginContent}>
             {alert && <Alert success>Login successfull</Alert>}
-            {error && error.length > 0 && <Alert danger>{error}</Alert>}
+            {error && error.length > 0 && (
+              <Alert danger>{error}</Alert>
+            )}
             <h2>Log in</h2>
             <form
               className={classes.loginForm}
-              onSubmit={authSubmitHandler}
+              onSubmit={authLoginHandler}
             >
               <Input
                 element="input"
@@ -94,7 +94,10 @@ const Login: React.FC = () => {
                 placeholder="Enter password"
                 onInput={inputHandler}
                 errorText="Password's length between 6 and 100"
-                validators={[VALIDATOR_MINLENGTH(6), VALIDATOR_MAXLENGTH(100)]}
+                validators={[
+                  VALIDATOR_MINLENGTH(6),
+                  VALIDATOR_MAXLENGTH(100),
+                ]}
                 className={classes.loginInput}
               />
               <div className={classes.loginFormWrapper}>
@@ -104,10 +107,11 @@ const Login: React.FC = () => {
                   primary
                   small
                   pillSmall
-                >{!isLoading ? 'Log in' : 'Loging in...'}
+                >
+                  {!isLoading ? 'Log in' : 'Loging in...'}
                 </Button>
                 <Link to="/forgetPassword">
-                                    Forget password?
+                  Forget password?
                 </Link>
               </div>
             </form>
@@ -129,5 +133,3 @@ const Login: React.FC = () => {
 };
 
 export default Login;
-
-

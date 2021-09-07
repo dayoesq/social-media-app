@@ -1,4 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,600,700&display=swap');
+:root {
+  --mSmall: .5rem;
+  --mMedium: 1rem;
+  --mBig: 1.5rem;
+  --mLarge: 2rem;
+  --mXLarge: 2.5rem;
+}
 
 * {
   margin: 0;

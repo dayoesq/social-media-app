@@ -63,6 +63,9 @@
 }
 .pillSmall {
     border-radius: 3rem;
+    @media only screen and (max-width: 800px) {
+        border-radius: 1.5rem;
+    }
 }
 .long {
     margin: 0.8rem 0;
@@ -70,7 +73,15 @@
     border: 0.1rem solid #1aa1f5;
     font-size: 1.6rem;
     cursor: pointer;
+    @media only screen and (max-width: 800px) {
+        margin: 0.5rem 0;
+        padding: 0.8rem;
+        font-size: 1.2rem;
+    }
 }
 .pillLong {
     border-radius: 4rem;
+    @media only screen and (max-width: 800px) {
+        border-radius: 2rem;
+    }
 }

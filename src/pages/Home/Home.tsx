@@ -25,7 +25,7 @@ import {
   DISCARD_STATUS_MODAL,
   SHOW_HIDE_WARNING_MODAL,
   SHOW_STATUS_MODAL,
-  SUBMIT_POST,
+  // SUBMIT_POST,
   TOGGLE_SHOW_SLIDER
 } from '../../utils/constants';
 import { useHttpClient } from '../../hooks/http';
@@ -98,8 +98,19 @@ const Home: React.FC = () => {
     dispatch({ type: SHOW_STATUS_MODAL });
   };
 
-  const submitPostHandler = () => {
-    dispatch({ type: SUBMIT_POST });
+  const submitPostHandler = async () => {
+    const formData = new FormData();
+    const postString = formData.append('postBody', state.status);
+    try {
+      const res = await sendRequest<{data: IPost, status: string}>(`${process.env.REACT_APP_BACK_URL}/posts`,
+        'POST',
+        JSON.stringify(postString),
+        { Authorization: `Bearer ${authCtx.token}` }
+      );
+      const updatedPosts = [res.data, ...posts];
+      setPosts(updatedPosts);
+
+    } catch(err) { }
   };
 
   const cancelStatusModalHandler = () => {

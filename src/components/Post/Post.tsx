@@ -16,9 +16,9 @@ import CommentInputBox from '../shared/UI/CommentInputBox/CommentInputBox';
 import Avatar from '../shared/UI/Avatar/Avatar';
 import Tooltip from '../shared/UI/Tooltip/Tooltip';
 import { AuthContext } from '../../store/context';
+import { getAlias, getDateTime } from '../../utils/helpers';
 
 import classes from './Post.module.scss';
-import { getAlias, getDateTime } from '../../utils/helpers';
 
 type PostProps = {
   onModifyPost?: React.MouseEventHandler<SVGSVGElement>;

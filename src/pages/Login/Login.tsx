@@ -123,7 +123,7 @@ const Login: React.FC = () => {
             </p>
             <p>
                 Already using Utteran?
-              <Link to="/activate">Verify your account</Link>
+              <Link to="/verify-account">Verify your account</Link>
             </p>
           </footer>
         </div>

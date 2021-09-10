@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useContext } from 'react';
+import React, { useRef, useEffect, useContext, MutableRefObject } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage, faSmile, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -10,48 +10,45 @@ import Button from '../../form-elements/Button/Button';
 import classes from './Status.module.scss';
 // import ImageUpload from '../../form-elements/ImageUpload/ImageUpload';
 import { useForm } from '../../../../hooks/form';
+import ImageUploader from '../../form-elements/ImageUploader/ImageUploader';
 
 export type StatusProps = {
   onCloseStatus?: React.MouseEventHandler<SVGSVGElement>;
-  onSubmitPost: React.MouseEventHandler<HTMLButtonElement>;
+  onSubmitPost?: any;
   status?: string;
   onChangePost?: React.ChangeEventHandler<HTMLTextAreaElement>;
   value: string | number | readonly string[] | undefined;
   disabled?: boolean;
   rows?: number;
+
 };
 
 const Status: React.FC<StatusProps> = props => {
-  const statusRef = useRef<HTMLTextAreaElement>(null);
+  // const statusRef = useRef<HTMLTextAreaElement>(null);
+  const statusRef = useRef() as MutableRefObject<HTMLTextAreaElement>;
   const authCtx = useContext(AuthContext);
-  // const [formState, inputHandler] = useForm(
-  //   {
-  //     postImage: {
-  //       isValid: false,
-  //       value: null
-  //     },
-  //     postImages: {
-  //       isValid: false,
-  //       value: null
-  //     },
-  //     postBody: {
-  //       isValid: false,
-  //       value: ''
-  //     }
-  //   },
-  //   false
-  // );
+  const [formState, inputHandler] = useForm<{
+    postBody: {
+      isValid: boolean;
+      value: string;
+    };
+  }>(
+    {
+      postBody: {
+        isValid: false,
+        value: ''
+      }
+    },
+    false
+  );
 
-  // const submitPostHandler = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   const postDetails = {
-  //     postBody: formState.inputs?.postBody.value,
-  //     postImage: formState.inputs?.postImage.value,
-  //     postImages: formState.inputs?.postImages.value
-  //   };
-  //   props?.onSubmitPost(postDetails);
-  // 
-  // };
+  const submitPostHandler = (e: any) => {
+    e.preventDefault();
+    const postDetails = {
+      postImage: formState.inputs?.postBody.value
+    };
+    props.onSubmitPost(postDetails);
+  };
 
   useEffect(() => {
     statusRef.current?.focus();
@@ -59,7 +56,7 @@ const Status: React.FC<StatusProps> = props => {
 
   return (
     <React.Fragment>
-      <form className={classes.status}>
+      <form className={classes.status} onSubmit={submitPostHandler}>
         <div className={classes.statusHeader}>
           <FontAwesomeIcon
             icon={faTimes}
@@ -99,13 +96,17 @@ const Status: React.FC<StatusProps> = props => {
         </div>
         <div className={classes.statusFooter}>
           <div className={classes.statusIcons}>
-            {/* <ImageUpload id="image" onInput={inputHandler} errorText="Please provide a valid image"/> */}
-            <FontAwesomeIcon
-              icon={faImage}
-              size='2x'
-              color='#1aa1f5'
-              className={classes.icon}
-            />
+            <ImageUploader
+              label='postImage'
+              
+            >
+              {/* <FontAwesomeIcon
+                icon={faImage}
+                size='2x'
+                color='#1aa1f5'
+                className={classes.icon}
+              /> */}
+            </ImageUploader>
             <FontAwesomeIcon
               icon={faSmile}
               size='2x'
@@ -121,7 +122,7 @@ const Status: React.FC<StatusProps> = props => {
 
 Status.propTypes = {
   onCloseStatus: PropTypes.func,
-  // onSubmitPost: PropTypes.func,
+  onSubmitPost: PropTypes.func,
   status: PropTypes.string,
   onChangePost: PropTypes.func,
   value: PropTypes.string,

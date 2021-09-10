@@ -13,6 +13,7 @@ import Register from './pages/Register/Register';
 import VerifyAccount from './pages/VerifyAccount/VerifyAccount';
 import { useAuth } from './hooks/auth';
 import { AuthContext } from './store/context';
+import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 
 const App: React.FC = () => {
   const { login, logout, token, user } = useAuth();
@@ -40,6 +41,9 @@ const App: React.FC = () => {
         </Route>
         <Route path='/verify-account' exact>
           <VerifyAccount />
+        </Route>
+        <Route path='/password-change-request' exact>
+          <ForgotPassword />
         </Route>
         <Redirect to='/' />
       </Switch>

@@ -98,18 +98,20 @@ const Home: React.FC = () => {
     dispatch({ type: SHOW_STATUS_MODAL });
   };
 
-  const submitPostHandler = async () => {
-    const formData = new FormData();
-    const postString = formData.append('postBody', state.status);
+  const submitPostHandler = async (data: { postBody: string }) => {
+    // const formData = new FormData();
+    // const postString = formData.append('postBody', data);
+    const postStatus = data.postBody;
+    console.log(data);
     try {
       const res = await sendRequest<{data: IPost, status: string}>(`${process.env.REACT_APP_BACK_URL}/posts`,
         'POST',
-        JSON.stringify(postString),
+        JSON.stringify(postStatus),
         { Authorization: `Bearer ${authCtx.token}` }
       );
       const updatedPosts = [res.data, ...posts];
       setPosts(updatedPosts);
-
+      dispatch({ type: DISCARD_STATUS_MODAL });
     } catch(err) { }
   };
 

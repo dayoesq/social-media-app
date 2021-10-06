@@ -11,7 +11,6 @@ type Body = {
     [key: string]: string
 }
 
-
 type HttpRequest = {
     isLoading: boolean;
     error: string[] | null;
@@ -54,7 +53,7 @@ export const useHttpClient = (): HttpRequest => {
         }
         setIsLoading(false);
         return responseData;
-      } catch (err) {
+      } catch (err: any) {
         const initialError: string[] = [];
         const errors = err.message.split('.');
         if (errors.length > 0) {

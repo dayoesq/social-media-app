@@ -10,7 +10,7 @@ import Button from '../../form-elements/Button/Button';
 import classes from './Status.module.scss';
 // import ImageUpload from '../../form-elements/ImageUpload/ImageUpload';
 import { useForm } from '../../../../hooks/form';
-import ImageUploader from '../../form-elements/ImageUploader/ImageUploader';
+
 
 export type StatusProps = {
   onCloseStatus?: React.MouseEventHandler<SVGSVGElement>;
@@ -96,17 +96,12 @@ const Status: React.FC<StatusProps> = props => {
         </div>
         <div className={classes.statusFooter}>
           <div className={classes.statusIcons}>
-            <ImageUploader
-              label='postImage'
-              
-            >
-              {/* <FontAwesomeIcon
-                icon={faImage}
-                size='2x'
-                color='#1aa1f5'
-                className={classes.icon}
-              /> */}
-            </ImageUploader>
+            <FontAwesomeIcon
+              icon={faImage}
+              size='2x'
+              color='#1aa1f5'
+              className={classes.icon}
+            />
             <FontAwesomeIcon
               icon={faSmile}
               size='2x'

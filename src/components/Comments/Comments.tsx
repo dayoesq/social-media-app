@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-
 import Comment from '../Comment/Comment';
 
 import classes from './Comments.module.scss';

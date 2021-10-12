@@ -1,7 +1,7 @@
 Social Media React Frontend 
 
 For demonstration purposes only, this project is not complete yet. 
-The project is inspired by the combination of Facebook and Twetter.
+The project is inspired by the combination of Facebook and Twitter.
 
 Required Steps for Testing
 

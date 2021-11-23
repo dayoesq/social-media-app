@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 
-import { useForm } from '../../hooks/form';
 import {
+  Input,
+  useForm,
   VALIDATOR_MINLENGTH,
   VALIDATOR_MAXLENGTH,
   VALIDATOR_EMAIL,
   VALIDATOR_PASSWORD_CONFIRM
-} from '../../utils/validators';
-import Input from '../../components/shared/form-elements/Input/Input';
+} from '@dayoesq/input-component';
 import Button from '../../components/shared/form-elements/Button/Button';
 import { useHttpClient } from '../../hooks/http';
 import Alert from '../../components/shared/UI/Alert/Alert';
@@ -45,24 +45,24 @@ const Register: React.FC = () => {
       {
         firstName: {
           value: '',
-          isValid: false
+          isValid: false,
         },
         lastName: {
           value: '',
-          isValid: false
+          isValid: false,
         },
         email: {
           value: '',
-          isValid: false
+          isValid: false,
         },
         password: {
           value: '',
-          isValid: false
+          isValid: false,
         },
         passwordConfirm: {
           value: '',
-          isValid: false
-        }
+          isValid: false,
+        },
       },
       false
     );
@@ -78,7 +78,7 @@ const Register: React.FC = () => {
           lastName: formState.inputs?.lastName.value,
           email: formState.inputs?.email.value,
           password: formState.inputs?.password.value,
-          passwordConfirm: formState.inputs?.passwordConfirm.value
+          passwordConfirm: formState.inputs?.passwordConfirm.value,
         }),
         { 'Content-Type': 'application/json' }
       );
@@ -89,8 +89,7 @@ const Register: React.FC = () => {
           history.replace('/verify-account');
         }, 1000);
       }
-    } catch (err) { }
-        
+    } catch (err) {}
   };
 
   return (
@@ -98,8 +97,12 @@ const Register: React.FC = () => {
       <div className={classes.registerPage}>
         <div className={classes.register}>
           <div className={classes.registerContent}>
-            {alert && <Alert success>Registeration successfull</Alert>}
-            {error && error.length > 0 && <Alert danger>{error}</Alert>}
+            {alert && (
+              <Alert success>Registeration successfull</Alert>
+            )}
+            {error && error.length > 0 && (
+              <Alert danger>{error}</Alert>
+            )}
             <h2>Sign up</h2>
             <form
               className={classes.registerForm}
@@ -107,97 +110,108 @@ const Register: React.FC = () => {
             >
               <div className={classes.registerInputWrapper}>
                 <Input
-                  element='input'
-                  id='firstName'
-                  label='Firstname'
-                  type='text'
-                  placeholder='Firstname'
+                  element="input"
+                  id="firstName"
+                  label="Firstname"
+                  type="text"
+                  placeholder="Firstname"
                   onInput={inputHandler}
-                  errorText='Name must be between 2 to 20 characters long'
+                  errorText="Name must be between 2 to 20 characters long"
                   validators={[
                     VALIDATOR_MINLENGTH(2),
-                    VALIDATOR_MAXLENGTH(20)
+                    VALIDATOR_MAXLENGTH(20),
                   ]}
                   className={`${classes.registerInput} ${classes.mMedium}`}
                 />
                 <Input
-                  element='input'
-                  id='lastName'
-                  label='Lastname'
-                  type='text'
-                  placeholder='Lastname'
+                  element="input"
+                  id="lastName"
+                  label="Lastname"
+                  type="text"
+                  placeholder="Lastname"
                   onInput={inputHandler}
-                  errorText='Name must be between 2 to 20 characters long'
+                  errorText="Name must be between 2 to 20 characters long"
                   validators={[
                     VALIDATOR_MINLENGTH(2),
-                    VALIDATOR_MAXLENGTH(20)
+                    VALIDATOR_MAXLENGTH(20),
                   ]}
                   className={classes.registerInput}
                 />
               </div>
               <div style={{ paddingRight: '1rem' }}>
                 <Input
-                  element='input'
-                  id='email'
-                  label='Email'
-                  type='email'
-                  placeholder='Email'
+                  element="input"
+                  id="email"
+                  label="Email"
+                  type="email"
+                  placeholder="Email"
                   onInput={inputHandler}
-                  errorText='Please provide a valid email'
+                  errorText="Please provide a valid email"
                   validators={[VALIDATOR_EMAIL()]}
                   className={classes.registerInputEmail}
                 />
               </div>
               <div className={classes.registerInputWrapper}>
                 <Input
-                  element='input'
-                  id='password'
-                  label='Password'
-                  placeholder='Password'
-                  type='password'
+                  element="input"
+                  id="password"
+                  label="Password"
+                  placeholder="Password"
+                  type="password"
                   onInput={inputHandler}
                   errorText="Password's length between 6 and 100"
                   validators={[
                     VALIDATOR_MINLENGTH(6),
-                    VALIDATOR_MAXLENGTH(100)
+                    VALIDATOR_MAXLENGTH(100),
                   ]}
                   className={`${classes.registerInput} ${classes.mMedium}`}
                 />
 
                 <Input
-                  element='input'
-                  id='passwordConfirm'
-                  label='Repeat Password'
-                  placeholder='Repeat Password'
-                  type='password'
+                  element="input"
+                  id="passwordConfirm"
+                  label="Repeat Password"
+                  placeholder="Repeat Password"
+                  type="password"
                   onInput={inputHandler}
                   errorText="Passwords don't match"
                   validators={[
-                    VALIDATOR_PASSWORD_CONFIRM(formState.inputs?.password.value)
+                    VALIDATOR_PASSWORD_CONFIRM(
+                      formState.inputs?.password.value
+                    ),
                   ]}
                   className={classes.registerInput}
                 />
-                                    
               </div>
-                    
+
               <Button
-                type='submit'
+                type="submit"
                 disabled={!formState.isValid}
                 primary
                 long
                 pillLong
                 className={classes.pillButton}
               >
-                Sign up
+                                Sign up
               </Button>
             </form>
           </div>
           <footer className={classes.registerFooter}>
             <p>
-                Already registered?
-              <NavLink to='/login'>Log in</NavLink>
+                            Already registered?
+              <NavLink to="/login">Log in</NavLink>
             </p>
-            <p>By clicking the <strong>Sign up</strong> button, you are creating an account, and agree to Utteran&#39;s <NavLink to='#'><strong>Terms of Service</strong></NavLink> and <NavLink to='#'><strong>Privacy Policy</strong></NavLink></p>
+            <p>
+                            By clicking the <strong>Sign up</strong> button, you
+                            are creating an account, and agree to Utteran&#39;s{' '}
+              <NavLink to="#">
+                <strong>Terms of Service</strong>
+              </NavLink>{' '}
+                            and{' '}
+              <NavLink to="#">
+                <strong>Privacy Policy</strong>
+              </NavLink>
+            </p>
           </footer>
         </div>
       </div>

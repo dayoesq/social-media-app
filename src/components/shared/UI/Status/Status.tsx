@@ -9,7 +9,7 @@ import Button from '../../form-elements/Button/Button';
 
 import classes from './Status.module.scss';
 // import ImageUpload from '../../form-elements/ImageUpload/ImageUpload';
-import { useForm } from '../../../../hooks/form';
+import { useForm } from '@dayoesq/input-component';
 
 
 export type StatusProps = {

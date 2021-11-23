@@ -50,10 +50,13 @@
         font-size: 1.5rem;
     }
     button {
-        margin-bottom: 3rem;
+        margin-bottom: 6rem;
     }
     @media only screen and(max-width: 560px) {
         display: none;
+    }
+    p {
+        font-size: 1.3rem;
     }
 }
 .landingInput {

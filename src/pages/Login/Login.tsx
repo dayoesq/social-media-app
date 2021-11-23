@@ -2,13 +2,13 @@ import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import Button from '../../components/shared/form-elements/Button/Button';
-import Input from '../../components/shared/form-elements/Input/Input';
-import { useForm } from '../../hooks/form';
 import {
+  useForm,
+  Input,
   VALIDATOR_EMAIL,
   VALIDATOR_MAXLENGTH,
-  VALIDATOR_MINLENGTH
-} from '../../utils/validators';
+  VALIDATOR_MINLENGTH,
+} from '@dayoesq/input-component';
 import { useHttpClient } from '../../hooks/http';
 import classes from './Login.module.scss';
 import Alert from '../../components/shared/UI/Alert/Alert';
@@ -36,8 +36,8 @@ const Login: React.FC = () => {
         },
         password: {
           value: '',
-          isValid: false
-        }
+          isValid: false,
+        },
       },
       false
     );
@@ -50,7 +50,7 @@ const Login: React.FC = () => {
         'POST',
         JSON.stringify({
           email: formState.inputs?.email.value,
-          password: formState.inputs?.password.value
+          password: formState.inputs?.password.value,
         }),
         { 'Content-Type': 'application/json' }
       );
@@ -111,19 +111,21 @@ const Login: React.FC = () => {
                   {!isLoading ? 'Log in' : 'Loging in...'}
                 </Button>
                 <Link to="/forgetPassword">
-                  Forget password?
+                                    Forget password?
                 </Link>
               </div>
             </form>
           </div>
           <footer className={classes.loginFooter}>
             <p>
-                New to Utteran?
+                            New to Utteran?
               <Link to="/register">Sign up now</Link>
             </p>
             <p>
-                Already using Utteran?
-              <Link to="/verify-account">Verify your account</Link>
+                            Already using Utteran?
+              <Link to="/verify-account">
+                                Verify your account
+              </Link>
             </p>
           </footer>
         </div>

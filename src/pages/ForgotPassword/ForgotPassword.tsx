@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Button from '../../components/shared/form-elements/Button/Button';
 
-import Input from '../../components/shared/form-elements/Input/Input';
-import { useForm } from '../../hooks/form';
-import { VALIDATOR_EMAIL } from '../../utils/validators';
+import Button from '../../components/shared/form-elements/Button/Button';
+import { Input, useForm, VALIDATOR_EMAIL } from '@dayoesq/input-component';
 import { useHttpClient } from '../../hooks/http';
+import Alert from '../../components/shared/UI/Alert/Alert';
 
 import classes from './ForgotPassword.module.scss';
-import Alert from '../../components/shared/UI/Alert/Alert';
 
 const ForgotPassword: React.FC = () => {
   const [alert, setAlert] = useState<boolean>(false);

@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '../../components/shared/form-elements/Button/Button';
-
-import Input from '../../components/shared/form-elements/Input/Input';
-import { useForm } from '../../hooks/form';
 import {
+  Input,
+  useForm,
   VALIDATOR_EMAIL,
-  VALIDATOR_REQUIRE
-} from '../../utils/validators';
+  VALIDATOR_REQUIRE,
+} from '@dayoesq/input-component';
 import { useHttpClient } from '../../hooks/http';
 
 import classes from './VerifyAccount.module.scss';
@@ -20,27 +19,27 @@ const VerifyAccount: React.FC = () => {
   const history = useHistory();
 
   const [formState, inputHandler] = useForm<{
-    email: {
-      value: string
-      isValid: boolean
-    }
-    verifyEmailToken: {
-      value: string
-      isValid: boolean
-    }
-  }>(
-    {
-      email: {
-        value: '',
-        isValid: false
+        email: {
+            value: string;
+            isValid: boolean;
+        };
+        verifyEmailToken: {
+            value: string;
+            isValid: boolean;
+        };
+    }>(
+      {
+        email: {
+          value: '',
+          isValid: false,
+        },
+        verifyEmailToken: {
+          value: '',
+          isValid: false,
+        },
       },
-      verifyEmailToken: {
-        value: '',
-        isValid: false
-      }
-    },
-    false
-  );
+      false
+    );
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,7 +49,7 @@ const VerifyAccount: React.FC = () => {
         'POST',
         JSON.stringify({
           email: formState.inputs?.email.value,
-          verifyEmailToken: formState.inputs?.verifyEmailToken.value
+          verifyEmailToken: formState.inputs?.verifyEmailToken.value,
         }),
         { 'Content-Type': 'application/json' }
       );
@@ -60,9 +59,7 @@ const VerifyAccount: React.FC = () => {
           history.replace('/login');
         }, 1000);
       }
-
-    } catch (err) { }
-
+    } catch (err) {}
   };
 
   return (
@@ -70,40 +67,42 @@ const VerifyAccount: React.FC = () => {
       <div className={classes.verifyPage}>
         <div className={classes.verify}>
           <div className={classes.verifyContent}>
-            {alert && <Alert success>Account verified successfully</Alert>}
-            {error && error.length > 0 && <Alert danger>{error}</Alert>}
+            {alert && (
+              <Alert success>Account verified successfully</Alert>
+            )}
+            {error && error.length > 0 && (
+              <Alert danger>{error}</Alert>
+            )}
             <h2>verify account</h2>
             <form
               className={classes.verifyForm}
               onSubmit={submitHandler}
             >
               <Input
-                element='input'
-                id='email'
-                type='email'
-                label='Email'
-                placeholder='Enter email'
+                element="input"
+                id="email"
+                type="email"
+                label="Email"
+                placeholder="Enter email"
                 onInput={inputHandler}
-                errorText='Please provide a valid email'
+                errorText="Please provide a valid email"
                 validators={[VALIDATOR_EMAIL()]}
                 className={classes.verifyInput}
               />
               <Input
-                element='input'
-                id='verifyEmailToken'
-                type='password'
-                label='Token'
-                placeholder='Enter token'
+                element="input"
+                id="verifyEmailToken"
+                type="password"
+                label="Token"
+                placeholder="Enter token"
                 onInput={inputHandler}
                 errorText="Please enter a valid token"
-                validators={[
-                  VALIDATOR_REQUIRE()
-                ]}
+                validators={[VALIDATOR_REQUIRE()]}
                 className={classes.verifyInput}
               />
               <div className={classes.verifyFormWrapper}>
                 <Button
-                  type='submit'
+                  type="submit"
                   disabled={!formState.isValid}
                   primary
                   small
@@ -121,4 +120,3 @@ const VerifyAccount: React.FC = () => {
 };
 
 export default VerifyAccount;
-

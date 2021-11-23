@@ -5,18 +5,18 @@ import {
   faSearch,
   faComment,
   faUserFriends,
-  faDove
+  faDove,
 } from '@fortawesome/free-solid-svg-icons';
 
 import BtnFat from '../../components/shared/form-elements/BtnFat/BtnFat';
 import Button from '../../components/shared/form-elements/Button/Button';
-import Input from '../../components/shared/form-elements/Input/Input';
-import { useForm } from '../../hooks/form';
 import {
+  useForm,
+  Input,
   VALIDATOR_EMAIL,
   VALIDATOR_MAXLENGTH,
-  VALIDATOR_MINLENGTH
-} from '../../utils/validators';
+  VALIDATOR_MINLENGTH,
+} from '@dayoesq/input-component';
 import { useHttpClient } from '../../hooks/http';
 import Alert from '../../components/shared/UI/Alert/Alert';
 import AuthContext from '../../store/context';
@@ -29,7 +29,7 @@ const Landing: React.FC = () => {
   const { error, sendRequest } = useHttpClient();
 
   const authCtx = useContext(AuthContext);
-    
+
   const [formState, inputHandler] = useForm<{
         email: {
             value: string;
@@ -43,12 +43,12 @@ const Landing: React.FC = () => {
       {
         email: {
           value: '',
-          isValid: false
+          isValid: false,
         },
         password: {
           value: '',
-          isValid: false
-        }
+          isValid: false,
+        },
       },
       false
     );
@@ -60,7 +60,7 @@ const Landing: React.FC = () => {
         'POST',
         JSON.stringify({
           email: formState.inputs?.email.value,
-          password: formState.inputs?.password.value
+          password: formState.inputs?.password.value,
         }),
         { 'Content-Type': 'application/json' }
       );
@@ -68,8 +68,7 @@ const Landing: React.FC = () => {
         setAlert(true);
         authCtx.login(res.data.token, res.data.user);
       }
-    } catch (err) { }
-
+    } catch (err) {}
   };
 
   return (
@@ -95,7 +94,9 @@ const Landing: React.FC = () => {
           <form onSubmit={authSubmitHandler}>
             <div className={classes.mr_medium}>
               {alert && <Alert success>Login successfull</Alert>}
-              {error && error.length > 0 && <Alert danger>{error}</Alert>}
+              {error && error.length > 0 && (
+                <Alert danger>{error}</Alert>
+              )}
             </div>
             <div className={classes.rightContentForm}>
               <div>
@@ -120,19 +121,25 @@ const Landing: React.FC = () => {
                   placeholder="Enter password"
                   onInput={inputHandler}
                   errorText="Password's length between 6 and 100"
-                  validators={[VALIDATOR_MINLENGTH(6), VALIDATOR_MAXLENGTH(100)]}
+                  validators={[
+                    VALIDATOR_MINLENGTH(6),
+                    VALIDATOR_MAXLENGTH(100),
+                  ]}
                   className={classes.landingInput}
                 />
               </div>
-              <BtnFat type='submit' disabled={!formState.isValid}>Log in</BtnFat>
+              <BtnFat type="submit" disabled={!formState.isValid}>
+                              Log in
+              </BtnFat>
             </div>
-                        
           </form>
           <div className={classes.middleContent}>
             <FontAwesomeIcon
-              icon={faDove} size="3x"
+              icon={faDove}
+              size="3x"
               color="#1aa1f5"
-              style={{ marginBottom: '2rem' }} />
+              style={{ marginBottom: '2rem' }}
+            />
             <h1>Explore what is happening in the world</h1>
             <h4>Join Utteran today</h4>
             <Button
@@ -142,7 +149,7 @@ const Landing: React.FC = () => {
               pillLong
               primaryInverse
             >
-            Login
+                          Login
             </Button>
             <Button
               type="button"
@@ -151,12 +158,12 @@ const Landing: React.FC = () => {
               long
               primary
             >
-                Register
+                          Register
             </Button>
           </div>
         </div>
       </div>
-            
+
       <div className={style.footer}>
         <ul className={style.footerList}>
           <li>
@@ -180,9 +187,7 @@ const Landing: React.FC = () => {
           <li>
             <NavLink to="#">Developers</NavLink>
           </li>
-          <li>
-            &copy; 2019 - {new Date().getFullYear()} Utteran
-          </li>
+          <li>&copy; 2019 - {new Date().getFullYear()} Utteran</li>
         </ul>
       </div>
     </div>

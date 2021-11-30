@@ -5,7 +5,7 @@
     "author": "Oladayo Oladapo",
     "homepage": "https://utteran.com",
     "dependencies": {
-        "@dayoesq/input-component": "^2.1.1",
+        "@dayoesq/input-component": "^2.3.0",
         "@fortawesome/fontawesome-svg-core": "^1.2.35",
         "@fortawesome/free-brands-svg-icons": "^5.15.3",
         "@fortawesome/free-regular-svg-icons": "^5.15.3",

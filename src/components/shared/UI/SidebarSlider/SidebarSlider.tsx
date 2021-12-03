@@ -20,7 +20,7 @@ export type SliderProps = {
     closeSlider?: React.MouseEventHandler<SVGSVGElement>;
 };
 
-const SidebarSlider: React.FC<SliderProps> = (props) => {
+const SidebarSlider: React.FC<SliderProps> = props => {
   const { sendRequest } = useHttpClient();
   const authCtx = useContext(AuthContext);
   const logoutHandler = async () => {

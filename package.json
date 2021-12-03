@@ -5,7 +5,7 @@
     "author": "Oladayo Oladapo",
     "homepage": "https://utteran.com",
     "dependencies": {
-        "@dayoesq/input-component": "^2.1.1",
+        "@dayoesq/input-component": "^2.3.0",
         "@fortawesome/fontawesome-svg-core": "^1.2.35",
         "@fortawesome/free-brands-svg-icons": "^5.15.3",
         "@fortawesome/free-regular-svg-icons": "^5.15.3",
@@ -18,7 +18,6 @@
         "@types/node": "^12.20.14",
         "@types/react": "^17.0.9",
         "@types/react-dom": "^17.0.6",
-        "@uploadcare/react-widget": "^1.3.8",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-router-dom": "^5.2.0",
@@ -61,11 +60,5 @@
         "node-sass": "^6.0.0",
         "prettier": "^2.3.1",
         "prop-types": "^15.7.2"
-    },
-    "prettier": {
-        "singleQuote": true,
-        "bracketSpacing": true,
-        "tabWidth": 4,
-        "printWidth": 80
     }
 }

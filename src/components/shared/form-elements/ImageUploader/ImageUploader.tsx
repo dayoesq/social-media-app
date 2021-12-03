@@ -33,7 +33,7 @@ const ImageUploader: FC<ImageUploaderProps> = (props) => {
     const len = files.length;
     if (len > 0) {
       const reader = new FileReader();
-      let previewStr: string[] = [];
+      const previewStr: string[] = [];
       const read = (index: number): void => {
         if (index < len) {
           const file = files[index];

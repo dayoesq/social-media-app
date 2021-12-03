@@ -12,7 +12,7 @@ import { isEmpty } from '../utils/helpers';
 type HomeState = {
   showStatus: boolean;
   showSlider: boolean;
-  status: string;
+  postBody: string;
   showWarningModal: boolean;
   rows: number;
   minRows: number;
@@ -54,7 +54,7 @@ const homeReducer = (state: HomeState, action: HomeActions): HomeState => {
     }
     return {
       ...state,
-      status: action.value,
+      postBody: action.value,
       rows: currentRows < maxRows ? currentRows : maxRows
     };
   }
@@ -77,19 +77,19 @@ const homeReducer = (state: HomeState, action: HomeActions): HomeState => {
     if (state.showWarningModal) {
       return {
         ...state,
-        status: '',
+        postBody: '',
         showStatus: false,
         showWarningModal: false
       };
     } else {
       return {
         ...state,
-        status: '',
+        postBody: '',
         showStatus: false
       };
     }
   case SHOW_HIDE_WARNING_MODAL:
-    if (isEmpty(state.status)) {
+    if (isEmpty(state.postBody)) {
       return {
         ...state,
         showStatus: false,

@@ -9,7 +9,7 @@ import {
   faSearch,
   faChevronDown,
   faStar,
-  faSpinner
+  faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
 import Avatar from '../../components/shared/UI/Avatar/Avatar';
 import { AuthContext } from '../../store/context';
@@ -26,7 +26,7 @@ import {
   SHOW_HIDE_WARNING_MODAL,
   SHOW_STATUS_MODAL,
   // SUBMIT_POST,
-  TOGGLE_SHOW_SLIDER
+  TOGGLE_SHOW_SLIDER,
 } from '../../utils/constants';
 import { useHttpClient } from '../../hooks/http';
 // import Spinner from '../../components/shared/UI/Spinner/Spinner';
@@ -41,7 +41,7 @@ const Home: React.FC = () => {
   const [state, dispatch] = useReducer(homeReducer, {
     showStatus: false,
     showSlider: false,
-    status: '',
+    postBody: '',
     showWarningModal: false,
     rows: 5,
     minRows: 5,
@@ -53,30 +53,34 @@ const Home: React.FC = () => {
     if (isMounted) {
       (async () => {
         try {
-          const res = await sendRequest<ResponseDataPosts>(`${process.env.REACT_APP_BACK_URL}/posts`,
+          const res = await sendRequest<ResponseDataPosts>(
+            `${process.env.REACT_APP_BACK_URL}/posts`,
             'GET',
             null,
-            { Authorization: `Bearer ${authCtx.token}` });
+            { Authorization: `Bearer ${authCtx.token}` }
+          );
           setPosts(res.data);
-        } catch (err) { }
+        } catch (err) {}
       })();
     }
     return () => {
       isMounted = false;
     };
   }, [sendRequest, authCtx.token]);
-  
+
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
       (async () => {
         try {
-          const res = await sendRequest<ResponseDataUsers>(`${process.env.REACT_APP_BACK_URL}/users/friends`,
+          const res = await sendRequest<ResponseDataUsers>(
+            `${process.env.REACT_APP_BACK_URL}/users/friends`,
             'GET',
             null,
-            { Authorization: `Bearer ${authCtx.token}` });
+            { Authorization: `Bearer ${authCtx.token}` }
+          );
           setFriends(res.data);
-        } catch (err) { }
+        } catch (err) {}
       })();
     }
     return () => {
@@ -98,21 +102,20 @@ const Home: React.FC = () => {
     dispatch({ type: SHOW_STATUS_MODAL });
   };
 
-  const submitPostHandler = async (data: { postBody: string }) => {
-    // const formData = new FormData();
-    // const postString = formData.append('postBody', data);
-    const postStatus = data.postBody;
-    console.log(data);
+  const submitPostHandler = async (data: FormData) => {
+    // console.log(data);
+    // console.log(formData);
     try {
-      const res = await sendRequest<{data: IPost, status: string}>(`${process.env.REACT_APP_BACK_URL}/posts`,
+      const res = await sendRequest<{ data: IPost; status: string }>(
+        `${process.env.REACT_APP_BACK_URL}/posts`,
         'POST',
-        JSON.stringify(postStatus),
+        JSON.stringify(data),
         { Authorization: `Bearer ${authCtx.token}` }
       );
       const updatedPosts = [res.data, ...posts];
       setPosts(updatedPosts);
       dispatch({ type: DISCARD_STATUS_MODAL });
-    } catch(err) { }
+    } catch (err) {}
   };
 
   const cancelStatusModalHandler = () => {
@@ -144,8 +147,8 @@ const Home: React.FC = () => {
           onCloseStatus={cancelStatusModalHandler}
           onChangePost={changePostHandler}
           onSubmitPost={submitPostHandler}
-          value={state.status}
-          disabled={!state.status}
+          value={state.postBody}
+          disabled={!state.postBody}
           rows={state.rows}
         />
       )}
@@ -225,7 +228,7 @@ const Home: React.FC = () => {
             />
           </div>
         </nav>
-        
+
         <div className={classes.feedsContent}>
           {/* {isLoading && <p>Loading...</p>} */}
           <div className={classes.feedsHeader}>
@@ -245,7 +248,10 @@ const Home: React.FC = () => {
               />
             </div>
             <div className={classes.headerPost}>
-              <Avatar small src={`${process.env.REACT_APP_BACK_ASSETS}/${authCtx.user?.avatar}`} />
+              <Avatar
+                small
+                src={`${process.env.REACT_APP_BACK_ASSETS}/${authCtx.user?.avatar}`}
+              />
               <input
                 type="text"
                 placeholder="What's up?"

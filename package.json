@@ -58,7 +58,7 @@
         "eslint": "^8.3.0",
         "eslint-plugin-react": "^7.24.0",
         "node-sass": "^6.0.0",
-        "prettier": "^2.3.1",
+        "prettier": "^2.5.1",
         "prop-types": "^15.7.2"
     }
 }

@@ -1,19 +1,19 @@
-import React from 'react';
+import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
-} from 'react-router-dom';
+  Redirect,
+} from "react-router-dom";
 
-import Landing from './pages/Landing/Landing';
-import Home from './pages/Home/Home';
-import Login from './pages/Login/Login';
-import Register from './pages/Register/Register';
-import VerifyAccount from './pages/VerifyAccount/VerifyAccount';
-import { useAuth } from './hooks/auth';
-import { AuthContext } from './store/context';
-import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
+import Landing from "./pages/Landing/Landing";
+import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
+import VerifyAccount from "./pages/VerifyAccount/VerifyAccount";
+import { useAuth } from "./hooks/auth";
+import { AuthContext } from "./store/context";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 
 const App: React.FC = () => {
   const { login, logout, token, user } = useAuth();
@@ -21,31 +21,31 @@ const App: React.FC = () => {
   if (token) {
     routes = (
       <Switch>
-        <Route path='/home' exact>
+        <Route path="/home" exact>
           <Home />
         </Route>
-        <Redirect to='/home' />
+        <Redirect to="/home" />
       </Switch>
     );
   } else {
     routes = (
       <Switch>
-        <Route path='/' exact>
+        <Route path="/" exact>
           <Landing />
         </Route>
-        <Route path='/login' exact>
+        <Route path="/login" exact>
           <Login />
         </Route>
-        <Route path='/register' exact>
+        <Route path="/register" exact>
           <Register />
         </Route>
-        <Route path='/verify-account' exact>
+        <Route path="/verify-account" exact>
           <VerifyAccount />
         </Route>
-        <Route path='/password-change-request' exact>
+        <Route path="/password-change-request" exact>
           <ForgotPassword />
         </Route>
-        <Redirect to='/' />
+        <Redirect to="/" />
       </Switch>
     );
   }
@@ -55,7 +55,7 @@ const App: React.FC = () => {
         login,
         logout,
         token,
-        user
+        user,
       }}
     >
       <Router>{routes}</Router>

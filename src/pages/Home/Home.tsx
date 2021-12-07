@@ -1,6 +1,6 @@
-import React, { useContext, useReducer, useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useContext, useReducer, useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHashtag,
   faBell,
@@ -10,28 +10,26 @@ import {
   faChevronDown,
   faStar,
   faSpinner,
-} from '@fortawesome/free-solid-svg-icons';
-import Avatar from '../../components/shared/UI/Avatar/Avatar';
-import { AuthContext } from '../../store/context';
-import Posts from '../../components/Posts/Posts';
-import Friends from '../../components/Friends/Friends';
-import StatusModal from '../../components/shared/UI/StatusModal/StatusModal';
-import SliderModal from '../../components/shared/UI/SliderModal/SliderModal';
-import WarningModal from '../../components/shared/UI/WarningModal/WarningModal';
-import homeReducer from '../../reducers/homeReducer';
+} from "@fortawesome/free-solid-svg-icons";
+import Avatar from "../../components/shared/UI/Avatar/Avatar";
+import { AuthContext } from "../../store/context";
+import Posts from "../../components/Posts/Posts";
+import Friends from "../../components/Friends/Friends";
+import StatusModal from "../../components/shared/UI/StatusModal/StatusModal";
+import SliderModal from "../../components/shared/UI/SliderModal/SliderModal";
+import WarningModal from "../../components/shared/UI/WarningModal/WarningModal";
+import homeReducer from "../../reducers/homeReducer";
 import {
   CANCEL_WARNING_MODAL,
   CHANGE_POST_STATUS,
   DISCARD_STATUS_MODAL,
   SHOW_HIDE_WARNING_MODAL,
   SHOW_STATUS_MODAL,
-  // SUBMIT_POST,
   TOGGLE_SHOW_SLIDER,
-} from '../../utils/constants';
-import { useHttpClient } from '../../hooks/http';
-// import Spinner from '../../components/shared/UI/Spinner/Spinner';
+} from "../../utils/constants";
+import { useHttpClient } from "../../hooks/http";
 
-import classes from './Home.module.scss';
+import classes from "./Home.module.scss";
 
 const Home: React.FC = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -41,7 +39,7 @@ const Home: React.FC = () => {
   const [state, dispatch] = useReducer(homeReducer, {
     showStatus: false,
     showSlider: false,
-    postBody: '',
+    postBody: "",
     showWarningModal: false,
     rows: 5,
     minRows: 5,
@@ -55,7 +53,7 @@ const Home: React.FC = () => {
         try {
           const res = await sendRequest<ResponseDataPosts>(
             `${process.env.REACT_APP_BACK_URL}/posts`,
-            'GET',
+            "GET",
             null,
             { Authorization: `Bearer ${authCtx.token}` }
           );
@@ -75,7 +73,7 @@ const Home: React.FC = () => {
         try {
           const res = await sendRequest<ResponseDataUsers>(
             `${process.env.REACT_APP_BACK_URL}/users/friends`,
-            'GET',
+            "GET",
             null,
             { Authorization: `Bearer ${authCtx.token}` }
           );
@@ -102,15 +100,19 @@ const Home: React.FC = () => {
     dispatch({ type: SHOW_STATUS_MODAL });
   };
 
-  const submitPostHandler = async (data: FormData) => {
-    // console.log(data);
-    // console.log(formData);
+  const submitPostHandler = async (data: {
+    postBody: string;
+    postImages: string[];
+  }) => {
+    console.log(data.postBody);
     try {
       const res = await sendRequest<{ data: IPost; status: string }>(
         `${process.env.REACT_APP_BACK_URL}/posts`,
-        'POST',
-        JSON.stringify(data),
-        { Authorization: `Bearer ${authCtx.token}` }
+        "POST",
+        data,
+        {
+          Authorization: `Bearer ${authCtx.token}`
+        }
       );
       const updatedPosts = [res.data, ...posts];
       setPosts(updatedPosts);
@@ -175,32 +177,16 @@ const Home: React.FC = () => {
         <nav className={classes.feedsNav}>
           <div className={classes.feedsIcons}>
             <NavLink to="/home">
-              <FontAwesomeIcon
-                icon={faHome}
-                size="1x"
-                color="#9e9a9a"
-              />
+              <FontAwesomeIcon icon={faHome} size="1x" color="#9e9a9a" />
             </NavLink>
             <NavLink to="/home">
-              <FontAwesomeIcon
-                icon={faHashtag}
-                size="1x"
-                color="#9e9a9a"
-              />
+              <FontAwesomeIcon icon={faHashtag} size="1x" color="#9e9a9a" />
             </NavLink>
             <NavLink to="/home">
-              <FontAwesomeIcon
-                icon={faBell}
-                size="1x"
-                color="#9e9a9a"
-              />
+              <FontAwesomeIcon icon={faBell} size="1x" color="#9e9a9a" />
             </NavLink>
             <NavLink to="/home">
-              <FontAwesomeIcon
-                icon={faEnvelope}
-                size="1x"
-                color="#9e9a9a"
-              />
+              <FontAwesomeIcon icon={faEnvelope} size="1x" color="#9e9a9a" />
             </NavLink>
           </div>
           <div className={classes.searchBar}>
@@ -235,17 +221,9 @@ const Home: React.FC = () => {
             <div className={classes.headerTop}>
               <h4>Home</h4>
               {isLoading && (
-                <FontAwesomeIcon
-                  icon={faSpinner}
-                  color="#1aa1f5"
-                  size="2x"
-                />
+                <FontAwesomeIcon icon={faSpinner} color="#1aa1f5" size="2x" />
               )}
-              <FontAwesomeIcon
-                icon={faStar}
-                color="#1aa1f5"
-                size="2x"
-              />
+              <FontAwesomeIcon icon={faStar} color="#1aa1f5" size="2x" />
             </div>
             <div className={classes.headerPost}>
               <Avatar

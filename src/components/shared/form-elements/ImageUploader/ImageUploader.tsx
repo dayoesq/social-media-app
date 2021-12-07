@@ -26,6 +26,7 @@ const ImageUploader: FC<ImageUploaderProps> = (props) => {
   const [files, setFiles] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
   const [isValid, setIsValid] = useState<boolean>(false);
+  const [error, setError] = useState<any>();
 
   const filePickerRef = useRef() as MutableRefObject<HTMLInputElement>;
 
@@ -34,12 +35,12 @@ const ImageUploader: FC<ImageUploaderProps> = (props) => {
     if (len > 0) {
       const reader = new FileReader();
       const previewStr: string[] = [];
-      const read = (index: number): void => {
-        if (index < len) {
-          const file = files[index];
+      const read = (i: number) => {
+        if (i < len) {
+          const file = files[i];
           reader.onloadend = () => {
             previewStr.push(reader.result as string);
-            read(index + 1);
+            read(i + 1);
           };
           reader.readAsDataURL(file);
         } else {
@@ -56,9 +57,20 @@ const ImageUploader: FC<ImageUploaderProps> = (props) => {
 
   const pickHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
+    const len = files?.length as number;
     let pickedFile: any;
     let fileIsValid = isValid;
-    if (files && files.length > 0) {
+    if (files) {
+      Array.from(files).forEach((file) => {
+        if (file.size > 3000000) {
+          setIsValid(false);
+          fileIsValid = false;
+          setError("Invalid file size");
+          return;
+        }
+      });
+    }
+    if (files && len > 0 && len < 6) {
       pickedFile = files;
       setFiles(pickedFile);
       setIsValid(true);
@@ -66,6 +78,7 @@ const ImageUploader: FC<ImageUploaderProps> = (props) => {
     } else {
       setIsValid(false);
       fileIsValid = false;
+      setError("Only 5 images allowed per upload!");
     }
     props.onInput(props.id, pickedFile, fileIsValid);
   };
@@ -92,8 +105,8 @@ const ImageUploader: FC<ImageUploaderProps> = (props) => {
           }}
         >
           {previewUrls &&
-            previewUrls.map((preview: string, index: number) => (
-              <li key={index}>
+            previewUrls.map((preview: string, i: number) => (
+              <li key={i}>
                 <img
                   src={preview}
                   alt="Preview"
@@ -109,7 +122,7 @@ const ImageUploader: FC<ImageUploaderProps> = (props) => {
           className={props.iconClassName}
         />
       </div>
-      {!isValid && <p className={classes.errorText}>{props.errorText}</p>}
+      {!isValid && <p className={classes.errorText}>{error}</p>}
     </>
   );
 };

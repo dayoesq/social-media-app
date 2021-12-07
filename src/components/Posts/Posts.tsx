@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 
-import Post from '../Post/Post';
-import Comments from '../Comments/Comments';
+import Post from "../Post/Post";
+import Comments from "../Comments/Comments";
 
 type PostProps = {
   posts?: IPost[];
@@ -10,18 +10,14 @@ type PostProps = {
   comments?: IComment[];
 };
 
-const Posts: React.FC<PostProps> = props => {
+const Posts: React.FC<PostProps> = (props) => {
   const [show, setShow] = useState<number | null | undefined>(-1);
-  const [showTooltip, setShowTooltip] = useState<number | null | undefined>(
-    -1
-  );
+  const [showTooltip, setShowTooltip] = useState<number | null | undefined>(-1);
   const toggleComment = (index: number) => {
     return index === show ? setShow(-1) : setShow(index);
   };
   const toggleTooltip = (index: number) => {
-    return index === showTooltip
-      ? setShowTooltip(-1)
-      : setShowTooltip(index);
+    return index === showTooltip ? setShowTooltip(-1) : setShowTooltip(index);
   };
 
   if (props.posts) {
@@ -30,7 +26,7 @@ const Posts: React.FC<PostProps> = props => {
         {props.posts.map((post, index) => (
           <Post
             key={post._id}
-            postImage={`${post.postImage ? post.postImage : ''}`}
+            postImages={`${post.postImages ? post.postImages[0] : ""}`}
             postBody={post.postBody}
             postedAt={post.postedAt}
             postAuthor={post.postAuthor}
@@ -38,8 +34,8 @@ const Posts: React.FC<PostProps> = props => {
             postRepostCount={post.postRepostCount}
             postLoveCount={post.postLoveCount}
             postShareCount={post.postShareCount}
-            postVideo={post.postVideo ? post.postVideo : ''}
-            postVideoType={post.postVideoType ? post.postVideoType : ''}
+            postVideo={post.postVideo ? post.postVideo : ""}
+            postVideoType={post.postVideoType ? post.postVideoType : ""}
             onModifyPost={() => toggleTooltip(index)}
             showCommentBox={show === index}
             showTooltip={showTooltip === index}
@@ -49,15 +45,14 @@ const Posts: React.FC<PostProps> = props => {
         <Comments comments={props.comments} />
       </div>
     );
-
   }
-  return null;  
+  return null;
 };
 
 Posts.propTypes = {
   posts: PropTypes.array,
   className: PropTypes.string,
-  comments: PropTypes.array
+  comments: PropTypes.array,
 };
 
 export default Posts;

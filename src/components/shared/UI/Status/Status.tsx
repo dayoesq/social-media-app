@@ -1,57 +1,60 @@
-import React, { useRef, useEffect, useContext, MutableRefObject } from 'react';
-import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSmile, faTimes } from '@fortawesome/free-solid-svg-icons';
+import React, { useRef, useEffect, useContext, MutableRefObject } from "react";
+import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSmile, faTimes } from "@fortawesome/free-solid-svg-icons";
 
-import Avatar from '../Avatar/Avatar';
-import { AuthContext } from '../../../../store/context';
-import Button from '../../form-elements/Button/Button';
-import { useForm } from '@dayoesq/input-component';
-import ImageUploader from '../../form-elements/ImageUploader/ImageUploader';
+import Avatar from "../Avatar/Avatar";
+import { AuthContext } from "../../../../store/context";
+import Button from "../../form-elements/Button/Button";
+import { useForm } from "@dayoesq/input-component";
+import ImageUploader from "../../form-elements/ImageUploader/ImageUploader";
 
-import classes from './Status.module.scss';
+import classes from "./Status.module.scss";
 
 export type StatusProps = {
-    onCloseStatus?: React.MouseEventHandler<SVGSVGElement>;
-    onSubmitPost?: any;
-    onChangePost?: React.ChangeEventHandler<HTMLTextAreaElement>;
-    value: string | number | readonly string[] | undefined;
-    disabled?: boolean;
-    rows?: number;
+  onCloseStatus?: React.MouseEventHandler<SVGSVGElement>;
+  onSubmitPost?: any;
+  onChangePost?: React.ChangeEventHandler<HTMLTextAreaElement>;
+  value: string | number | readonly string[] | undefined;
+  disabled?: boolean;
+  rows?: number;
 };
 
 const Status: React.FC<StatusProps> = (props) => {
   const statusRef = useRef() as MutableRefObject<HTMLTextAreaElement>;
   const authCtx = useContext(AuthContext);
   const [formState, inputHandler] = useForm<{
-        postBody: {
-            isValid: boolean;
-            value: string;
-        };
-        postImage: {
-            isValid: boolean;
-            value: string;
-        };
-    }>(
-      {
-        postBody: {
-          isValid: false,
-          value: '',
-        },
-        postImage: {
-          isValid: false,
-          value: '',
-        },
+    postBody: {
+      isValid: boolean;
+      value: string;
+    };
+    postImages: {
+      isValid: boolean;
+      value: string[];
+    };
+  }>(
+    {
+      postBody: {
+        isValid: false,
+        value: "",
       },
-      false
-    );
+      postImages: {
+        isValid: false,
+        value: [],
+      },
+    },
+    false
+  );
 
   const submitPostHandler = (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('postBody', formState.inputs?.postBody.value);
-    formData.append('postImage', formState.inputs?.postImage.value);
-    console.log(formData);
+    formData.append("postBody", formState.inputs?.postBody.value);
+    formData.append("postImages", formState.inputs?.postImages.value[0]);
+    formData.append("postImages", formState.inputs?.postImages.value[1]);
+    formData.append("postImages", formState.inputs?.postImages.value[2]);
+    formData.append("postImages", formState.inputs?.postImages.value[3]);
+    formData.append("postImages", formState.inputs?.postImages.value[4]);
     props.onSubmitPost(formData);
   };
 
@@ -79,10 +82,9 @@ const Status: React.FC<StatusProps> = (props) => {
             primary
             small
             pillSmall
-            // onClick={props.onSubmitPost}
             disabled={props.disabled}
           >
-                        Post
+            Post
           </Button>
         </div>
         <div className={classes.statusBody}>
@@ -114,11 +116,10 @@ const Status: React.FC<StatusProps> = (props) => {
             />
           </div>
           <ImageUploader
-            id="postImage"
+            id="postImages"
             accept=".png, .jpeg, .jpg"
             onInput={inputHandler}
             iconClassName={classes.imageUploader}
-            // errorText="Please provide an image."
           />
         </div>
       </form>

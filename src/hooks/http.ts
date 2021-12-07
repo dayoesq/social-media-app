@@ -1,26 +1,22 @@
-import { useState, useCallback, useRef, useEffect, useContext } from 'react';
-import { AuthContext } from '../store/context';
+import { useState, useCallback, useRef, useEffect, useContext } from "react";
+import { AuthContext } from "../store/context";
 import {
-  LOG_IN_OR_SIGN_UP, 
-  LOG_USER_OUT, 
-  USER_DOES_NOT_EXIST, 
-  USER_NOT_FOUND
-} from '../utils/constants';
-
-type Body = {
-    [key: string]: string
-}
+  LOG_IN_OR_SIGN_UP,
+  LOG_USER_OUT,
+  USER_DOES_NOT_EXIST,
+  USER_NOT_FOUND,
+} from "../utils/constants";
 
 type HttpRequest = {
-    isLoading: boolean;
-    error: string[] | null;
-    clearError: () => void;
-    sendRequest:<Type> (
-        url: RequestInfo,
-        method?: string,
-        body?: string | null,
-        headers?: Body
-    ) => Promise<Type>;
+  isLoading: boolean;
+  error: string[] | null;
+  clearError: () => void;
+  sendRequest: <Type>(
+    url: RequestInfo,
+    method?: string,
+    body?: any,
+    headers?: any
+  ) => Promise<Type>;
 };
 
 export const useHttpClient = (): HttpRequest => {
@@ -31,7 +27,7 @@ export const useHttpClient = (): HttpRequest => {
   const activeHttpRequests = useRef<AbortController[]>([]);
 
   const sendRequest = useCallback(
-    async (url, method = 'GET', body = null, headers = {}) => {
+    async (url, method = "GET", body = null, headers = {}) => {
       const httpAbortCtrl: AbortController = new AbortController();
       setIsLoading(true);
       activeHttpRequests.current.push(httpAbortCtrl);
@@ -55,12 +51,12 @@ export const useHttpClient = (): HttpRequest => {
         return responseData;
       } catch (err: any) {
         const initialError: string[] = [];
-        const errors = err.message.split('.');
+        const errors = err.message.split(".");
         if (errors.length > 0) {
           errors.forEach((err: string) => {
-            if (err.includes('Cast to ObjectId')) {
-              err = `Invalid ${err.split('path')[1]} id`;
-            } 
+            if (err.includes("Cast to ObjectId")) {
+              err = `Invalid ${err.split("path")[1]} id`;
+            }
             initialError.push(err);
             setError(initialError);
           });
@@ -76,17 +72,16 @@ export const useHttpClient = (): HttpRequest => {
       LOG_IN_OR_SIGN_UP,
       USER_DOES_NOT_EXIST,
       LOG_USER_OUT,
-      USER_NOT_FOUND
+      USER_NOT_FOUND,
     ];
     if (error) {
-      error.forEach(err => {
+      error.forEach((err) => {
         if (errorMessage.includes(err)) {
           authCtx.logout();
         }
       });
     }
   }, [authCtx, error]);
-
 
   const clearError = () => {
     setTimeout(() => {
@@ -104,9 +99,7 @@ export const useHttpClient = (): HttpRequest => {
 
   useEffect(() => {
     return () => {
-      activeHttpRequests.current.forEach((abortCtrl) =>
-        abortCtrl.abort()
-      );
+      activeHttpRequests.current.forEach((abortCtrl) => abortCtrl.abort());
     };
   }, []);
 

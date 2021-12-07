@@ -7,7 +7,7 @@ interface IPost {
   updatedAt?: Date | string;
   postBody?: string;
   postVideo?: string;
-  postImage?: string;
+  postImages?: string;
   postVideoType?: string;
   postCommentCount?: number;
   postRepostCount?: number;

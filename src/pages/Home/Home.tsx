@@ -21,7 +21,7 @@ import WarningModal from "../../components/shared/UI/WarningModal/WarningModal";
 import homeReducer from "../../reducers/homeReducer";
 import {
   CANCEL_WARNING_MODAL,
-  CHANGE_POST_STATUS,
+  // CHANGE_POST_STATUS,
   DISCARD_STATUS_MODAL,
   SHOW_HIDE_WARNING_MODAL,
   SHOW_STATUS_MODAL,
@@ -86,16 +86,6 @@ const Home: React.FC = () => {
     };
   }, [sendRequest, authCtx.token]);
 
-  const changePostHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    dispatch({
-      type: CHANGE_POST_STATUS,
-      value: e.target.value,
-      scrollHeight: e.target.scrollHeight,
-      scrollTop: e.target.scrollTop,
-      rows: e.target.rows,
-    });
-  };
-
   const showStatusHandler = () => {
     dispatch({ type: SHOW_STATUS_MODAL });
   };
@@ -111,7 +101,7 @@ const Home: React.FC = () => {
         "POST",
         data,
         {
-          Authorization: `Bearer ${authCtx.token}`
+          Authorization: `Bearer ${authCtx.token}`,
         }
       );
       const updatedPosts = [res.data, ...posts];
@@ -147,10 +137,7 @@ const Home: React.FC = () => {
           showStatus={state.showStatus}
           onCancelBackdrop={cancelStatusModalHandler}
           onCloseStatus={cancelStatusModalHandler}
-          onChangePost={changePostHandler}
           onSubmitPost={submitPostHandler}
-          value={state.postBody}
-          disabled={!state.postBody}
           rows={state.rows}
         />
       )}

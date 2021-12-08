@@ -1,4 +1,10 @@
-import React, { useRef, useEffect, useContext, MutableRefObject } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useContext,
+  MutableRefObject,
+  useState,
+} from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSmile, faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -13,31 +19,21 @@ import classes from "./Status.module.scss";
 
 export type StatusProps = {
   onCloseStatus?: React.MouseEventHandler<SVGSVGElement>;
-  onSubmitPost?: any;
-  onChangePost?: React.ChangeEventHandler<HTMLTextAreaElement>;
-  value: string | number | readonly string[] | undefined;
-  disabled?: boolean;
+  onSubmitPost?: (data: any) => Promise<void>;
   rows?: number;
 };
 
 const Status: React.FC<StatusProps> = (props) => {
+  const [postBody, setPostBody] = useState<string>("");
   const statusRef = useRef() as MutableRefObject<HTMLTextAreaElement>;
   const authCtx = useContext(AuthContext);
   const [formState, inputHandler] = useForm<{
-    postBody: {
-      isValid: boolean;
-      value: string;
-    };
     postImages: {
       isValid: boolean;
       value: string[];
     };
   }>(
     {
-      postBody: {
-        isValid: false,
-        value: "",
-      },
       postImages: {
         isValid: false,
         value: [],
@@ -46,16 +42,24 @@ const Status: React.FC<StatusProps> = (props) => {
     false
   );
 
+  const disableBtnHandler = (): boolean => {
+    return !formState.isValid && postBody === "" ? true : false;
+  };
+
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setPostBody(e.target.value);
+  };
+
   const submitPostHandler = (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("postBody", formState.inputs?.postBody.value);
+    formData.append("postBody", postBody);
     formData.append("postImages", formState.inputs?.postImages.value[0]);
     formData.append("postImages", formState.inputs?.postImages.value[1]);
     formData.append("postImages", formState.inputs?.postImages.value[2]);
     formData.append("postImages", formState.inputs?.postImages.value[3]);
     formData.append("postImages", formState.inputs?.postImages.value[4]);
-    props.onSubmitPost(formData);
+    if (props.onSubmitPost) props.onSubmitPost(formData);
   };
 
   useEffect(() => {
@@ -82,7 +86,7 @@ const Status: React.FC<StatusProps> = (props) => {
             primary
             small
             pillSmall
-            disabled={props.disabled}
+            disabled={disableBtnHandler()}
           >
             Post
           </Button>
@@ -101,8 +105,8 @@ const Status: React.FC<StatusProps> = (props) => {
             id="postBody"
             name="postBody"
             placeholder={`What's on your mind ${authCtx.user?.firstName}?`}
-            value={props.value}
-            onChange={props.onChangePost}
+            value={postBody}
+            onChange={onChange}
             rows={props.rows}
           />
         </div>
@@ -130,10 +134,6 @@ const Status: React.FC<StatusProps> = (props) => {
 Status.propTypes = {
   onCloseStatus: PropTypes.func,
   onSubmitPost: PropTypes.func,
-  // status: PropTypes.string,
-  onChangePost: PropTypes.func,
-  value: PropTypes.string,
-  disabled: PropTypes.bool,
   rows: PropTypes.number,
 };
 

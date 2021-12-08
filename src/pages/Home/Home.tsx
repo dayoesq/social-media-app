@@ -94,7 +94,6 @@ const Home: React.FC = () => {
     postBody: string;
     postImages: string[];
   }) => {
-    console.log(data.postBody);
     try {
       const res = await sendRequest<{ data: IPost; status: string }>(
         `${process.env.REACT_APP_BACK_URL}/posts`,
@@ -109,6 +108,20 @@ const Home: React.FC = () => {
       dispatch({ type: DISCARD_STATUS_MODAL });
     } catch (err) {}
   };
+
+  // const deletePostHandler = async (postId: string) => {
+  //   try {
+  //     const res = await sendRequest<{ data: IPost; status: string }>(
+  //       `${process.env.REACT_APP_BACK_URL}/posts/${postId}`,
+  //       "DELETE",
+  //       null,
+  //       {
+  //         Authorization: `Bearer ${authCtx.token}`,
+  //       }
+  //     );
+  //     posts?.filter((post, index) => {});
+  //   } catch (err) {}
+  // };
 
   const cancelStatusModalHandler = () => {
     dispatch({ type: SHOW_HIDE_WARNING_MODAL });

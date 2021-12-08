@@ -35,6 +35,12 @@ type PostProps = {
   postRepostCount?: number;
   postLikeCount?: number;
   postShareCount?: number;
+  onDelete?: any;
+  onHide?: any;
+  onEdit?: any;
+  // onDelete?: React.MouseEventHandler<HTMLDivElement>;
+  // onHide?: React.MouseEventHandler<HTMLDivElement>;
+  // onEdit?: React.MouseEventHandler<HTMLDivElement>;
 };
 
 const Post: React.FC<PostProps & IPost> = (props) => {
@@ -53,6 +59,9 @@ const Post: React.FC<PostProps & IPost> = (props) => {
     showCommentBox,
     onModifyPost,
     showTooltip,
+    onDelete,
+    onHide,
+    onEdit,
   } = props;
   const authCtx = useContext(AuthContext);
   return (
@@ -88,7 +97,9 @@ const Post: React.FC<PostProps & IPost> = (props) => {
                 top: "1.5rem",
                 right: ".5rem",
               }}
-              {...props}
+              onDelete={onDelete}
+              onHide={onHide}
+              onEdit={onEdit}
             />
           )}
         </div>
@@ -183,6 +194,9 @@ Post.propTypes = {
   postVideoType: PropTypes.string,
   onToggleComment: PropTypes.func,
   postAuthor: PropTypes.any,
+  onDelete: PropTypes.func,
+  onEdit: PropTypes.func,
+  onHide: PropTypes.func,
 };
 
 export default Post;

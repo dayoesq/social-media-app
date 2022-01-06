@@ -4,7 +4,7 @@ import { UserContext } from "../store/context";
 let logoutTimer: NodeJS.Timeout;
 export const useAuth = (): UserContext => {
   const [token, setToken] = useState<string>("");
-  const [user, setUser] = useState<IUser>();
+  const [user, setUser] = useState<IUser | null>({});
   const [tokenExpirationDate, setTokenExpirationDate] = useState<Date | null>();
 
   const login = useCallback((token, user, expirationDate) => {
@@ -24,7 +24,7 @@ export const useAuth = (): UserContext => {
   }, []);
   // Empty session storage of context data
   const logout = useCallback(() => {
-    setUser(undefined);
+    setUser(null);
     setToken("");
     setTokenExpirationDate(null);
     sessionStorage.removeItem("user");

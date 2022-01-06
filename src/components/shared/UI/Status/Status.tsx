@@ -130,7 +130,6 @@ const Status: React.FC<StatusProps> = (props) => {
 Status.propTypes = {
   onCloseStatus: PropTypes.func,
   onSubmitPost: PropTypes.func,
-  // status: PropTypes.string,
   onChangePost: PropTypes.func,
   value: PropTypes.string,
   disabled: PropTypes.bool,

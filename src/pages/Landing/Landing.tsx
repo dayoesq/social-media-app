@@ -1,28 +1,28 @@
-import React, { useState, useContext } from 'react';
-import { NavLink } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState, useContext } from "react";
+import { NavLink } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSearch,
   faComment,
   faUserFriends,
   faDove,
-} from '@fortawesome/free-solid-svg-icons';
+} from "@fortawesome/free-solid-svg-icons";
 
-import BtnFat from '../../components/shared/form-elements/BtnFat/BtnFat';
-import Button from '../../components/shared/form-elements/Button/Button';
+import BtnFat from "../../components/shared/form-elements/BtnFat/BtnFat";
+import Button from "../../components/shared/form-elements/Button/Button";
 import {
   useForm,
   Input,
   VALIDATOR_EMAIL,
   VALIDATOR_MAXLENGTH,
   VALIDATOR_MINLENGTH,
-} from '@dayoesq/input-component';
-import { useHttpClient } from '../../hooks/http';
-import Alert from '../../components/shared/UI/Alert/Alert';
-import AuthContext from '../../store/context';
+} from "@dayoesq/input-component";
+import { useHttpClient } from "../../hooks/http";
+import Alert from "../../components/shared/UI/Alert/Alert";
+import AuthContext from "../../store/context";
 
-import classes from './Landing.module.scss';
-import style from './Footer.module.scss';
+import classes from "./Landing.module.scss";
+import style from "./Footer.module.scss";
 
 const Landing: React.FC = () => {
   const [alert, setAlert] = useState<boolean>(false);
@@ -31,40 +31,40 @@ const Landing: React.FC = () => {
   const authCtx = useContext(AuthContext);
 
   const [formState, inputHandler] = useForm<{
-        email: {
-            value: string;
-            isValid: boolean;
-        };
-        password: {
-            value: string;
-            isValid: boolean;
-        };
-    }>(
-      {
-        email: {
-          value: '',
-          isValid: false,
-        },
-        password: {
-          value: '',
-          isValid: false,
-        },
+    email: {
+      value: string;
+      isValid: boolean;
+    };
+    password: {
+      value: string;
+      isValid: boolean;
+    };
+  }>(
+    {
+      email: {
+        value: "",
+        isValid: false,
       },
-      false
-    );
+      password: {
+        value: "",
+        isValid: false,
+      },
+    },
+    false
+  );
   const authSubmitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const res = await sendRequest<ResponseContext>(
         `${process.env.REACT_APP_BACK_URL}/users/login`,
-        'POST',
+        "POST",
         JSON.stringify({
           email: formState.inputs?.email.value,
           password: formState.inputs?.password.value,
         }),
-        { 'Content-Type': 'application/json' }
+        { "Content-Type": "application/json" }
       );
-      if (res.status === 'success') {
+      if (res.status === "success") {
         setAlert(true);
         authCtx.login(res.data.token, res.data.user);
       }
@@ -94,9 +94,7 @@ const Landing: React.FC = () => {
           <form onSubmit={authSubmitHandler}>
             <div className={classes.mr_medium}>
               {alert && <Alert success>Login successfull</Alert>}
-              {error && error.length > 0 && (
-                <Alert danger>{error}</Alert>
-              )}
+              {error && error.length > 0 && <Alert danger>{error}</Alert>}
             </div>
             <div className={classes.rightContentForm}>
               <div>
@@ -129,7 +127,7 @@ const Landing: React.FC = () => {
                 />
               </div>
               <BtnFat type="submit" disabled={!formState.isValid}>
-                              Log in
+                Log in
               </BtnFat>
             </div>
           </form>
@@ -138,27 +136,15 @@ const Landing: React.FC = () => {
               icon={faDove}
               size="3x"
               color="#1aa1f5"
-              style={{ marginBottom: '2rem' }}
+              style={{ marginBottom: "2rem" }}
             />
             <h1>Explore what is happening in the world</h1>
             <h4>Join Utteran today</h4>
-            <Button
-              type="button"
-              to="/login"
-              long
-              pillLong
-              primaryInverse
-            >
-                          Login
+            <Button type="button" to="/login" long pillLong primaryInverse>
+              Login
             </Button>
-            <Button
-              type="button"
-              to="/register"
-              pillLong
-              long
-              primary
-            >
-                          Register
+            <Button type="button" to="/register" pillLong long primary>
+              Register
             </Button>
           </div>
         </div>

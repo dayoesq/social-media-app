@@ -11,9 +11,9 @@ import {
   faStar,
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
+
 import Avatar from "../../components/shared/UI/Avatar/Avatar";
 import { AuthContext } from "../../store/context";
-import Posts from "../../components/Posts/Posts";
 import Friends from "../../components/Friends/Friends";
 import StatusModal from "../../components/shared/UI/StatusModal/StatusModal";
 import SliderModal from "../../components/shared/UI/SliderModal/SliderModal";
@@ -30,12 +30,28 @@ import {
 import { useHttpClient } from "../../hooks/http";
 
 import classes from "./Home.module.scss";
+import Post from "../../components/Post/Post";
+import Comments from "../../components/Comments/Comments";
 
-const Home: React.FC = () => {
+type TempComments = {
+  comments?: IComment[];
+};
+
+const Home: React.FC<TempComments> = ({ comments }) => {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [friends, setFriends] = useState<IUser[]>([]);
   const authCtx = useContext(AuthContext);
   const { isLoading, sendRequest } = useHttpClient();
+
+  const [show, setShow] = useState<number | null | undefined>(-1);
+  const [showTooltip, setShowTooltip] = useState<number | null | undefined>(-1);
+  const toggleComment = (index: number) => {
+    return index === show ? setShow(-1) : setShow(index);
+  };
+  const toggleTooltip = (index: number) => {
+    return index === showTooltip ? setShowTooltip(-1) : setShowTooltip(index);
+  };
+
   const [state, dispatch] = useReducer(homeReducer, {
     showStatus: false,
     showSlider: false,
@@ -86,6 +102,22 @@ const Home: React.FC = () => {
     };
   }, [sendRequest, authCtx.token]);
 
+  const deletePostHandler = async (postId: any) => {
+    try {
+      await sendRequest<{
+        data: { postId: string };
+        status: string;
+      }>(`${process.env.REACT_APP_BACK_URL}/posts/${postId}`, "DELETE", null, {
+        Authorization: `Bearer ${authCtx.token}`,
+      });
+
+      const remainingPosts = posts.filter(
+        (post) => post._id !== postId
+      );
+      setPosts(remainingPosts);
+    } catch (err) {}
+  };
+
   const changePostHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     dispatch({
       type: CHANGE_POST_STATUS,
@@ -104,14 +136,13 @@ const Home: React.FC = () => {
     postBody: string;
     postImages: string[];
   }) => {
-    console.log(data.postBody);
     try {
       const res = await sendRequest<{ data: IPost; status: string }>(
         `${process.env.REACT_APP_BACK_URL}/posts`,
         "POST",
         data,
         {
-          Authorization: `Bearer ${authCtx.token}`
+          Authorization: `Bearer ${authCtx.token}`,
         }
       );
       const updatedPosts = [res.data, ...posts];
@@ -239,7 +270,29 @@ const Home: React.FC = () => {
           </div>
           {!isLoading && (
             <React.Fragment>
-              <Posts posts={posts} className={classes.posts} />
+              <ul className={classes.posts}>
+                {posts.map((post, index) => (
+                  <Post
+                    key={post._id}
+                    postImages={`${post.postImages ? post.postImages[0] : ""}`}
+                    postBody={post.postBody}
+                    postedAt={post.postedAt}
+                    postAuthor={post.postAuthor}
+                    postCommentCount={post.postCommentCount}
+                    postRepostCount={post.postRepostCount}
+                    postLoveCount={post.postLoveCount}
+                    postShareCount={post.postShareCount}
+                    postVideo={post.postVideo ? post.postVideo : ""}
+                    postVideoType={post.postVideoType ? post.postVideoType : ""}
+                    onModifyPost={() => toggleTooltip(index)}
+                    showCommentBox={show === index}
+                    showTooltip={showTooltip === index}
+                    onToggleComment={() => toggleComment(index)}
+                    onDelete={() => deletePostHandler(post._id)}
+                  />
+                ))}
+                <Comments comments={comments} />
+              </ul>
               <Friends friends={friends} />
             </React.Fragment>
           )}

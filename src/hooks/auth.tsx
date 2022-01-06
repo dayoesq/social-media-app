@@ -1,36 +1,33 @@
-import { useState, useEffect, useCallback } from 'react';
-import { UserContext } from '../store/context';
+import { useState, useEffect, useCallback } from "react";
+import { UserContext } from "../store/context";
 
 let logoutTimer: NodeJS.Timeout;
 export const useAuth = (): UserContext => {
-  const [token, setToken] = useState<string>('');
-  const [user, setUser] = useState<IUser>();
+  const [token, setToken] = useState<string>("");
+  const [user, setUser] = useState<IUser | null>({});
   const [tokenExpirationDate, setTokenExpirationDate] = useState<Date | null>();
 
-  const login = useCallback(
-    (token, user, expirationDate) => {
-      setUser(user);
-      setToken(token);
-      const tokenExpirationDate =
-        expirationDate || new Date(new Date().getTime() + 86400000);
-      setTokenExpirationDate(tokenExpirationDate);
-      sessionStorage.setItem(
-        'user',
-        JSON.stringify({
-          token,
-          user,
-          expiration: tokenExpirationDate.toISOString()
-        })
-      );
-    },
-    []
-  );
+  const login = useCallback((token, user, expirationDate) => {
+    setUser(user);
+    setToken(token);
+    const tokenExpirationDate =
+      expirationDate || new Date(new Date().getTime() + 86400000);
+    setTokenExpirationDate(tokenExpirationDate);
+    sessionStorage.setItem(
+      "user",
+      JSON.stringify({
+        token,
+        user,
+        expiration: tokenExpirationDate.toISOString(),
+      })
+    );
+  }, []);
   // Empty session storage of context data
   const logout = useCallback(() => {
-    setUser(undefined);
-    setToken('');
+    setUser(null);
+    setToken("");
     setTokenExpirationDate(null);
-    sessionStorage.removeItem('user');
+    sessionStorage.removeItem("user");
   }, []);
 
   useEffect(() => {
@@ -45,17 +42,13 @@ export const useAuth = (): UserContext => {
   }, [token, logout, tokenExpirationDate]);
 
   useEffect(() => {
-    const storedData = JSON.parse(sessionStorage.getItem('user')!);
+    const storedData = JSON.parse(sessionStorage.getItem("user")!);
     if (
       storedData &&
       storedData.token &&
       new Date(storedData.expiration) > new Date()
     ) {
-      login(
-        storedData.user,
-        storedData.token,
-        new Date(storedData.expiration)
-      );
+      login(storedData.user, storedData.token, new Date(storedData.expiration));
     }
   }, [login]);
   return { token, user, logout, login };

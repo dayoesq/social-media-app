@@ -1,8 +1,8 @@
 import { createContext } from 'react';
 
 export type UserContext = {
-  token?: string | boolean;
-  user?: IUser | null;
+  token: string | boolean;
+  user: IUser | null;
   login: (token?: string, user?: IUser, date?: Date) => void;
   logout: () => void;
 };

@@ -10,6 +10,7 @@ type FriendProps =  {
   src?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   alias?: string;
+  firstName?: IUser['firstName'];
 }
 
 const Friend: React.FC<FriendProps & IUser> = props => {
@@ -38,7 +39,6 @@ Friend.propTypes = {
   alias: PropTypes.string,
   src: PropTypes.string,
   firstName: PropTypes.string,
-  lastName: PropTypes.string,
   onClick: PropTypes.func
 };
 

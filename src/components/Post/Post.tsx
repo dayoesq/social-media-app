@@ -61,21 +61,21 @@ const Post: React.FC<PostProps & IPost> = (props) => {
     onHide,
     onEdit,
   } = props;
-  const authCtx = useContext(AuthContext);
+  const {user} = useContext(AuthContext);
   return (
     <li className={classes.post}>
       <div>
         <Avatar
           big
-          alt={authCtx.user?.firstName}
-          src={`${process.env.REACT_APP_BACK_ASSETS}/${authCtx.user?.avatar}`}
+          alt={user?.firstName}
+          src={`${process.env.REACT_APP_BACK_ASSETS}/${user?.avatar}`}
           rightBig
         />
       </div>
 
       <div>
         <div className={classes.postUserInfo}>
-          <h4>{authCtx.user?.firstName}</h4>
+          <h4>{user?.firstName}</h4>
           {postAuthor?.status === "verified" && (
             <FontAwesomeIcon icon={faCheckCircle} className={classes.icon} />
           )}

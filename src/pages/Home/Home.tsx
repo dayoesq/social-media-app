@@ -21,7 +21,6 @@ import WarningModal from "../../components/shared/UI/WarningModal/WarningModal";
 import homeReducer from "../../reducers/homeReducer";
 import {
   CANCEL_WARNING_MODAL,
-  CHANGE_POST_STATUS,
   DISCARD_STATUS_MODAL,
   SHOW_HIDE_WARNING_MODAL,
   SHOW_STATUS_MODAL,
@@ -40,7 +39,7 @@ type TempComments = {
 const Home: React.FC<TempComments> = ({ comments }) => {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [friends, setFriends] = useState<IUser[]>([]);
-  const authCtx = useContext(AuthContext);
+  const { token, user } = useContext(AuthContext);
   const { isLoading, sendRequest } = useHttpClient();
 
   const [show, setShow] = useState<number | null | undefined>(-1);
@@ -71,7 +70,7 @@ const Home: React.FC<TempComments> = ({ comments }) => {
             `${process.env.REACT_APP_BACK_URL}/posts`,
             "GET",
             null,
-            { Authorization: `Bearer ${authCtx.token}` }
+            { Authorization: `Bearer ${token}` }
           );
           setPosts(res.data);
         } catch (err) {}
@@ -80,7 +79,7 @@ const Home: React.FC<TempComments> = ({ comments }) => {
     return () => {
       isMounted = false;
     };
-  }, [sendRequest, authCtx.token]);
+  }, [sendRequest, token]);
 
   useEffect(() => {
     let isMounted = true;
@@ -91,7 +90,7 @@ const Home: React.FC<TempComments> = ({ comments }) => {
             `${process.env.REACT_APP_BACK_URL}/users/friends`,
             "GET",
             null,
-            { Authorization: `Bearer ${authCtx.token}` }
+            { Authorization: `Bearer ${token}` }
           );
           setFriends(res.data);
         } catch (err) {}
@@ -100,7 +99,7 @@ const Home: React.FC<TempComments> = ({ comments }) => {
     return () => {
       isMounted = false;
     };
-  }, [sendRequest, authCtx.token]);
+  }, [sendRequest, token]);
 
   const deletePostHandler = async (postId: any) => {
     try {
@@ -108,7 +107,7 @@ const Home: React.FC<TempComments> = ({ comments }) => {
         data: { postId: string };
         status: string;
       }>(`${process.env.REACT_APP_BACK_URL}/posts/${postId}`, "DELETE", null, {
-        Authorization: `Bearer ${authCtx.token}`,
+        Authorization: `Bearer ${token}`,
       });
 
       const remainingPosts = posts.filter(
@@ -116,16 +115,6 @@ const Home: React.FC<TempComments> = ({ comments }) => {
       );
       setPosts(remainingPosts);
     } catch (err) {}
-  };
-
-  const changePostHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    dispatch({
-      type: CHANGE_POST_STATUS,
-      value: e.target.value,
-      scrollHeight: e.target.scrollHeight,
-      scrollTop: e.target.scrollTop,
-      rows: e.target.rows,
-    });
   };
 
   const showStatusHandler = () => {
@@ -142,7 +131,7 @@ const Home: React.FC<TempComments> = ({ comments }) => {
         "POST",
         data,
         {
-          Authorization: `Bearer ${authCtx.token}`,
+          Authorization: `Bearer ${token}`,
         }
       );
       const updatedPosts = [res.data, ...posts];
@@ -178,10 +167,7 @@ const Home: React.FC<TempComments> = ({ comments }) => {
           showStatus={state.showStatus}
           onCancelBackdrop={cancelStatusModalHandler}
           onCloseStatus={cancelStatusModalHandler}
-          onChangePost={changePostHandler}
           onSubmitPost={submitPostHandler}
-          value={state.postBody}
-          disabled={!state.postBody}
           rows={state.rows}
         />
       )}
@@ -231,11 +217,11 @@ const Home: React.FC<TempComments> = ({ comments }) => {
           <div className={classes.user} onClick={showSlideHandler}>
             <Avatar
               small
-              alt={authCtx.user?.firstName}
-              src={`${process.env.REACT_APP_BACK_ASSETS}/${authCtx.user?.avatar}`}
+              alt={user?.firstName}
+              src={`${process.env.REACT_APP_BACK_ASSETS}/${user?.avatar}`}
             />
             <NavLink to="/home" className={classes.userLink}>
-              {authCtx.user?.firstName}
+              {user?.firstName}
             </NavLink>
             <FontAwesomeIcon
               icon={faChevronDown}
@@ -259,7 +245,7 @@ const Home: React.FC<TempComments> = ({ comments }) => {
             <div className={classes.headerPost}>
               <Avatar
                 small
-                src={`${process.env.REACT_APP_BACK_ASSETS}/${authCtx.user?.avatar}`}
+                src={`${process.env.REACT_APP_BACK_ASSETS}/${user?.avatar}`}
               />
               <input
                 type="text"

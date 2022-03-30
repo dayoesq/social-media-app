@@ -1,7 +1,7 @@
 interface IPost {
   _id?: string;
   id?: string;
-  postAuthor?: IUser;
+  postAuthor: IUser;
   postAuthorImage?: string;
   postedAt?: Date | string;
   updatedAt?: Date | string;

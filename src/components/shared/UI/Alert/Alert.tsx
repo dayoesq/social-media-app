@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classes from './Alert.module.scss';
 
 type AlertProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   danger?: boolean;
   success?: boolean;
   style?: React.CSSProperties;
@@ -25,7 +25,6 @@ const Alert: React.FC<AlertProps> = props => {
 };
 
 Alert.propTypes = {
-  children: PropTypes.node,
   danger: PropTypes.bool,
   success: PropTypes.bool,
   style: PropTypes.object

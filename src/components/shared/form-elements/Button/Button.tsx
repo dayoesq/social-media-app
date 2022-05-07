@@ -37,7 +37,7 @@ const Button: React.FC<IButton> = props => {
                 ${props.small && classes.small} ${props.pillSmall && classes.pillSmall}
                 ${props.long && classes.long} ${props.pillLong && classes.pillLong} ${props.danger && classes.danger}`}
         to={props.to}
-        exact={props.exact}
+        // path={props.path}
         style={props.style}
       >
         {props.children}
@@ -66,7 +66,6 @@ Button.propTypes = {
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
   style: PropTypes.object,
-  children: PropTypes.node,
   to: PropTypes.string,
   exact: PropTypes.bool,
   className: PropTypes.string,

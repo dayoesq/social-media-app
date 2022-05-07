@@ -12,7 +12,7 @@ type HttpRequest = {
   error: string[] | null;
   clearError: () => void;
   sendRequest: <Type>(
-    url: RequestInfo,
+    url: string,
     method?: string,
     body?: any,
     headers?: any
@@ -27,7 +27,7 @@ export const useHttpClient = (): HttpRequest => {
   const activeHttpRequests = useRef<AbortController[]>([]);
 
   const sendRequest = useCallback(
-    async (url, method = "GET", body = null, headers = {}) => {
+    async (url = '', method = "GET", body = null, headers = {}) => {
       const httpAbortCtrl: AbortController = new AbortController();
       setIsLoading(true);
       activeHttpRequests.current.push(httpAbortCtrl);

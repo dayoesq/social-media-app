@@ -44,7 +44,7 @@ BtnFat.propTypes = {
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
   style: PropTypes.object,
-  children: PropTypes.node,
+  // children: PropTypes.node,
   exact: PropTypes.bool
 };
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Button from '../../components/shared/form-elements/Button/Button';
 import { Input, useForm, VALIDATOR_EMAIL } from '@dayoesq/input-component';
@@ -12,7 +12,7 @@ const ForgotPassword: React.FC = () => {
   const [alert, setAlert] = useState<boolean>(false);
   const { error, isLoading, sendRequest } = useHttpClient();
 
-  const history = useHistory();
+  const history = useNavigate();
 
   const [formState, inputHandler] = useForm<{
         email: {
@@ -43,7 +43,7 @@ const ForgotPassword: React.FC = () => {
       if (res.status === 'success') {
         setAlert(true);
         setTimeout(() => {
-          history.replace('/login');
+          history('/login');
         }, 1000);
       }
     } catch (err) {}

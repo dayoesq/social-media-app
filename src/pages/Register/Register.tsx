@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import {
   Input,
@@ -19,7 +19,7 @@ const Register: React.FC = () => {
   const [alert, setAlert] = useState<boolean>(false);
   const { error, sendRequest } = useHttpClient();
 
-  const history = useHistory();
+  const history = useNavigate();
   const [formState, inputHandler] = useForm<{
         firstName: {
             value: string;
@@ -86,7 +86,7 @@ const Register: React.FC = () => {
       if (res.status === 'success') {
         setAlert(true);
         setTimeout(() => {
-          history.replace('/verify-account');
+          history('/verify-account');
         }, 1000);
       }
     } catch (err) {}

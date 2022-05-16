@@ -2,17 +2,13 @@ import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import Button from '../../components/shared/form-elements/Button/Button';
-import {
-  useForm,
-  Input,
-  VALIDATOR_EMAIL,
-  VALIDATOR_MAXLENGTH,
-  VALIDATOR_MINLENGTH,
-} from '@dayoesq/input-component';
 import { useHttpClient } from '../../hooks/http';
 import classes from './Login.module.scss';
 import Alert from '../../components/shared/UI/Alert/Alert';
 import { AuthContext } from '../../store/context';
+import { useForm } from '../../hooks/form';
+import { Input } from '../../components/shared/form-elements/Input/Input';
+import { isEmail, maxLength, minLength } from '../../utils/validators';
 
 const Login: React.FC = () => {
   const [alert, setAlert] = useState<boolean>(false);
@@ -83,7 +79,7 @@ const Login: React.FC = () => {
                 placeholder="Enter email"
                 onInput={inputHandler}
                 errorText="Please provide a valid email"
-                validators={[VALIDATOR_EMAIL()]}
+                validators={[isEmail()]}
                 className={classes.loginInput}
               />
               <Input
@@ -95,8 +91,8 @@ const Login: React.FC = () => {
                 onInput={inputHandler}
                 errorText="Password's length between 6 and 100"
                 validators={[
-                  VALIDATOR_MINLENGTH(6),
-                  VALIDATOR_MAXLENGTH(100),
+                  minLength(6),
+                  maxLength(100),
                 ]}
                 className={classes.loginInput}
               />
@@ -110,7 +106,7 @@ const Login: React.FC = () => {
                 >
                   {!isLoading ? 'Log in' : 'Loging in...'}
                 </Button>
-                <Link to="/forgetPassword">
+                <Link to="/password-change-request">
                                     Forget password?
                 </Link>
               </div>

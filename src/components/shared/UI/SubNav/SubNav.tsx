@@ -9,20 +9,20 @@ const SubNav: React.FC<{ className?: string }> = ({ className }) => {
         <nav className={className}>
             <ul>
                 <li>
-                    <Link to="/">
+                    <Link to='/'>
                         <FontAwesomeIcon
                             icon={faDove}
-                            size="2x"
-                            color="#1aa1f5"
+                            size='2x'
+                            color='#1aa1f5'
                         ></FontAwesomeIcon>
                         Home
                     </Link>
                 </li>
                 <li>
-                    <Link to="/about"></Link>
+                    <Link to='/about'></Link>
                 </li>
                 <li>
-                    <Link to="/language">Language: English</Link>
+                    <Link to='/language'>Language: English</Link>
                 </li>
             </ul>
         </nav>

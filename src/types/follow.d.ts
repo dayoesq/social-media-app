@@ -1,6 +1,6 @@
 interface IFollow {
-  _id?: string;
-  followImage?: string;
-  followAlias?: string;
-  followName?: string;
+    _id?: string;
+    followImage?: string;
+    followAlias?: string;
+    followName?: string;
 }

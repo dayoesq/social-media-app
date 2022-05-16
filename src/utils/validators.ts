@@ -6,7 +6,7 @@ const VALIDATOR_TYPE_MIN = 'MIN';
 const VALIDATOR_TYPE_MAX = 'MAX';
 const VALIDATOR_TYPE_EMAIL = 'EMAIL';
 const VALIDATOR_TYPE_FILE = 'FILE';
-const VALIDATOR_TYPE_PASSWORD_CONFIRM = 'PASSWORD_CONFIRM';
+const VALIDATOR_TYPE_IS_EQUAL = 'ISEQUAL';
 
 export type Validator = {
   type?: string | number
@@ -14,23 +14,23 @@ export type Validator = {
   validators?: Validator[] 
 };
 
-export const VALIDATOR_REQUIRE = (): Validator => ({ type: VALIDATOR_TYPE_REQUIRE });
-export const VALIDATOR_FILE = (): Validator => ({ type: VALIDATOR_TYPE_FILE });
-export const VALIDATOR_MINLENGTH = (val: number): Validator => ({
+export const isRequired = (): Validator => ({ type: VALIDATOR_TYPE_REQUIRE });
+export const isFile = (): Validator => ({ type: VALIDATOR_TYPE_FILE });
+export const minLength = (val: number): Validator => ({
   type: VALIDATOR_TYPE_MINLENGTH,
   val: val
 });
-export const VALIDATOR_MAXLENGTH = (val: number): Validator => ({
+export const maxLength = (val: number): Validator => ({
   type: VALIDATOR_TYPE_MAXLENGTH,
   val: val
 });
-export const VALIDATOR_PASSWORD_CONFIRM = (val: string): Validator => ({
-  type: VALIDATOR_TYPE_PASSWORD_CONFIRM,
+export const isEqual = (val: string): Validator => ({
+  type: VALIDATOR_TYPE_IS_EQUAL,
   val: val
 });
-export const VALIDATOR_MIN = (val: number): Validator => ({ type: VALIDATOR_TYPE_MIN, val: val });
-export const VALIDATOR_MAX = (val: number): Validator => ({ type: VALIDATOR_TYPE_MAX, val: val });
-export const VALIDATOR_EMAIL = (): Validator => ({ type: VALIDATOR_TYPE_EMAIL });
+export const min = (val: number): Validator => ({ type: VALIDATOR_TYPE_MIN, val: val });
+export const max = (val: number): Validator => ({ type: VALIDATOR_TYPE_MAX, val: val });
+export const isEmail = (): Validator => ({ type: VALIDATOR_TYPE_EMAIL });
 
 export const validate = (value: string, validators: Validator[]): boolean => {
   let isValid = true;
@@ -58,7 +58,7 @@ export const validate = (value: string, validators: Validator[]): boolean => {
         isValid = isValid && +value <= validator.val;
       }
     }
-    if (validator.type === VALIDATOR_TYPE_PASSWORD_CONFIRM) {
+    if (validator.type === VALIDATOR_TYPE_IS_EQUAL) {
       if (validator.val !== undefined) {
         isValid = isValid && value === validator.val;
       }

@@ -75,7 +75,7 @@ const Post: React.FC<PostProps & IPost> = (props) => {
 
             <div>
                 <div className={classes.postUserInfo}>
-                    <h4>{user?.firstName}</h4>
+                    <h4>{user && user.firstName}</h4>
                     {postAuthor?.status === 'verified' && (
                         <FontAwesomeIcon
                             icon={faCheckCircle}
@@ -96,7 +96,7 @@ const Post: React.FC<PostProps & IPost> = (props) => {
                             style={{
                                 position: 'absolute',
                                 top: '1.5rem',
-                                right: '.5rem',
+                                right: '.5rem'
                             }}
                             onDelete={onDelete}
                             onHide={onHide}

@@ -12,10 +12,10 @@ import { faSmile, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Avatar from '../Avatar/Avatar';
 import { AuthContext } from '../../../../store/context';
 import Button from '../../form-elements/Button/Button';
-import { useForm } from '@dayoesq/input-component';
 import ImageUploader from '../../form-elements/ImageUploader/ImageUploader';
 
 import classes from './Status.module.scss';
+import { useForm } from '../../../../hooks/form';
 
 export type StatusProps = {
     onCloseStatus?: React.MouseEventHandler<SVGSVGElement>;

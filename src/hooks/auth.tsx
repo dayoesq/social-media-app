@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { UserContext } from '../store/context';
 
-let logoutTimer: NodeJS.Timeout;
+let logoutTimer: any;
+// let logoutTimer: NodeJS.Timeout;
 export const useAuth = (): UserContext => {
     const [token, setToken] = useState<string | undefined>('');
     const [user, setUser] = useState<IUser | null | undefined>({});

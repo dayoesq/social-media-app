@@ -1,16 +1,23 @@
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,600,700&display=swap');
 :root {
-  --mSmall: .5rem;
-  --mMedium: 1rem;
-  --mBig: 1.5rem;
-  --mLarge: 2rem;
-  --mXLarge: 2.5rem;
+  --msm: .5rem;
+  --mmd: 1rem;
+  --mbg: 1.5rem;
+  --mlg: 2rem;
+  --mxlg: 2.5rem;
+  --btnPrimary: #1aa1f5;
+  --btnSecondary: #1295e6;
+  --btnTertiary: #d9ebf7;
+  --btnInfo: '';
+  --btnDanger: #ea5139;
+  --btnWarning: #cdb938;
 }
 
 * {
   margin: 0;
   padding: 0;
   outline: none;
+  box-sizing: border-box;
   font-family: 'Josefin Sans', sans-serif;
 }
 

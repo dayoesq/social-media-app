@@ -5,16 +5,16 @@ import Button from '../../components/shared/form-elements/Button/Button';
 import { useHttpClient } from '../../hooks/http';
 import Alert from '../../components/shared/UI/Alert/Alert';
 
-import classes from './ForgotPassword.module.scss';
+import classes from './PasswordChangeRequest.module.scss';
 import { useForm } from '../../hooks/form';
 import { Input } from '../../components/shared/form-elements/Input/Input';
 import { isEmail } from '../../utils/validators';
 
-const ForgotPassword: React.FC = () => {
+const PasswordChangeRequest: React.FC = () => {
     const [alert, setAlert] = useState<boolean>(false);
     const { error, isLoading, sendRequest } = useHttpClient();
 
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     const [formState, inputHandler] = useForm<{
         email: {
@@ -45,7 +45,7 @@ const ForgotPassword: React.FC = () => {
             if (res.status === 'success') {
                 setAlert(true);
                 setTimeout(() => {
-                    history('/login');
+                    navigate('/login');
                 }, 1000);
             }
         } catch (err) {}
@@ -103,4 +103,4 @@ const ForgotPassword: React.FC = () => {
     );
 };
 
-export default ForgotPassword;
+export default PasswordChangeRequest;

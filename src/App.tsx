@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import {
     BrowserRouter as Router,
     Routes,
@@ -13,16 +13,16 @@ import Register from './pages/Register/Register';
 import VerifyAccount from './pages/VerifyAccount/VerifyAccount';
 import { useAuth } from './hooks/auth';
 import { AuthContext } from './store/context';
-import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
+import PasswordChangeRequest from './pages/PasswordChangeRequest/PasswordChangeRequest';
 
-const App: React.FC = () => {
+const App: FC = () => {
     const { login, logout, token, user } = useAuth();
     let routes;
     if (token?.length) {
         routes = (
             <Routes>
                 <Route element={<Home />} path='/home' />
-                {/* <Route \={<Navigate to='/home' />} /> */}
+                <Route element={<Navigate to='/home' />} />
             </Routes>
         );
     } else {
@@ -32,11 +32,13 @@ const App: React.FC = () => {
                 <Route element={<Login />} path='/login' />
                 <Route element={<Register />} path='/register' />
                 <Route element={<VerifyAccount />} path='/verify-account' />
+                {/* <Route element={<ForgotPassword />} path='/forgot-password' /> */}
                 <Route
-                    element={<ForgotPassword />}
+                    element={<PasswordChangeRequest />}
                     path='/password-change-request'
                 />
-                <Route element={<Navigate to='/' />} />
+                {/* <Route element={<Navigate to='/' />} /> */}
+
             </Routes>
         );
     }
@@ -46,7 +48,7 @@ const App: React.FC = () => {
                 login,
                 logout,
                 token,
-                user,
+                user
             }}
         >
             <Router>{routes}</Router>

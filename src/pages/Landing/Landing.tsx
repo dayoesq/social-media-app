@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faSearch,
@@ -23,6 +23,7 @@ import { isEmail, maxLength, minLength } from '../../utils/validators';
 const Landing: React.FC = () => {
     const [alert, setAlert] = useState<boolean>(false);
     const { error, sendRequest } = useHttpClient();
+    const navigate = useNavigate();
 
     const authCtx = useContext(AuthContext);
 
@@ -63,6 +64,7 @@ const Landing: React.FC = () => {
             if (res.status === 'success') {
                 setAlert(true);
                 authCtx.login(res.data.token, res.data.user);
+                navigate('/home');
             }
         } catch (err) {}
     };

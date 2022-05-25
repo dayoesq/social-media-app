@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -23,6 +23,7 @@ export type SliderProps = {
 const SidebarSlider: React.FC<SliderProps> = (props) => {
     const { sendRequest } = useHttpClient();
     const authCtx = useContext(AuthContext);
+    const navigate = useNavigate();
     const logoutHandler = async () => {
         try {
             await sendRequest<Logout>(
@@ -32,6 +33,7 @@ const SidebarSlider: React.FC<SliderProps> = (props) => {
                 { Authorization: `Bearer ${authCtx.token}` }
             );
             authCtx.logout();
+            navigate('/');
         } catch (err) {}
     };
     return (

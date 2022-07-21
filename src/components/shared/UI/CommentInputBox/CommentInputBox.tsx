@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useContext } from 'react';
+import { FC, useRef, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSmile } from '@fortawesome/free-solid-svg-icons';
@@ -8,15 +8,15 @@ import AuthContext from '../../../../store/context';
 
 import classes from './CommentInputBox.module.scss';
 
-interface ICommentInput {
+type ICommentInput = {
     commentAuthorName?: string;
     commentAuthorImage?: string;
     onShowEmoji?: React.MouseEventHandler<SVGSVGElement>;
     className?: string;
     style?: React.CSSProperties;
-}
+};
 
-const CommentInputBox: React.FC<ICommentInput> = (props) => {
+const CommentInputBox: FC<ICommentInput> = props => {
     const authCtx = useContext(AuthContext);
     const [comment, setComment] = useState<string | undefined | null>(null);
     const commentRef = useRef<any>(null);
@@ -68,7 +68,7 @@ const CommentInputBox: React.FC<ICommentInput> = (props) => {
 CommentInputBox.propTypes = {
     onShowEmoji: PropTypes.func,
     className: PropTypes.string,
-    style: PropTypes.object,
+    style: PropTypes.object
 };
 
 export default CommentInputBox;

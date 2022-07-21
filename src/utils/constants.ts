@@ -1,10 +1,10 @@
-// Input rreducer constants 
+// Input rreducer constants
 export const CHANGE = 'CHANGE';
 export const TOUCH = 'TOUCH';
 export const SET_DATA = 'SET_DATA';
 export const INPUT_CHANGE = 'INPUT_CHANGE';
 
-// Reducer constants 
+// Reducer constants
 export const CHANGE_POST_STATUS = 'CHANGE_POST_STATUS';
 export const TOGGLE_SHOW_SLIDER = 'TOGGLE_SHOW_SLIDER';
 export const SHOW_SLIDER = 'SHOW_SLIDER';
@@ -20,3 +20,6 @@ export const LOG_IN_OR_SIGN_UP = 'Log in or sign up';
 export const USER_NOT_FOUND = 'User not found';
 export const LOG_USER_OUT = 'Log user out!!!';
 
+// Environment variables
+export const ASSETS_URL = process.env.REACT_APP_BACK_ASSETS;
+export const BASE_URL = process.env.REACT_APP_BACK_URL;

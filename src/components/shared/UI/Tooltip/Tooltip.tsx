@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faSave, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
@@ -12,7 +12,7 @@ interface ITooltip {
     onEdit?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-const Tooltip: React.FC<ITooltip> = (props) => {
+const Tooltip: FC<ITooltip> = props => {
     const { style, onDelete, onHide, onEdit } = props;
     return (
         <div className={classes.tooltip} style={style}>
@@ -36,7 +36,7 @@ Tooltip.propTypes = {
     onDelete: PropTypes.func,
     onHide: PropTypes.func,
     onEdit: PropTypes.func,
-    style: PropTypes.object,
+    style: PropTypes.object
 };
 
 export default Tooltip;

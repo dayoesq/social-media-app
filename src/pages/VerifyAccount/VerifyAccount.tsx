@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/shared/form-elements/Button/Button';
 import { useHttpClient } from '../../hooks/http';
@@ -8,8 +8,9 @@ import Alert from '../../components/shared/UI/Alert/Alert';
 import { useForm } from '../../hooks/form';
 import { Input } from '../../components/shared/form-elements/Input/Input';
 import { isEmail, isRequired } from '../../utils/validators';
+import { BASE_URL } from '../../utils/constants';
 
-const VerifyAccount: React.FC = () => {
+const VerifyAccount: FC = () => {
     const [alert, setAlert] = useState<boolean>(false);
     const { error, isLoading, sendRequest } = useHttpClient();
 
@@ -28,12 +29,12 @@ const VerifyAccount: React.FC = () => {
         {
             email: {
                 value: '',
-                isValid: false,
+                isValid: false
             },
             verifyEmailToken: {
                 value: '',
-                isValid: false,
-            },
+                isValid: false
+            }
         },
         false
     );
@@ -42,11 +43,11 @@ const VerifyAccount: React.FC = () => {
         e.preventDefault();
         try {
             const res = await sendRequest<ResponseDataUser>(
-                `${process.env.REACT_APP_BACK_URL}/users/verify-email`,
+                `${BASE_URL}/users/verify-email`,
                 'POST',
                 JSON.stringify({
                     email: formState.inputs?.email.value,
-                    verifyEmailToken: formState.inputs?.verifyEmailToken.value,
+                    verifyEmailToken: formState.inputs?.verifyEmailToken.value
                 }),
                 { 'Content-Type': 'application/json' }
             );
@@ -60,7 +61,7 @@ const VerifyAccount: React.FC = () => {
     };
 
     return (
-        <React.Fragment>
+        <>
             <div className={classes.verifyPage}>
                 <div className={classes.verify}>
                     <div className={classes.verifyContent}>
@@ -112,7 +113,7 @@ const VerifyAccount: React.FC = () => {
                     </div>
                 </div>
             </div>
-        </React.Fragment>
+        </>
     );
 };
 

@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useEffect, useState } from 'react';
+import { useContext, useReducer, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -9,7 +9,7 @@ import {
     faSearch,
     faChevronDown,
     faStar,
-    faSpinner,
+    faSpinner
 } from '@fortawesome/free-solid-svg-icons';
 
 import Avatar from '../../components/shared/UI/Avatar/Avatar';
@@ -20,11 +20,13 @@ import SliderModal from '../../components/shared/UI/SliderModal/SliderModal';
 import WarningModal from '../../components/shared/UI/WarningModal/WarningModal';
 import homeReducer from '../../reducers/homeReducer';
 import {
+    ASSETS_URL,
+    BASE_URL,
     CANCEL_WARNING_MODAL,
     DISCARD_STATUS_MODAL,
     SHOW_HIDE_WARNING_MODAL,
     SHOW_STATUS_MODAL,
-    TOGGLE_SHOW_SLIDER,
+    TOGGLE_SHOW_SLIDER
 } from '../../utils/constants';
 import { useHttpClient } from '../../hooks/http';
 
@@ -62,7 +64,7 @@ const Home: React.FC<TempComments> = ({ comments }) => {
         showWarningModal: false,
         rows: 5,
         minRows: 5,
-        maxRows: 10,
+        maxRows: 10
     });
 
     useEffect(() => {
@@ -71,7 +73,7 @@ const Home: React.FC<TempComments> = ({ comments }) => {
             (async () => {
                 try {
                     const res = await sendRequest<ResponseDataPosts>(
-                        `${process.env.REACT_APP_BACK_URL}/posts`,
+                        `${BASE_URL}/posts`,
                         'GET',
                         null,
                         { Authorization: `Bearer ${token}` }
@@ -91,7 +93,7 @@ const Home: React.FC<TempComments> = ({ comments }) => {
             (async () => {
                 try {
                     const res = await sendRequest<ResponseDataUsers>(
-                        `${process.env.REACT_APP_BACK_URL}/users/friends`,
+                        `${BASE_URL}/users/friends`,
                         'GET',
                         null,
                         { Authorization: `Bearer ${token}` }
@@ -110,16 +112,11 @@ const Home: React.FC<TempComments> = ({ comments }) => {
             await sendRequest<{
                 data: { postId: string };
                 status: string;
-            }>(
-                `${process.env.REACT_APP_BACK_URL}/posts/${postId}`,
-                'DELETE',
-                null,
-                {
-                    Authorization: `Bearer ${token}`,
-                }
-            );
+            }>(`${BASE_URL}/posts/${postId}`, 'DELETE', null, {
+                Authorization: `Bearer ${token}`
+            });
 
-            const remainingPosts = posts.filter((post) => post._id !== postId);
+            const remainingPosts = posts.filter(post => post._id !== postId);
             setPosts(remainingPosts);
         } catch (err) {}
     };
@@ -134,11 +131,11 @@ const Home: React.FC<TempComments> = ({ comments }) => {
     }) => {
         try {
             const res = await sendRequest<{ data: IPost; status: string }>(
-                `${process.env.REACT_APP_BACK_URL}/posts`,
+                `${BASE_URL}/posts`,
                 'POST',
                 data,
                 {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${token}`
                 }
             );
             const updatedPosts = [res.data, ...posts];
@@ -168,7 +165,7 @@ const Home: React.FC<TempComments> = ({ comments }) => {
     };
 
     return (
-        <React.Fragment>
+        <>
             {state.showStatus && (
                 <StatusModal
                     showStatus={state.showStatus}
@@ -200,28 +197,28 @@ const Home: React.FC<TempComments> = ({ comments }) => {
             <div className={classes.feedsPage}>
                 <nav className={classes.feedsNav}>
                     <div className={classes.feedsIcons}>
-                        <NavLink to='/home'>
+                        <NavLink to='/'>
                             <FontAwesomeIcon
                                 icon={faHome}
                                 size='1x'
                                 color='#9e9a9a'
                             />
                         </NavLink>
-                        <NavLink to='/home'>
+                        <NavLink to='/'>
                             <FontAwesomeIcon
                                 icon={faHashtag}
                                 size='1x'
                                 color='#9e9a9a'
                             />
                         </NavLink>
-                        <NavLink to='/home'>
+                        <NavLink to='/'>
                             <FontAwesomeIcon
                                 icon={faBell}
                                 size='1x'
                                 color='#9e9a9a'
                             />
                         </NavLink>
-                        <NavLink to='/home'>
+                        <NavLink to='/'>
                             <FontAwesomeIcon
                                 icon={faEnvelope}
                                 size='1x'
@@ -241,9 +238,13 @@ const Home: React.FC<TempComments> = ({ comments }) => {
                         <Avatar
                             small
                             alt={user?.firstName}
-                            src={`${process.env.REACT_APP_BACK_ASSETS}/${user?.avatar}`}
+                            src={`${ASSETS_URL}/${user?.avatar}`}
+                            userName={user?.userName}
                         />
-                        <NavLink to='/home' className={classes.userLink}>
+                        <NavLink
+                            to={`/${user?.userName}`}
+                            className={classes.userLink}
+                        >
                             {user?.firstName}
                         </NavLink>
                         <FontAwesomeIcon
@@ -276,7 +277,8 @@ const Home: React.FC<TempComments> = ({ comments }) => {
                         <div className={classes.headerPost}>
                             <Avatar
                                 small
-                                src={`${process.env.REACT_APP_BACK_ASSETS}/${user?.avatar}`}
+                                src={`${ASSETS_URL}/${user?.avatar}`}
+                                userName={user?.userName}
                             />
                             <input
                                 type='text'
@@ -286,7 +288,7 @@ const Home: React.FC<TempComments> = ({ comments }) => {
                         </div>
                     </div>
                     {!isLoading && (
-                        <React.Fragment>
+                        <>
                             <ul className={classes.posts}>
                                 {posts.map((post, index) => (
                                     <Post
@@ -303,6 +305,7 @@ const Home: React.FC<TempComments> = ({ comments }) => {
                                         postRepostCount={post.postRepostCount}
                                         postLoveCount={post.postLoveCount}
                                         postShareCount={post.postShareCount}
+                                        alias={post.postAuthor.alias}
                                         postVideo={
                                             post.postVideo ? post.postVideo : ''
                                         }
@@ -327,11 +330,11 @@ const Home: React.FC<TempComments> = ({ comments }) => {
                                 <Comments comments={comments} />
                             </ul>
                             <Friends friends={friends} />
-                        </React.Fragment>
+                        </>
                     )}
                 </div>
             </div>
-        </React.Fragment>
+        </>
     );
 };
 

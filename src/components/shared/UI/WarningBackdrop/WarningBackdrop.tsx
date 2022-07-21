@@ -1,15 +1,15 @@
-import React from 'react';
+import { FC } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import classes from './WarningBackdrop.module.scss';
 
-export interface IWarningBackdrop {
+export type IWarningBackdrop = {
     onClick?: React.MouseEventHandler<HTMLDivElement>;
     style?: React.CSSProperties;
-}
+};
 
-const WarningBackdrop: React.FC<IWarningBackdrop> = ({ onClick, style }) => {
+const WarningBackdrop: FC<IWarningBackdrop> = ({ onClick, style }) => {
     const content = (
         <div
             className={classes.warningBackdrop}
@@ -26,7 +26,7 @@ const WarningBackdrop: React.FC<IWarningBackdrop> = ({ onClick, style }) => {
 
 WarningBackdrop.propTypes = {
     onClick: PropTypes.func,
-    style: PropTypes.object,
+    style: PropTypes.object
 };
 
 export default WarningBackdrop;

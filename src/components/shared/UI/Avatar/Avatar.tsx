@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import classes from './Avatar.module.scss';
+import { Link } from 'react-router-dom';
 
 interface IAvatar {
     className?: string;
@@ -14,21 +15,24 @@ interface IAvatar {
     src?: string;
     alt?: string;
     style?: React.CSSProperties;
+    userName?: IUser['userName'];
 }
 
-const Avatar: React.FC<IAvatar> = (props) => {
+const Avatar: React.FC<IAvatar> = props => {
     return (
-        <div
-            className={`${classes.image} ${props.small && classes.small} 
+        <Link to={`/${props.userName}`}>
+            <div
+                className={`${classes.image} ${props.small && classes.small} 
             ${props.big && classes.big} 
             ${props.leftSmall && classes.leftSmall} 
             ${props.leftBig && classes.leftBig}
             ${props.rightSmall && classes.rightSmall}
             ${props.rightBig && classes.rightBig}`}
-            style={props.style}
-        >
-            <img src={props.src} alt={props.alt} />
-        </div>
+                style={props.style}
+            >
+                <img src={props.src} alt={props.alt} />
+            </div>
+        </Link>
     );
 };
 
@@ -42,6 +46,7 @@ Avatar.propTypes = {
     rightSmall: PropTypes.bool,
     rightBig: PropTypes.bool,
     style: PropTypes.object,
+    userName: PropTypes.string
 };
 
 export default Avatar;

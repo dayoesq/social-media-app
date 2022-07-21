@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, Reducer } from 'react';
+import { useReducer, useEffect, Reducer } from 'react';
 import PropTypes from 'prop-types';
 
 import { Validator } from '../../../../utils/validators';
@@ -28,12 +28,12 @@ const inputReducer = <F extends InputState<F>>(
             return {
                 ...state,
                 value: action.val,
-                isValid: validate(action.val, action.validators),
+                isValid: validate(action.val, action.validators)
             };
         case TOUCH:
             return {
                 ...state,
-                isTouched: true,
+                isTouched: true
             };
         default:
             return state;
@@ -57,12 +57,13 @@ export interface IInput {
     backErrorText?: string;
     rows?: number;
     cols?: number;
+    classWrapper?: string;
 }
 
-export const Input: React.FC<IInput> = (props) => {
+export const Input: React.FC<IInput> = props => {
     const [inputState, dispatch] = useReducer<Reducer<any, any>>(inputReducer, {
         value: props.initialValue || '',
-        isValid: props.initialValid || false,
+        isValid: props.initialValid || false
     });
 
     const changeHandler = (
@@ -71,7 +72,7 @@ export const Input: React.FC<IInput> = (props) => {
         dispatch({
             type: CHANGE,
             val: e.target.value,
-            validators: props.validators,
+            validators: props.validators
         });
     };
 
@@ -132,7 +133,7 @@ export const Input: React.FC<IInput> = (props) => {
                 !inputState.isValid &&
                 inputState.isTouched &&
                 classes.invalidInput
-            }`}
+            } ${props.classWrapper && props.classWrapper}`}
         >
             <label htmlFor={props.id}>{props.label}</label>
             {element}
@@ -160,4 +161,5 @@ Input.propTypes = {
     backErrorText: PropTypes.string,
     rows: PropTypes.number,
     cols: PropTypes.number,
+    classWrapper: PropTypes.string
 };

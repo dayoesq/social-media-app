@@ -1,16 +1,17 @@
 import { useState, useEffect, useCallback } from 'react';
 import { UserContext } from '../store/context';
 
-let logoutTimer: any;
-// let logoutTimer: NodeJS.Timeout;
+// let logoutTimer: any;
+let logoutTimer: NodeJS.Timeout;
 export const useAuth = (): UserContext => {
     const [token, setToken] = useState<string | undefined>('');
-    const [user, setUser] = useState<IUser | null | undefined>({});
-    const [tokenExpirationDate, setTokenExpirationDate] =
-        useState<Date | null>();
+    const [user, setUser] = useState<IUser | undefined>({});
+    const [tokenExpirationDate, setTokenExpirationDate] = useState<
+        Date | undefined
+    >();
 
     const login = useCallback(
-        (token?: string, user?: IUser | null, expirationDate?: Date) => {
+        (token?: string, user?: IUser, expirationDate?: Date) => {
             setUser(user);
             setToken(token);
             const tokenExpirationDate =
@@ -21,7 +22,7 @@ export const useAuth = (): UserContext => {
                 JSON.stringify({
                     token,
                     user,
-                    expiration: tokenExpirationDate.toISOString(),
+                    expiration: tokenExpirationDate.toISOString()
                 })
             );
         },
@@ -29,14 +30,14 @@ export const useAuth = (): UserContext => {
     );
     // Empty session storage of context data
     const logout = useCallback(() => {
-        setUser(null);
+        setUser(undefined);
         setToken('');
-        setTokenExpirationDate(null);
+        setTokenExpirationDate(undefined);
         sessionStorage.removeItem('user');
     }, []);
 
     useEffect(() => {
-        if (token && tokenExpirationDate) {
+        if (token && token.length > 0 && tokenExpirationDate) {
             const remainingTime =
                 tokenExpirationDate.getTime() - new Date().getTime();
 
@@ -50,12 +51,12 @@ export const useAuth = (): UserContext => {
         const storedData = JSON.parse(sessionStorage.getItem('user')!);
         if (
             storedData &&
-            storedData.token &&
+            storedData.token.length > 0 &&
             new Date(storedData.expiration) > new Date()
         ) {
             login(
-                storedData.user,
                 storedData.token,
+                storedData.user,
                 new Date(storedData.expiration)
             );
         }

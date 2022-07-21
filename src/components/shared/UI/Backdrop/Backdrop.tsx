@@ -1,15 +1,15 @@
-import React from 'react';
+import { FC } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import classes from './Backdrop.module.scss';
 
-export interface IBackdrop {
+export type IBackdrop = {
     onCancelBackdrop?: React.MouseEventHandler<HTMLDivElement>;
     style?: React.CSSProperties;
-}
+};
 
-const Backdrop: React.FC<IBackdrop> = ({ onCancelBackdrop, style }) => {
+const Backdrop: FC<IBackdrop> = ({ onCancelBackdrop, style }) => {
     const content = (
         <div
             className={classes.backdrop}
@@ -26,7 +26,7 @@ const Backdrop: React.FC<IBackdrop> = ({ onCancelBackdrop, style }) => {
 
 Backdrop.propTypes = {
     onCancelBackdrop: PropTypes.func,
-    style: PropTypes.object,
+    style: PropTypes.object
 };
 
 export default Backdrop;

@@ -1,9 +1,10 @@
-import React, {
+import {
+    FC,
     useRef,
     useEffect,
     useContext,
     MutableRefObject,
-    useState,
+    useState
 } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,6 +17,7 @@ import ImageUploader from '../../form-elements/ImageUploader/ImageUploader';
 
 import classes from './Status.module.scss';
 import { useForm } from '../../../../hooks/form';
+import { ASSETS_URL } from '../../../../utils/constants';
 
 export type StatusProps = {
     onCloseStatus?: React.MouseEventHandler<SVGSVGElement>;
@@ -23,7 +25,7 @@ export type StatusProps = {
     rows?: number;
 };
 
-const Status: React.FC<StatusProps> = (props) => {
+const Status: FC<StatusProps> = props => {
     const [postBody, setPostBody] = useState<string>('');
     const statusRef = useRef() as MutableRefObject<HTMLTextAreaElement>;
     const authCtx = useContext(AuthContext);
@@ -36,8 +38,8 @@ const Status: React.FC<StatusProps> = (props) => {
         {
             postImages: {
                 isValid: false,
-                value: [],
-            },
+                value: []
+            }
         },
         false
     );
@@ -53,12 +55,11 @@ const Status: React.FC<StatusProps> = (props) => {
     const submitPostHandler = (e: React.FormEvent) => {
         e.preventDefault();
         const formData = new FormData();
+        const imageArr = Array.from(formState.inputs?.postImages.value);
         formData.append('postBody', postBody);
-        formData.append('postImages', formState.inputs?.postImages.value[0]);
-        formData.append('postImages', formState.inputs?.postImages.value[1]);
-        formData.append('postImages', formState.inputs?.postImages.value[2]);
-        formData.append('postImages', formState.inputs?.postImages.value[3]);
-        formData.append('postImages', formState.inputs?.postImages.value[4]);
+        imageArr.forEach((image: unknown) => {
+            formData.append('postImages', image as Blob);
+        });
         if (props.onSubmitPost) props.onSubmitPost(formData);
     };
 
@@ -96,7 +97,8 @@ const Status: React.FC<StatusProps> = (props) => {
                         small
                         rightSmall
                         alt={authCtx.user?.firstName}
-                        src={`${process.env.REACT_APP_BACK_ASSETS}/${authCtx.user?.avatar}`}
+                        src={`${ASSETS_URL}/${authCtx.user?.avatar}`}
+                        userName={authCtx.user?.userName}
                     />
                     <label htmlFor='postBody'></label>
                     <textarea
@@ -134,7 +136,7 @@ const Status: React.FC<StatusProps> = (props) => {
 Status.propTypes = {
     onCloseStatus: PropTypes.func,
     onSubmitPost: PropTypes.func,
-    rows: PropTypes.number,
+    rows: PropTypes.number
 };
 
 export default Status;

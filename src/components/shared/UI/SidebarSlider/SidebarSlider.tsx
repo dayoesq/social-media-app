@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { FC, useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,7 +7,7 @@ import {
     faListAlt,
     faBookmark,
     faChartLine,
-    faTimes,
+    faTimes
 } from '@fortawesome/free-solid-svg-icons';
 
 import Avatar from '../Avatar/Avatar';
@@ -15,23 +15,21 @@ import { useHttpClient } from '../../../../hooks/http';
 import { AuthContext } from '../../../../store/context';
 import classes from './SidebarSlider.module.scss';
 import Button from '../../form-elements/Button/Button';
+import { ASSETS_URL, BASE_URL } from '../../../../utils/constants';
 
 export type SliderProps = {
     closeSlider?: React.MouseEventHandler<SVGSVGElement>;
 };
 
-const SidebarSlider: React.FC<SliderProps> = (props) => {
+const SidebarSlider: FC<SliderProps> = props => {
     const { sendRequest } = useHttpClient();
     const authCtx = useContext(AuthContext);
     const navigate = useNavigate();
     const logoutHandler = async () => {
         try {
-            await sendRequest<Logout>(
-                `${process.env.REACT_APP_BACK_URL}/users/logout`,
-                'GET',
-                null,
-                { Authorization: `Bearer ${authCtx.token}` }
-            );
+            await sendRequest<Logout>(`${BASE_URL}/users/logout`, 'GET', null, {
+                Authorization: `Bearer ${authCtx.token}`
+            });
             authCtx.logout();
             navigate('/');
         } catch (err) {}
@@ -49,7 +47,8 @@ const SidebarSlider: React.FC<SliderProps> = (props) => {
             <div className={classes.user}>
                 <Avatar
                     small
-                    src={`${process.env.REACT_APP_BACK_ASSETS}/${authCtx.user?.avatar}`}
+                    src={`${ASSETS_URL}/${authCtx.user?.avatar}`}
+                    userName={authCtx.user?.userName}
                 />
                 <span>+</span>
             </div>
@@ -72,7 +71,7 @@ const SidebarSlider: React.FC<SliderProps> = (props) => {
             <div className={classes.list_1}>
                 <ul>
                     <li>
-                        <NavLink to={`/users/profile/${authCtx.user?._id}`}>
+                        <NavLink to={`/${authCtx.user?.userName}`}>
                             <FontAwesomeIcon
                                 icon={faUser}
                                 size='1x'
@@ -143,7 +142,7 @@ const SidebarSlider: React.FC<SliderProps> = (props) => {
 };
 
 SidebarSlider.propTypes = {
-    closeSlider: PropTypes.func,
+    closeSlider: PropTypes.func
 };
 
 export default SidebarSlider;

@@ -1,10 +1,10 @@
-import React from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDove } from '@fortawesome/free-solid-svg-icons';
 
-const SubNav: React.FC<{ className?: string }> = ({ className }) => {
+const SubNav: FC<{ className?: string }> = ({ className }) => {
     return (
         <nav className={className}>
             <ul>
@@ -30,7 +30,7 @@ const SubNav: React.FC<{ className?: string }> = ({ className }) => {
 };
 
 SubNav.propTypes = {
-    className: PropTypes.string,
+    className: PropTypes.string
 };
 
 export default SubNav;

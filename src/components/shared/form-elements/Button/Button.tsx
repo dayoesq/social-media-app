@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
@@ -28,7 +28,7 @@ interface IButton {
     pillLong?: boolean;
 }
 
-const Button: React.FC<IButton> = (props) => {
+const Button: FC<IButton> = props => {
     if (props.to) {
         return (
             <NavLink
@@ -45,7 +45,6 @@ const Button: React.FC<IButton> = (props) => {
                     props.pillLong && classes.pillLong
                 } ${props.danger && classes.danger}`}
                 to={props.to}
-                // path={props.path}
                 style={props.style}
             >
                 {props.children}
@@ -94,7 +93,7 @@ Button.propTypes = {
     pillSmall: PropTypes.bool,
     pillBig: PropTypes.bool,
     pillLong: PropTypes.bool,
-    secondary: PropTypes.bool,
+    secondary: PropTypes.bool
 };
 
 export default Button;

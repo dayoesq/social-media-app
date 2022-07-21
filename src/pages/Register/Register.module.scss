@@ -51,15 +51,10 @@
         font-size: 1.6rem;
         color: #1aa1f5;
     }
-    button {
-        margin: 0 1rem 0 1rem;
-        @media only screen and (max-width: 800px) {
-            margin: 0 1.2rem 0 0;
-        }
-    }
+    
     p {
         font-size: 1.3rem;
-        margin-bottom: .8rem;
+        margin-bottom: 0.8rem;
     }
 }
 .registerInput {
@@ -144,4 +139,11 @@
 }
 .mMedium {
     margin-right: var(--mMedium);
+}
+
+.ml-sm {
+    margin-left: 2rem;
+    @media only screen and (max-width: 800px) {
+        margin-left: 0;
+    }
 }

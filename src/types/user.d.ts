@@ -12,4 +12,7 @@ interface IUser {
     updatedAt?: Date;
     followingCount?: number;
     followerCount?: number;
+    userName?: string;
+    alias?: string;
+    isLoggedIn?: boolean;
 }

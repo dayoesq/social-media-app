@@ -22,7 +22,7 @@ interface IComment {
 
 const Comment: React.FC<IComment> = props => {
   return (
-    <React.Fragment>
+    <>
       <div className={classes.commentContainer}>
         <div className={classes.comment}>
           <div className={classes.wrapper}>
@@ -71,7 +71,7 @@ const Comment: React.FC<IComment> = props => {
           style={{ marginRight: '4rem' }}
         />
       )}
-    </React.Fragment>
+    </>
   );
 };
 

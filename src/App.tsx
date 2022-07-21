@@ -1,10 +1,5 @@
 import { FC } from 'react';
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    Navigate,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Landing from './pages/Landing/Landing';
 import Home from './pages/Home/Home';
@@ -14,31 +9,36 @@ import VerifyAccount from './pages/VerifyAccount/VerifyAccount';
 import { useAuth } from './hooks/auth';
 import { AuthContext } from './store/context';
 import PasswordChangeRequest from './pages/PasswordChangeRequest/PasswordChangeRequest';
+import Profile from './pages/Profile/Profile';
+// import NotFound from './pages/NotFound/NotFound';
 
 const App: FC = () => {
     const { login, logout, token, user } = useAuth();
     let routes;
-    if (token?.length) {
+    if (token && token.length && user?.isLoggedIn) {
         routes = (
             <Routes>
-                <Route element={<Home />} path='/home' />
-                <Route element={<Navigate to='/home' />} />
+                <Route caseSensitive path='/' element={<Home />}>
+                    <Route path=':userName' element={<Profile />} />
+                </Route>
             </Routes>
         );
     } else {
         routes = (
             <Routes>
-                <Route element={<Landing />} path='/' />
-                <Route element={<Login />} path='/login' />
-                <Route element={<Register />} path='/register' />
-                <Route element={<VerifyAccount />} path='/verify-account' />
+                <Route caseSensitive element={<Landing />} path='/' />
+                <Route caseSensitive element={<Login />} path='login' />
+                <Route caseSensitive element={<Register />} path='register' />
+                <Route
+                    caseSensitive
+                    element={<VerifyAccount />}
+                    path='verify-account'
+                />
                 {/* <Route element={<ForgotPassword />} path='/forgot-password' /> */}
                 <Route
                     element={<PasswordChangeRequest />}
-                    path='/password-change-request'
+                    path='password-change-request'
                 />
-                {/* <Route element={<Navigate to='/' />} /> */}
-
             </Routes>
         );
     }

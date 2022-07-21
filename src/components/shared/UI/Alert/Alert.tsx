@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import PropTypes from 'prop-types';
 
 import classes from './Alert.module.scss';
@@ -10,7 +10,7 @@ type AlertProps = {
     style?: React.CSSProperties;
 };
 
-const Alert: React.FC<AlertProps> = (props) => {
+const Alert: FC<AlertProps> = props => {
     return (
         <div
             className={`${classes.alert} 
@@ -26,7 +26,7 @@ const Alert: React.FC<AlertProps> = (props) => {
 Alert.propTypes = {
     danger: PropTypes.bool,
     success: PropTypes.bool,
-    style: PropTypes.object,
+    style: PropTypes.object
 };
 
 export default Alert;

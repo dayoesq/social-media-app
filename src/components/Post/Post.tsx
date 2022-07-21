@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { FC, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,7 +9,7 @@ import {
     faShareAlt,
     faCheckCircle,
     faEllipsisH,
-    faEdit,
+    faEdit
 } from '@fortawesome/free-solid-svg-icons';
 
 import CommentInputBox from '../shared/UI/CommentInputBox/CommentInputBox';
@@ -19,6 +19,7 @@ import { AuthContext } from '../../store/context';
 import { getAlias, getDateTime } from '../../utils/helpers';
 
 import classes from './Post.module.scss';
+import { ASSETS_URL } from '../../utils/constants';
 
 type PostProps = {
     onModifyPost?: React.MouseEventHandler<SVGSVGElement>;
@@ -39,28 +40,10 @@ type PostProps = {
     onDelete?: React.MouseEventHandler<HTMLDivElement>;
     onHide?: React.MouseEventHandler<HTMLDivElement>;
     onEdit?: React.MouseEventHandler<HTMLDivElement>;
+    alias?: string;
 };
 
-const Post: React.FC<PostProps & IPost> = (props) => {
-    const {
-        postImages,
-        postBody,
-        postCommentCount,
-        postRepostCount,
-        postLikeCount,
-        postShareCount,
-        postVideo,
-        postVideoType,
-        postAuthor,
-        postedAt,
-        onToggleComment,
-        showCommentBox,
-        onModifyPost,
-        showTooltip,
-        onDelete,
-        onHide,
-        onEdit,
-    } = props;
+const Post: FC<PostProps & IPost> = props => {
     const { user } = useContext(AuthContext);
     return (
         <li className={classes.post}>
@@ -68,48 +51,56 @@ const Post: React.FC<PostProps & IPost> = (props) => {
                 <Avatar
                     big
                     alt={user?.firstName}
-                    src={`${process.env.REACT_APP_BACK_ASSETS}/${user?.avatar}`}
+                    src={`${ASSETS_URL}/${user?.avatar}`}
                     rightBig
+                    userName={user?.userName}
                 />
             </div>
 
             <div>
                 <div className={classes.postUserInfo}>
                     <h4>{user && user.firstName}</h4>
-                    {postAuthor?.status === 'verified' && (
+                    {props.postAuthor?.status === 'verified' && (
                         <FontAwesomeIcon
                             icon={faCheckCircle}
                             className={classes.icon}
                         />
                     )}
                     <span>
-                        {`@${getAlias(props)}`} .{' '}
-                        {getDateTime(postedAt ? postedAt : new Date())}
+                        {getAlias(
+                            props.postAuthor.lastName
+                                ? props.postAuthor.lastName
+                                : ''
+                        )}{' '}
+                        .{' '}
+                        {getDateTime(
+                            props.postedAt ? props.postedAt : new Date()
+                        )}
                     </span>
                     <FontAwesomeIcon
                         icon={faEllipsisH}
-                        onClick={onModifyPost}
+                        onClick={props.onModifyPost}
                         className={classes.iconEllipsis}
                     />
-                    {showTooltip && (
+                    {props.showTooltip && (
                         <Tooltip
                             style={{
                                 position: 'absolute',
                                 top: '1.5rem',
                                 right: '.5rem'
                             }}
-                            onDelete={onDelete}
-                            onHide={onHide}
-                            onEdit={onEdit}
+                            onDelete={props.onDelete}
+                            onHide={props.onHide}
+                            onEdit={props.onEdit}
                         />
                     )}
                 </div>
-                <p className={classes.postText}>{postBody}</p>
-                {postImages ? (
-                    <NavLink to='/home'>
+                <p className={classes.postText}>{props.postBody}</p>
+                {props.postImages ? (
+                    <NavLink to='/'>
                         <div className={classes.postImg}>
                             <img
-                                src={`${process.env.REACT_APP_BACK_ASSETS}/${postImages}`}
+                                src={`${ASSETS_URL}/${props.postImages}`}
                                 alt='Post'
                             />
                         </div>
@@ -117,11 +108,14 @@ const Post: React.FC<PostProps & IPost> = (props) => {
                 ) : (
                     ''
                 )}
-                {postVideo ? (
-                    <NavLink to='/home'>
+                {props.postVideo ? (
+                    <NavLink to='/'>
                         <div className={classes.postImg}>
                             <video controls autoPlay muted>
-                                <source src={postVideo} type={postVideoType} />
+                                <source
+                                    src={props.postVideo}
+                                    type={props.postVideoType}
+                                />
                                 Your browser does not support the video tag.
                             </video>
                         </div>
@@ -130,9 +124,9 @@ const Post: React.FC<PostProps & IPost> = (props) => {
                     ''
                 )}
                 <div className={classes.postIcons}>
-                    <NavLink to='/home'>
+                    <NavLink to='/'>
                         <span className={classes.count}>
-                            {postCommentCount}
+                            {props.postCommentCount}
                         </span>
                         <FontAwesomeIcon
                             icon={faComment}
@@ -141,8 +135,10 @@ const Post: React.FC<PostProps & IPost> = (props) => {
                             className={classes.postIcon}
                         />
                     </NavLink>
-                    <NavLink to='/home'>
-                        <span className={classes.count}>{postRepostCount}</span>
+                    <NavLink to='/'>
+                        <span className={classes.count}>
+                            {props.postRepostCount}
+                        </span>
                         <FontAwesomeIcon
                             icon={faRetweet}
                             size='2x'
@@ -150,8 +146,10 @@ const Post: React.FC<PostProps & IPost> = (props) => {
                             className={classes.postIcon}
                         />
                     </NavLink>
-                    <NavLink to='/home'>
-                        <span className={classes.count}>{postLikeCount}</span>
+                    <NavLink to='/'>
+                        <span className={classes.count}>
+                            {props.postLikeCount}
+                        </span>
                         <FontAwesomeIcon
                             icon={faHeart}
                             size='2x'
@@ -159,8 +157,10 @@ const Post: React.FC<PostProps & IPost> = (props) => {
                             className={classes.postIcon}
                         />
                     </NavLink>
-                    <NavLink to='/home'>
-                        <span className={classes.count}>{postShareCount}</span>
+                    <NavLink to='/'>
+                        <span className={classes.count}>
+                            {props.postShareCount}
+                        </span>
                         <FontAwesomeIcon
                             icon={faShareAlt}
                             size='2x'
@@ -172,11 +172,11 @@ const Post: React.FC<PostProps & IPost> = (props) => {
                         icon={faEdit}
                         size='2x'
                         color='#444'
-                        onClick={onToggleComment}
+                        onClick={props.onToggleComment}
                         className={classes.postIcon}
                     />
                 </div>
-                {showCommentBox && <CommentInputBox {...props} />}
+                {props.showCommentBox && <CommentInputBox {...props} />}
             </div>
         </li>
     );
@@ -197,6 +197,7 @@ Post.propTypes = {
     postVideoType: PropTypes.string,
     onToggleComment: PropTypes.func,
     postAuthor: PropTypes.any,
+    alias: PropTypes.string
 };
 
 export default Post;

@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { FC, useState, useContext } from 'react';
+import { Link, Navigate } from 'react-router-dom';
 
 import Button from '../../components/shared/form-elements/Button/Button';
 import { useHttpClient } from '../../hooks/http';
@@ -9,13 +9,12 @@ import { AuthContext } from '../../store/context';
 import { useForm } from '../../hooks/form';
 import { Input } from '../../components/shared/form-elements/Input/Input';
 import { isEmail, maxLength, minLength } from '../../utils/validators';
+import { BASE_URL } from '../../utils/constants';
 
-const Login: React.FC = () => {
+const Login: FC = () => {
     const [alert, setAlert] = useState<boolean>(false);
     const { error, isLoading, sendRequest } = useHttpClient();
     const authCtx = useContext(AuthContext);
-
-    const navigate = useNavigate();
 
     const [formState, inputHandler] = useForm<{
         email: {
@@ -44,7 +43,7 @@ const Login: React.FC = () => {
         e.preventDefault();
         try {
             const res = await sendRequest<ResponseContext>(
-                `${process.env.REACT_APP_BACK_URL}/users/login`,
+                `${BASE_URL}/users/login`,
                 'POST',
                 JSON.stringify({
                     email: formState.inputs?.email.value,
@@ -54,14 +53,17 @@ const Login: React.FC = () => {
             );
             if (res.status === 'success') {
                 setAlert(true);
-                authCtx.login(res.data.token, res.data.user);
-                navigate('/home');
+                authCtx.login(
+                    res.data.token,
+                    res.data.user,
+                    new Date(new Date().getTime() + 86400000)
+                );
             }
         } catch (err) {}
     };
 
     return (
-        <React.Fragment>
+        <>
             <div className={classes.loginPage}>
                 <div className={classes.login}>
                     <div className={classes.loginContent}>
@@ -126,7 +128,7 @@ const Login: React.FC = () => {
                     </footer>
                 </div>
             </div>
-        </React.Fragment>
+        </>
     );
 };
 

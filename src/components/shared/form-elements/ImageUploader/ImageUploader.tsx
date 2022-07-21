@@ -1,10 +1,4 @@
-import React, {
-    FC,
-    useRef,
-    useState,
-    useEffect,
-    MutableRefObject,
-} from 'react';
+import { FC, useRef, useState, useEffect, MutableRefObject } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
@@ -22,7 +16,7 @@ type ImageUploaderProps = {
     iconClassName?: string;
 };
 
-const ImageUploader: FC<ImageUploaderProps> = (props) => {
+const ImageUploader: FC<ImageUploaderProps> = props => {
     const [files, setFiles] = useState<File[]>([]);
     const [previewUrls, setPreviewUrls] = useState<string[]>([]);
     const [isValid, setIsValid] = useState<boolean>(false);
@@ -61,7 +55,7 @@ const ImageUploader: FC<ImageUploaderProps> = (props) => {
         let pickedFile: any;
         let fileIsValid = isValid;
         if (files) {
-            Array.from(files).forEach((file) => {
+            Array.from(files).forEach(file => {
                 if (file.size > 3000000) {
                     setIsValid(false);
                     fileIsValid = false;
@@ -103,7 +97,7 @@ const ImageUploader: FC<ImageUploaderProps> = (props) => {
                     className={classes.imageUpload__preview}
                     style={{
                         width: `${props.width}`,
-                        height: `${props.height}`,
+                        height: `${props.height}`
                     }}
                 >
                     {previewUrls &&
@@ -136,7 +130,7 @@ ImageUploader.propTypes = {
     accept: PropTypes.string,
     width: PropTypes.string,
     height: PropTypes.string,
-    iconClassName: PropTypes.string,
+    iconClassName: PropTypes.string
 };
 
 export default ImageUploader;

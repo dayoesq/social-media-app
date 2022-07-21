@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import Button from '../../components/shared/form-elements/Button/Button';
 import { useHttpClient } from '../../hooks/http';
@@ -8,8 +8,9 @@ import classes from './Register.module.scss';
 import { useForm } from '../../hooks/form';
 import { Input } from '../../components/shared/form-elements/Input/Input';
 import { isEmail, isEqual, maxLength, minLength } from '../../utils/validators';
+import { BASE_URL } from '../../utils/constants';
 
-const Register: React.FC = () => {
+const Register: FC = () => {
     const [alert, setAlert] = useState<boolean>(false);
     const { error, sendRequest } = useHttpClient();
 
@@ -27,6 +28,10 @@ const Register: React.FC = () => {
             value: string;
             isValid: boolean;
         };
+        userName: {
+            value: string;
+            isValid: boolean;
+        };
         password: {
             value: string;
             isValid: boolean;
@@ -39,24 +44,28 @@ const Register: React.FC = () => {
         {
             firstName: {
                 value: '',
-                isValid: false,
+                isValid: false
             },
             lastName: {
                 value: '',
-                isValid: false,
+                isValid: false
             },
             email: {
                 value: '',
-                isValid: false,
+                isValid: false
+            },
+            userName: {
+                value: '',
+                isValid: false
             },
             password: {
                 value: '',
-                isValid: false,
+                isValid: false
             },
             passwordConfirm: {
                 value: '',
-                isValid: false,
-            },
+                isValid: false
+            }
         },
         false
     );
@@ -65,14 +74,15 @@ const Register: React.FC = () => {
         e.preventDefault();
         try {
             const res = await sendRequest<ResponseDataUser>(
-                `${process.env.REACT_APP_BACK_URL}/users/signup`,
+                `${BASE_URL}/users/signup`,
                 'POST',
                 JSON.stringify({
                     firstName: formState.inputs?.firstName.value,
                     lastName: formState.inputs?.lastName.value,
                     email: formState.inputs?.email.value,
+                    userName: formState.inputs?.userName.value,
                     password: formState.inputs?.password.value,
-                    passwordConfirm: formState.inputs?.passwordConfirm.value,
+                    passwordConfirm: formState.inputs?.passwordConfirm.value
                 }),
                 { 'Content-Type': 'application/json' }
             );
@@ -87,7 +97,7 @@ const Register: React.FC = () => {
     };
 
     return (
-        <React.Fragment>
+        <>
             <div className={classes.registerPage}>
                 <div className={classes.register}>
                     <div className={classes.registerContent}>
@@ -124,9 +134,10 @@ const Register: React.FC = () => {
                                     errorText='Name must be between 2 to 20 characters long'
                                     validators={[minLength(2), maxLength(20)]}
                                     className={classes.registerInput}
+                                    classWrapper={classes['ml-sm']}
                                 />
                             </div>
-                            <div style={{ paddingRight: '1rem' }}>
+                            <div className={classes.registerInputWrapper}>
                                 <Input
                                     element='input'
                                     id='email'
@@ -136,7 +147,19 @@ const Register: React.FC = () => {
                                     onInput={inputHandler}
                                     errorText='Please provide a valid email'
                                     validators={[isEmail()]}
-                                    className={classes.registerInputEmail}
+                                    className={classes.registerInput}
+                                />
+                                <Input
+                                    element='input'
+                                    id='userName'
+                                    label='Username'
+                                    type='text'
+                                    placeholder='Username'
+                                    onInput={inputHandler}
+                                    errorText='Username must be between 2 to 20 characters long'
+                                    validators={[minLength(2), maxLength(20)]}
+                                    className={classes.registerInput}
+                                    classWrapper={classes['ml-sm']}
                                 />
                             </div>
                             <div className={classes.registerInputWrapper}>
@@ -163,9 +186,10 @@ const Register: React.FC = () => {
                                     validators={[
                                         isEqual(
                                             formState.inputs?.password.value
-                                        ),
+                                        )
                                     ]}
                                     className={classes.registerInput}
+                                    classWrapper={classes['ml-sm']}
                                 />
                             </div>
 
@@ -200,7 +224,7 @@ const Register: React.FC = () => {
                     </footer>
                 </div>
             </div>
-        </React.Fragment>
+        </>
     );
 };
 

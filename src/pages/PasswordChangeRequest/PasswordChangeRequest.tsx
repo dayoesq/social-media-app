@@ -9,6 +9,7 @@ import classes from './PasswordChangeRequest.module.scss';
 import { useForm } from '../../hooks/form';
 import { Input } from '../../components/shared/form-elements/Input/Input';
 import { isEmail } from '../../utils/validators';
+import { BASE_URL } from '../../utils/constants';
 
 const PasswordChangeRequest: React.FC = () => {
     const [alert, setAlert] = useState<boolean>(false);
@@ -25,8 +26,8 @@ const PasswordChangeRequest: React.FC = () => {
         {
             email: {
                 value: '',
-                isValid: false,
-            },
+                isValid: false
+            }
         },
         false
     );
@@ -35,10 +36,10 @@ const PasswordChangeRequest: React.FC = () => {
         e.preventDefault();
         try {
             const res = await sendRequest<ResponseDataUser>(
-                `${process.env.REACT_APP_BACK_URL}/users/password-change-request`,
+                `${BASE_URL}/users/password-change-request`,
                 'POST',
                 JSON.stringify({
-                    email: formState.inputs?.email.value,
+                    email: formState.inputs?.email.value
                 }),
                 { 'Content-Type': 'application/json' }
             );
@@ -52,7 +53,7 @@ const PasswordChangeRequest: React.FC = () => {
     };
 
     return (
-        <React.Fragment>
+        <>
             <div className={classes.passwordChangeRequestPage}>
                 <div className={classes.passwordChangeRequest}>
                     <div className={classes.passwordChangeRequestContent}>
@@ -99,7 +100,7 @@ const PasswordChangeRequest: React.FC = () => {
                     </div>
                 </div>
             </div>
-        </React.Fragment>
+        </>
     );
 };
 

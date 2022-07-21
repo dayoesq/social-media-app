@@ -1,9 +1,9 @@
-import React from 'react';
+import { FC } from 'react';
 import PropTypes from 'prop-types';
 
 import classes from './Spinner.module.scss';
 
-const Spinner: React.FC<{ asOverlay?: boolean }> = ({ asOverlay }) => {
+const Spinner: FC<{ asOverlay?: boolean }> = ({ asOverlay }) => {
     return (
         <div className={`${asOverlay && classes.overlay}`}>
             <div className={classes.spinner}></div>
@@ -12,7 +12,7 @@ const Spinner: React.FC<{ asOverlay?: boolean }> = ({ asOverlay }) => {
 };
 
 Spinner.propTypes = {
-    asOverlay: PropTypes.bool,
+    asOverlay: PropTypes.bool
 };
 
 export default Spinner;

@@ -1,10 +1,10 @@
-import React from 'react';
+import { FC } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import Warning, { IWarning } from '../Warning/Warning';
 import WarningBackdrop, {
-    IWarningBackdrop,
+    IWarningBackdrop
 } from '../WarningBackdrop/WarningBackdrop';
 
 type WarningModalProps = {
@@ -12,7 +12,7 @@ type WarningModalProps = {
     props?: React.PropsWithChildren<WarningModalProps>;
 };
 
-const WarningOverlay: React.FC<WarningModalProps & IWarning> = (props) => {
+const WarningOverlay: FC<WarningModalProps & IWarning> = props => {
     const warningPortal = document.getElementById(
         'warning-portal'
     ) as HTMLElement;
@@ -21,18 +21,18 @@ const WarningOverlay: React.FC<WarningModalProps & IWarning> = (props) => {
 
 const WarningModal: React.FC<
     WarningModalProps & IWarningBackdrop & IWarning
-> = (props) => {
+> = props => {
     return (
-        <React.Fragment>
+        <>
             <WarningBackdrop {...props} />
             <WarningOverlay {...props} />
-        </React.Fragment>
+        </>
     );
 };
 
 WarningModal.propTypes = {
     showWarning: PropTypes.bool,
-    props: PropTypes.object,
+    props: PropTypes.object
 };
 
 export default WarningModal;

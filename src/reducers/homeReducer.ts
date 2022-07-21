@@ -5,7 +5,7 @@ import {
     SHOW_HIDE_WARNING_MODAL,
     SHOW_SLIDER,
     SHOW_STATUS_MODAL,
-    TOGGLE_SHOW_SLIDER,
+    TOGGLE_SHOW_SLIDER
 } from '../utils/constants';
 import { isEmpty } from '../utils/helpers';
 
@@ -55,23 +55,23 @@ const homeReducer = (state: HomeState, action: HomeActions): HomeState => {
             return {
                 ...state,
                 postBody: action.value,
-                rows: currentRows < maxRows ? currentRows : maxRows,
+                rows: currentRows < maxRows ? currentRows : maxRows
             };
         }
         case TOGGLE_SHOW_SLIDER:
             return {
                 ...state,
-                showSlider: !state.showSlider,
+                showSlider: !state.showSlider
             };
         case SHOW_SLIDER:
             return {
                 ...state,
-                showSlider: true,
+                showSlider: true
             };
         case SHOW_STATUS_MODAL:
             return {
                 ...state,
-                showStatus: true,
+                showStatus: true
             };
         case DISCARD_STATUS_MODAL:
             if (state.showWarningModal) {
@@ -79,13 +79,13 @@ const homeReducer = (state: HomeState, action: HomeActions): HomeState => {
                     ...state,
                     postBody: '',
                     showStatus: false,
-                    showWarningModal: false,
+                    showWarningModal: false
                 };
             } else {
                 return {
                     ...state,
                     postBody: '',
-                    showStatus: false,
+                    showStatus: false
                 };
             }
         case SHOW_HIDE_WARNING_MODAL:
@@ -93,19 +93,19 @@ const homeReducer = (state: HomeState, action: HomeActions): HomeState => {
                 return {
                     ...state,
                     showStatus: false,
-                    showWarningModal: false,
+                    showWarningModal: false
                 };
             } else {
                 return {
                     ...state,
                     showStatus: true,
-                    showWarningModal: true,
+                    showWarningModal: true
                 };
             }
         case CANCEL_WARNING_MODAL:
             return {
                 ...state,
-                showWarningModal: false,
+                showWarningModal: false
             };
         default:
             return state;

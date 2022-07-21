@@ -1,11 +1,11 @@
-import React, { useState, useContext } from 'react';
+import { FC, useState, useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faSearch,
     faComment,
     faUserFriends,
-    faDove,
+    faDove
 } from '@fortawesome/free-solid-svg-icons';
 
 import BtnFat from '../../components/shared/form-elements/BtnFat/BtnFat';
@@ -19,8 +19,9 @@ import style from './Footer.module.scss';
 import { useForm } from '../../hooks/form';
 import { Input } from '../../components/shared/form-elements/Input/Input';
 import { isEmail, maxLength, minLength } from '../../utils/validators';
+import { BASE_URL } from '../../utils/constants';
 
-const Landing: React.FC = () => {
+const Landing: FC = () => {
     const [alert, setAlert] = useState<boolean>(false);
     const { error, sendRequest } = useHttpClient();
     const navigate = useNavigate();
@@ -40,12 +41,12 @@ const Landing: React.FC = () => {
         {
             email: {
                 value: '',
-                isValid: false,
+                isValid: false
             },
             password: {
                 value: '',
-                isValid: false,
-            },
+                isValid: false
+            }
         },
         false
     );
@@ -53,18 +54,18 @@ const Landing: React.FC = () => {
         e.preventDefault();
         try {
             const res = await sendRequest<ResponseContext>(
-                `${process.env.REACT_APP_BACK_URL}/users/login`,
+                `${BASE_URL}/users/login`,
                 'POST',
                 JSON.stringify({
                     email: formState.inputs?.email.value,
-                    password: formState.inputs?.password.value,
+                    password: formState.inputs?.password.value
                 }),
                 { 'Content-Type': 'application/json' }
             );
             if (res.status === 'success') {
                 setAlert(true);
                 authCtx.login(res.data.token, res.data.user);
-                navigate('/home');
+                navigate('/');
             }
         } catch (err) {}
     };

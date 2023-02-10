@@ -79,6 +79,7 @@ const ImageUploader: FC<ImageUploaderProps> = props => {
 
     return (
         <>
+            <label htmlFor='file'>Upload image</label>
             <input
                 type='file'
                 id={props.id}
